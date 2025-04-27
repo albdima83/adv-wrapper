@@ -50,6 +50,10 @@ export class AdsManager implements google.ima.AdsManager {
   private cueMapPoints: Record<number, Array<AdBreak>>;
   private started: boolean = false;
   private nextAds: Array<VASTAd> = [];
+  private totalAds = 0;
+  private totalTimeAds = 0;
+  private currentPodIndex = 0; // 0 = PREROLL, -1 = POSTROLL, 1 = MIDROLL
+  private currentAdBreak: AdBreak | undefined = undefined;
   private currentAdVast: VASTAd | undefined = undefined;
   private currentAd: Ad | undefined = undefined;
   private currentCreative: VASTCreative | undefined = undefined;
@@ -57,7 +61,7 @@ export class AdsManager implements google.ima.AdsManager {
   private processingAdv = false;
   private timerUpdateContentTime: ReturnType<typeof setTimeout> | undefined =
     undefined;
-  private adRemaingTime: number = -1;
+  private adRemainingTime: number = -1;
   private quartilesFired = {
     start: false,
     firstQuartile: false,
@@ -76,7 +80,7 @@ export class AdsManager implements google.ima.AdsManager {
     this.adsRenderingSettings = undefined;
     this.started = false;
     this.processingAdv = false;
-    this.adRemaingTime = -1;
+    this.adRemainingTime = -1;
     this.attachContentMediaEventListeners =
       this.attachContentMediaEventListeners.bind(this);
     this.detachContentMediaEventListeners =
@@ -113,7 +117,11 @@ export class AdsManager implements google.ima.AdsManager {
     return this.cuePoints;
   }
   public getRemainingTime(): number {
-    return -1;
+    const creative = this.currentCreative;
+    if (!creative) {
+      return -1;
+    }
+    return this.adRemainingTime;
   }
   public getVolume(): number {
     return this.adDisplayContainer.getVideoAdsElement().volume;
@@ -254,8 +262,10 @@ export class AdsManager implements google.ima.AdsManager {
     this.queueCreatives = [];
     this.vastTracker = undefined;
     this.currentAdVast = undefined;
+    this.currentAdBreak = undefined;
     this.currentAd = undefined;
     this.currentCreative = undefined;
+    this.adRemainingTime = -1;
     this.detachContentMediaEventListeners();
     this.clearVideoAdsContent();
     this.adDisplayContainer.hide();
@@ -287,6 +297,28 @@ export class AdsManager implements google.ima.AdsManager {
               this.currentAdVast,
               this.currentCreative
             );
+            const adPosition = this.totalAds - this.nextAds.length;
+            const podInfo = new AdPodInfo(
+              adPosition,
+              false,
+              this.totalTimeAds,
+              this.currentPodIndex,
+              0,
+              this.totalAds
+            );
+            logger.debug(
+              TAG,
+              `current podInfo: [${adPosition}] [${this.totalTimeAds}] [${this.totalAds}]`
+            );
+            this.currentAd = new Ad(
+              this.currentAdVast,
+              creative,
+              mediaFile,
+              podInfo
+            );
+            if (!hasPreviosAdv) {
+              this.dispatchAdsEvent(AdEvent.Type.CONTENT_PAUSE_REQUESTED);
+            }
             this.playAdsContent(mediaFile.fileURL).catch((_) => {});
             return;
           }
@@ -304,11 +336,7 @@ export class AdsManager implements google.ima.AdsManager {
       return this.playCreativities();
     }
     this.currentAdVast = vastAd;
-    this.currentAd = new Ad(vastAd, new AdPodInfo(0, false, 0, 0, 0, 0));
     this.queueCreatives = this.getCreativities(vastAd);
-    if (!hasPreviosAdv) {
-      this.dispatchAdsEvent(AdEvent.Type.CONTENT_PAUSE_REQUESTED);
-    }
     return this.playCreativities();
   }
 
@@ -384,7 +412,7 @@ export class AdsManager implements google.ima.AdsManager {
     return true;
   }
 
-  private hasAdValidCreative(ad: VASTAd): boolean {
+  private getAdValidCreative(ad: VASTAd): VASTCreative | undefined {
     const creatives = ad.creatives;
     if (creatives && creatives.length > 0) {
       for (const creative of creatives) {
@@ -400,14 +428,14 @@ export class AdsManager implements google.ima.AdsManager {
                 mimeType.startsWith("video/mp4") &&
                 mediaFile.fileURL
               ) {
-                return true;
+                return creative;
               }
             }
           }
         }
       }
     }
-    return false;
+    return undefined;
   }
 
   private getCreativities(ad: VASTAd): Array<VASTCreative> {
@@ -472,9 +500,12 @@ export class AdsManager implements google.ima.AdsManager {
       return;
     }
     try {
+      this.currentPodIndex = time;
       const adBreaks = this.cueMapPoints[time];
-      const promiseVastFetch: Array<Promise<VASTResponse>> = [];
       delete this.cueMapPoints[time];
+      const promiseVastFetch: Array<Promise<VASTResponse>> = [];
+      let totalDuration = 0;
+      let totalAds = 0;
       if (adBreaks) {
         const adsSlot: Array<VASTAd> = [];
         for (const adBreak of adBreaks) {
@@ -493,8 +524,11 @@ export class AdsManager implements google.ima.AdsManager {
             const ads = vastResponse?.ads ?? undefined;
             if (ads && ads.length > 0) {
               for (const ad of ads) {
-                if (this.hasAdValidCreative(ad)) {
+                const creative = this.getAdValidCreative(ad);
+                if (creative) {
                   adsSlot.push(ad);
+                  totalDuration += creative.duration || 0;
+                  totalAds += 1;
                 }
               }
             } else {
@@ -505,6 +539,8 @@ export class AdsManager implements google.ima.AdsManager {
           }
         }
         this.nextAds = adsSlot;
+        this.totalAds = totalAds;
+        this.totalTimeAds = totalDuration;
       }
     } catch (error) {
       logger.error(TAG, "fetchVastAds error:", error);
@@ -513,6 +549,7 @@ export class AdsManager implements google.ima.AdsManager {
 
   // REGION: ADS EVENTS
   private dispatchAdsEvent(name: AdEvent.Type) {
+    logger.debug(TAG, "dispatchAdsEvent: ", name);
     this.eventEmitter.emit(name, new AdEvent.AdEvent(name, this.currentAd));
   }
 
@@ -525,6 +562,14 @@ export class AdsManager implements google.ima.AdsManager {
       return;
     }
     switch (ev.type) {
+      case "canplay": {
+        this.dispatchAdsEvent(AdEvent.Type.AD_CAN_PLAY);
+        break;
+      }
+      case "metadata": {
+        this.dispatchAdsEvent(AdEvent.Type.AD_METADATA);
+        break;
+      }
       case "play": {
         if (!this.quartilesFired.start) {
           this.quartilesFired.start = true;
@@ -541,6 +586,7 @@ export class AdsManager implements google.ima.AdsManager {
         if (!isNaN(videoDuration) && videoDuration >= 0) {
           const currentTime = videoAdsElement.currentTime || 0;
           const percentage = currentTime / videoDuration;
+          this.adRemainingTime = videoDuration - currentTime;
           //this.adRemaingTime = videoDuration - currentTime;
           logger.debug(
             TAG,
@@ -606,7 +652,7 @@ export class AdsManager implements google.ima.AdsManager {
     if (!videoAdsElement) {
       return;
     }
-    this.adRemaingTime = -1;
+    this.adRemainingTime = -1;
     this.adDisplayContainer.show();
     this.adDisplayContainer.showLoader();
     this.removeVideoListeners();
@@ -618,6 +664,7 @@ export class AdsManager implements google.ima.AdsManager {
       await videoAdsElement.play();
       this.addVideoListeners();
       this.adDisplayContainer.hideLoader();
+      this.dispatchAdsEvent(AdEvent.Type.AD_CAN_PLAY);
     } catch (error) {
       logger.error(TAG, "playAdsContent error: ", error);
       this.dispatchAdsEvent(AdEvent.Type.AD_BREAK_FETCH_ERROR);
