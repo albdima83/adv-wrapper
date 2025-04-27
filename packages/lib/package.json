@@ -30,7 +30,6 @@
   },
   "dependencies": {
     "@dailymotion/vast-client": "^6.3.1",
-    "fast-xml-parser": "^5.2.1",
-    "pino": "^9.6.0"
+    "fast-xml-parser": "^5.2.1"
   }
 }
