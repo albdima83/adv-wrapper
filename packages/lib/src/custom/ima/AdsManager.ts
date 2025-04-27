@@ -2,6 +2,7 @@ import {
   VASTAd,
   VASTClient,
   VASTCreative,
+  VASTResponse,
   VASTTracker,
 } from "@dailymotion/vast-client";
 import { XMLParser } from "fast-xml-parser";
@@ -13,6 +14,7 @@ import { AdEvent } from "./AdEvent";
 import { Ad } from "./Ad";
 import { AdPodInfo } from "./AdPodInfo";
 import { getTimeOffset } from "../utils/time";
+import { preloadVideo } from "../utils/player";
 
 const ADS_VIDEO_EVENTS: Array<keyof HTMLMediaElementEventMap> = [
   "play",
@@ -53,6 +55,7 @@ export class AdsManager implements google.ima.AdsManager {
   private processingAdv = false;
   private timerUpdateContentTime: ReturnType<typeof setTimeout> | undefined =
     undefined;
+  private adRemaingTime: number = -1;
   private quartilesFired = {
     start: false,
     firstQuartile: false,
@@ -71,6 +74,7 @@ export class AdsManager implements google.ima.AdsManager {
     this.adsRenderingSettings = undefined;
     this.started = false;
     this.processingAdv = false;
+    this.adRemaingTime = -1;
     this.attachContentMediaEventListeners =
       this.attachContentMediaEventListeners.bind(this);
     this.detachContentMediaEventListeners =
@@ -278,7 +282,7 @@ export class AdsManager implements google.ima.AdsManager {
               this.currentAdVast,
               this.currentCreative
             );
-            this.playAdsContent(mediaFile.fileURL);
+            this.playAdsContent(mediaFile.fileURL).catch((_) => {});
             return;
           }
         }
@@ -454,42 +458,53 @@ export class AdsManager implements google.ima.AdsManager {
     } catch (ex) {}
   }
 
+  private getPromiseVastClient(adTagUrl: string): Promise<VASTResponse> {
+    const vastClient = new VASTClient();
+    return vastClient.get(adTagUrl);
+  }
+
   private async fetchVastAds(time: number): Promise<void> {
     if (!this.started) {
       return;
     }
-    const adBreaks = this.cueMapPoints[time];
-    delete this.cueMapPoints[time];
-    if (adBreaks) {
-      const adsSlot = [];
-      for (const adBreak of adBreaks) {
-        const adSource = adBreak["vmap:AdSource"];
-        if (adSource) {
-          const adTagUrl = adSource["vmap:AdTagURI"]?.["#text"]?.trim();
-          if (adTagUrl) {
-            try {
-              const vastClient = new VASTClient();
-              const vastResponse = await vastClient.get(adTagUrl);
-              const ads = vastResponse.ads;
-              if (ads && ads.length > 0) {
-                for (const ad of ads) {
-                  console.log("Ad", ad);
-                  if (this.hasAdValidCreative(ad)) {
-                    adsSlot.push(ad);
-                  }
+    try {
+      const adBreaks = this.cueMapPoints[time];
+      const promiseVastFetch: Array<Promise<VASTResponse>> = [];
+      delete this.cueMapPoints[time];
+      if (adBreaks) {
+        const adsSlot: Array<VASTAd> = [];
+        for (const adBreak of adBreaks) {
+          const adSource = adBreak["vmap:AdSource"];
+          if (adSource) {
+            const adTagUrl = adSource["vmap:AdTagURI"]?.["#text"]?.trim();
+            if (adTagUrl) {
+              promiseVastFetch.push(this.getPromiseVastClient(adTagUrl));
+            }
+          }
+        }
+        const responses = await Promise.allSettled(promiseVastFetch);
+        for (const response of responses) {
+          if (response.status === "fulfilled") {
+            const vastResponse = response.value;
+            const ads = vastResponse?.ads ?? undefined;
+            if (ads && ads.length > 0) {
+              for (const ad of ads) {
+                console.log("Ad", ad);
+                if (this.hasAdValidCreative(ad)) {
+                  adsSlot.push(ad);
                 }
-              } else {
-                vastResponse.errorURLTemplates?.forEach((errorUrl) => {
-                  this.trackUrl(errorUrl);
-                });
               }
-            } catch (ex) {
-              console.error("Error fetching VAST response", ex);
+            } else {
+              vastResponse.errorURLTemplates?.forEach((errorUrl) => {
+                this.trackUrl(errorUrl);
+              });
             }
           }
         }
         this.nextAds = adsSlot;
       }
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -522,7 +537,8 @@ export class AdsManager implements google.ima.AdsManager {
         const videoDuration = videoAdsElement.duration || -1;
         if (!isNaN(videoDuration) && videoDuration >= 0) {
           const currentTime = videoAdsElement.currentTime || 0;
-          const percentage = Math.round(currentTime / videoDuration);
+          const percentage = currentTime / videoDuration;
+          //this.adRemaingTime = videoDuration - currentTime;
           console.log(
             `ADS Current time: ${currentTime}, Percentage: ${percentage}%`
           );
@@ -584,19 +600,30 @@ export class AdsManager implements google.ima.AdsManager {
     };
   }
 
-  private playAdsContent(src: string): void {
+  private async playAdsContent(src: string): Promise<void> {
     const videoAdsElement = this.adDisplayContainer.getVideoAdsElement();
     if (!videoAdsElement) {
       return;
     }
+    this.adRemaingTime = -1;
     this.adDisplayContainer.show();
+    this.adDisplayContainer.showLoader();
     this.removeVideoListeners();
     this.resetQuartilesFired();
     videoAdsElement.autoplay = true;
     videoAdsElement.src = src;
-    this.addVideoListeners();
-    videoAdsElement.load();
-    videoAdsElement.play().catch((error) => {});
+    try {
+      await preloadVideo(videoAdsElement);
+      await videoAdsElement.play();
+      this.addVideoListeners();
+      this.adDisplayContainer.hideLoader();
+    } catch (error) {
+      console.log(`error: `, error);
+      this.dispatchAdsEvent(AdEvent.Type.AD_BREAK_FETCH_ERROR);
+      this.playCreativities();
+    } finally {
+      this.adDisplayContainer.hideLoader();
+    }
   }
 
   private addVideoListeners() {
