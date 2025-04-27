@@ -15,6 +15,7 @@ import { Ad } from "./Ad";
 import { AdPodInfo } from "./AdPodInfo";
 import { getTimeOffset } from "../utils/time";
 import { preloadVideo } from "../utils/player";
+import logger from "../utils/logger";
 
 const ADS_VIDEO_EVENTS: Array<keyof HTMLMediaElementEventMap> = [
   "play",
@@ -36,6 +37,7 @@ const ADS_VIDEO_EVENTS: Array<keyof HTMLMediaElementEventMap> = [
 /** Therdshould to request new vast xml */
 const CUE_THREAD_SHOULD_REQUEST_MS = 500;
 
+const TAG = "ima:AdsManager";
 export class AdsManager implements google.ima.AdsManager {
   private adsRequest: AdsRequest;
   private adDisplayContainer: AdDisplayContainer;
@@ -206,7 +208,11 @@ export class AdsManager implements google.ima.AdsManager {
             if (timeOffset) {
               const time = getTimeOffset(timeOffset);
               if (!isNaN(time) && this.isValidAdBreak(adBreak)) {
-                console.log(`@@@@ timeOffset [${timeOffset}]:`, time);
+                logger.debug(
+                  TAG,
+                  `vmap adBreak timeOffset [${timeOffset}]:`,
+                  time
+                );
                 if (!this.cuePoints.includes(time)) {
                   this.cuePoints.push(time);
                 }
@@ -221,7 +227,6 @@ export class AdsManager implements google.ima.AdsManager {
           if (timeOffset) {
             const time = getTimeOffset(timeOffset);
             if (!isNaN(time) && this.isValidAdBreak(adBreaks)) {
-              console.log(`@@@@ timeOffset [${timeOffset}]:`, time);
               this.cuePoints.push(time);
               this.cueMapPoints[time] = [adBreaks];
             }
@@ -313,7 +318,6 @@ export class AdsManager implements google.ima.AdsManager {
       return;
     }
     if (this.processingAdv) {
-      console.log(`this.processingAdv: [${this.processingAdv}]`);
       return;
     }
 
@@ -323,7 +327,7 @@ export class AdsManager implements google.ima.AdsManager {
       return;
     }
     const currentTime = content.currentTime * 1000;
-    console.log("Content Current time", currentTime);
+    logger.debug(TAG, `Content current time: [${currentTime}]`);
     const nextCue = this.cuePoints.find(
       (cue) => Math.abs(cue - currentTime) <= CUE_THREAD_SHOULD_REQUEST_MS
     );
@@ -489,7 +493,6 @@ export class AdsManager implements google.ima.AdsManager {
             const ads = vastResponse?.ads ?? undefined;
             if (ads && ads.length > 0) {
               for (const ad of ads) {
-                console.log("Ad", ad);
                 if (this.hasAdValidCreative(ad)) {
                   adsSlot.push(ad);
                 }
@@ -504,7 +507,7 @@ export class AdsManager implements google.ima.AdsManager {
         this.nextAds = adsSlot;
       }
     } catch (error) {
-      console.log(error);
+      logger.error(TAG, "fetchVastAds error:", error);
     }
   }
 
@@ -539,23 +542,21 @@ export class AdsManager implements google.ima.AdsManager {
           const currentTime = videoAdsElement.currentTime || 0;
           const percentage = currentTime / videoDuration;
           //this.adRemaingTime = videoDuration - currentTime;
-          console.log(
-            `ADS Current time: ${currentTime}, Percentage: ${percentage}%`
+          logger.debug(
+            TAG,
+            `video adv currentTime: ${currentTime}, Percentage: ${percentage}%`
           );
           if (!this.quartilesFired.firstQuartile && percentage >= 0.25) {
-            console.log("First Quartile (25%)");
             this.quartilesFired.firstQuartile = true;
             this.dispatchAdsEvent(AdEvent.Type.FIRST_QUARTILE);
           }
 
           if (!this.quartilesFired.midpoint && percentage >= 0.5) {
-            console.log("Midpoint (50%)");
             this.quartilesFired.midpoint = true;
             this.dispatchAdsEvent(AdEvent.Type.MIDPOINT);
           }
 
           if (!this.quartilesFired.thirdQuartile && percentage >= 0.75) {
-            console.log("Third Quartile (75%)");
             this.quartilesFired.thirdQuartile = true;
             this.dispatchAdsEvent(AdEvent.Type.THIRD_QUARTILE);
           }
@@ -618,7 +619,7 @@ export class AdsManager implements google.ima.AdsManager {
       this.addVideoListeners();
       this.adDisplayContainer.hideLoader();
     } catch (error) {
-      console.log(`error: `, error);
+      logger.error(TAG, "playAdsContent error: ", error);
       this.dispatchAdsEvent(AdEvent.Type.AD_BREAK_FETCH_ERROR);
       this.playCreativities();
     } finally {

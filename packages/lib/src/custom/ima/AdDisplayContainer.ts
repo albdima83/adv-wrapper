@@ -1,3 +1,6 @@
+import logger from "../utils/logger";
+
+const TAG = "ima:AdDisplayContainer";
 export class AdDisplayContainer implements google.ima.AdDisplayContainer {
   private adContainer: HTMLElement;
   private videoElement: HTMLVideoElement;
@@ -41,6 +44,7 @@ export class AdDisplayContainer implements google.ima.AdDisplayContainer {
   }
 
   public initialize(): void {
+    logger.debug(TAG, "initialize");
     // Custom initialization logic can be added here
     if (!this.adsContainerElement) {
       this.adsContainerElement = this.createAdsContainer();
@@ -55,7 +59,7 @@ export class AdDisplayContainer implements google.ima.AdDisplayContainer {
 
   public destroy(): void {
     // Custom cleanup logic can be added here
-    console.log("AdDisplayContainer destroyed");
+    logger.debug(TAG, "destroy");
     this.videoAdsElement = undefined;
     const adContainer = this.adContainer;
     while (adContainer?.firstChild) {
@@ -67,23 +71,15 @@ export class AdDisplayContainer implements google.ima.AdDisplayContainer {
     type: string,
     listener: (event: google.ima.AdEvent) => void,
     useCapture?: boolean
-  ): void {
-    // Custom event listener logic can be added here
-    console.log(`Event listener added for type: ${type}`);
-  }
+  ): void {}
 
   public removeEventListener(
     type: string,
     listener: (event: google.ima.AdEvent) => void,
     useCapture?: boolean
-  ): void {
-    // Custom event listener removal logic can be added here
-    console.log(`Event listener removed for type: ${type}`);
-  }
+  ): void {}
 
   public dispatchEvent(event: google.ima.AdEvent): boolean {
-    // Custom event dispatch logic can be added here
-    console.log(`Event dispatched: ${event.type}`);
     return true;
   }
   public getVideoAdsElement(): HTMLVideoElement {
