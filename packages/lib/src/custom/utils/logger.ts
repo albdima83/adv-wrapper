@@ -8,6 +8,7 @@ const MAP_CONSOLE_FN: Record<LogLevel, typeof console.log> = {
   warn: console.warn || console.log,
   error: console.error || console.log,
   fatal: console.error || console.log,
+  trace: console.trace || console.log,
 };
 
 class BasicLogger {
