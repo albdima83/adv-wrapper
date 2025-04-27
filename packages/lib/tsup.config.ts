@@ -11,6 +11,8 @@ export default defineConfig({
   external: ["node:os", "node:path", "node:fs"],
   skipNodeModulesBundle: true,
   define: {
+    "process.env": "{}",
+    process: "{}",
     "process.env.NODE_ENV": JSON.stringify(
       process.env.NODE_ENV || "production"
     ),
