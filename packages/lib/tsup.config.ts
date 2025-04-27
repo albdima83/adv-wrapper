@@ -10,4 +10,10 @@ export default defineConfig({
   target: "es5",
   external: ["node:os", "node:path", "node:fs"],
   skipNodeModulesBundle: true,
+  define: {
+    "process.env.NODE_ENV": JSON.stringify(
+      process.env.NODE_ENV || "production"
+    ),
+    "process.env.LOG_LEVEL": JSON.stringify(process.env.LOG_LEVEL || "error"),
+  },
 });
