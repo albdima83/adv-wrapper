@@ -1,4 +1,4 @@
-import { VASTAd } from "@dailymotion/vast-client";
+import { VASTAd, VASTCreative, VASTMediaFile } from "@dailymotion/vast-client";
 import { AdPodInfo } from "./AdPodInfo";
 
 export class Ad implements google.ima.Ad {
@@ -34,26 +34,29 @@ export class Ad implements google.ima.Ad {
   private wrapperCreativeIds: string[];
   private linear: boolean;
 
-  constructor(vastAd: VASTAd, podInfo: AdPodInfo) {
+  constructor(
+    vastAd: VASTAd,
+    creative: VASTCreative,
+    mediaFile: VASTMediaFile,
+    podInfo: AdPodInfo
+  ) {
     this.adId = vastAd.id || "undefined";
     this.adPodInfo = podInfo;
     this.adSystem = vastAd.adSystem || "";
     this.advertiserName = vastAd.advertiser || "";
-    this.apiFramework = "";
+    this.apiFramework = creative.apiFramework || "";
     this.companionAds = [];
-    this.apiFramework = null;
-    this.companionAds = [];
-    this.creativeAdId = "";
-    this.creativeId = "";
+    this.creativeAdId = creative.adId || "";
+    this.creativeId = creative.id || "";
     this.dealId = "";
-    this.description = "";
+    this.description = vastAd.description || "";
     this.duration = 0;
     this.height = 0;
     this.mediaUrl = null;
     this.minSuggestedDuration = 0;
-    this.skipTimeOffset = 0;
+    this.skipTimeOffset = creative.skipDelay || -1;
     this.surveyUrl = null;
-    this.title = "";
+    this.title = vastAd.adTitle || "";
     this.traffickingParameters = {};
     this.traffickingParametersString = "";
     this.uiElements = [];
@@ -67,7 +70,7 @@ export class Ad implements google.ima.Ad {
     this.wrapperAdIds = [];
     this.wrapperAdSystems = [];
     this.wrapperCreativeIds = [];
-    this.linear = false;
+    this.linear = creative.type === "linear";
   }
 
   getAdId(): string {
