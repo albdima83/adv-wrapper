@@ -8,5 +8,6 @@ export default defineConfig({
   outDir: "dist",
   globalName: "google.ima",
   target: "es5",
+  external: ["node:os", "node:path", "node:fs"],
   skipNodeModulesBundle: true,
 });
