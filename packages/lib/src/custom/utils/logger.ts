@@ -1,6 +1,13 @@
 export type LogLevel = "fatal" | "error" | "warn" | "info" | "debug" | "trace";
 
-const LOG_LEVEL_ORDERS = ["debug", "info", "warn", "error", "fatal"];
+const LOG_LEVEL_ORDERS: Array<LogLevel> = [
+  "debug",
+  "info",
+  "warn",
+  "error",
+  "fatal",
+  "trace",
+];
 
 const MAP_CONSOLE_FN: Record<LogLevel, typeof console.log> = {
   debug: console.debug || console.log,
@@ -11,13 +18,37 @@ const MAP_CONSOLE_FN: Record<LogLevel, typeof console.log> = {
   trace: console.trace || console.log,
 };
 
-class BasicLogger {
+class AdsLogger {
   private enable: boolean;
   private level: LogLevel;
 
   constructor(config: { enable?: boolean; level?: LogLevel }) {
     this.enable = config.enable || false;
     this.level = config.level || "info";
+  }
+
+  public debug(tag: string, message: string, ...args: any[]) {
+    this.log("debug", tag, message, ...args);
+  }
+
+  public info(tag: string, message: string, ...args: any[]) {
+    this.log("info", tag, message, ...args);
+  }
+
+  public warn(tag: string, message: string, ...args: any[]) {
+    this.log("warn", tag, message, ...args);
+  }
+
+  public error(tag: string, message: string, ...args: any[]) {
+    this.log("error", tag, message, ...args);
+  }
+
+  public setLogLevel(level: LogLevel) {
+    this.level = level;
+  }
+
+  public setEnable(enable: boolean) {
+    this.enable = enable;
   }
 
   private log(level: LogLevel, tag: string, message: string, ...args: any[]) {
@@ -32,45 +63,11 @@ class BasicLogger {
       fn(`[${tag}][${level}]`, message, ...args);
     }
   }
-
-  debug(tag: string, message: string, ...args: any[]) {
-    this.log("debug", tag, message, ...args);
-  }
-
-  info(tag: string, message: string, ...args: any[]) {
-    this.log("info", tag, message, ...args);
-  }
-
-  warn(tag: string, message: string, ...args: any[]) {
-    this.log("warn", tag, message, ...args);
-  }
-
-  error(tag: string, message: string, ...args: any[]) {
-    this.log("error", tag, message, ...args);
-  }
-
-  setLogLevel(level: LogLevel) {
-    this.level = level;
-  }
 }
 
-function getLogConfigFromParams(): { enable: boolean; level: LogLevel } {
-  if (!globalThis || !globalThis.location) {
-    return { enable: true, level: "error" };
-  }
-  const params = new URLSearchParams(globalThis.location.search);
-  const enable = !!params.get("debug") || false;
-  const level = params.get("logLevel") as LogLevel | null;
-  if (level && LOG_LEVEL_ORDERS.includes(level)) {
-    return { enable, level };
-  }
-  return { enable, level: "debug" };
-}
-
-const LOGGER_CONFIG = getLogConfigFromParams();
-const logger = new BasicLogger({
-  enable: LOGGER_CONFIG.enable,
-  level: LOGGER_CONFIG.level,
+const logger = new AdsLogger({
+  enable: process.env.NODE_ENV !== "production",
+  level: (process.env.LOG_LEVEL as LogLevel) ?? "error",
 });
 
 export default logger;
