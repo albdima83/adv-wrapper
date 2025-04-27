@@ -60,11 +60,10 @@ export class AdDisplayContainer implements google.ima.AdDisplayContainer {
   public destroy(): void {
     // Custom cleanup logic can be added here
     logger.debug(TAG, "destroy");
+    this.videoAdsElement?.remove();
+    this.adsSpinnerElement?.remove();
+    this.adsContainerElement?.remove();
     this.videoAdsElement = undefined;
-    const adContainer = this.adContainer;
-    while (adContainer?.firstChild) {
-      adContainer?.removeChild(adContainer?.firstChild);
-    }
   }
 
   public addEventListener(
@@ -122,10 +121,35 @@ export class AdDisplayContainer implements google.ima.AdDisplayContainer {
     adsSpinnerElement.style.visibility = "none";
   }
 
-  private createAdsSpinner(): HTMLElement {
+  private createAdsContainer(): HTMLElement | undefined {
+    const adContainer = this.adContainer;
+    if (!adContainer) {
+      return undefined;
+    }
     const advContainer =
-      document.getElementById("adm-adv-container") || this.adContainer;
-    const spinner = document.createElement("div");
+      document.getElementById("adm-adv-container") ||
+      document.createElement("div");
+    advContainer.id = "adm-adv-container";
+    advContainer.style.position = "absolute";
+    advContainer.style.top = "0";
+    advContainer.style.left = "0";
+    /* @TODO: undestand if this is needed */
+    advContainer.style.width = "100%";
+    advContainer.style.height = "100%";
+    advContainer.style.background = "rgb(0,0,0)";
+    advContainer.style.display = "none";
+    adContainer.appendChild(advContainer);
+    return advContainer;
+  }
+
+  private createAdsSpinner(): HTMLElement | undefined {
+    const adsContainerElement = this.adsContainerElement;
+    if (!adsContainerElement) {
+      return undefined;
+    }
+    const spinner =
+      document.getElementById("adm-adv-spinner") ||
+      document.createElement("div");
     spinner.id = "adm-adv-spinner";
     spinner.style.position = "absolute";
     spinner.style.top = "50%";
@@ -149,29 +173,18 @@ export class AdDisplayContainer implements google.ima.AdDisplayContainer {
     if (globalThis && globalThis.document) {
       document.head.appendChild(style);
     }
-    advContainer.appendChild(spinner);
+    adsContainerElement.appendChild(spinner);
     return spinner;
   }
 
-  private createAdsContainer(): HTMLElement {
-    const advContainer = document.createElement("div");
-    advContainer.id = "adm-adv-container";
-    advContainer.style.position = "absolute";
-    advContainer.style.top = "0";
-    advContainer.style.left = "0";
-    /* @TODO: undestand if this is needed */
-    advContainer.style.width = "100%";
-    advContainer.style.height = "100%";
-    advContainer.style.background = "rgb(0,0,0)";
-    advContainer.style.display = "none";
-    this.adContainer.appendChild(advContainer);
-    return advContainer;
-  }
-
-  private createAdsVideoElement(): HTMLVideoElement {
-    const advContainer =
-      document.getElementById("adm-adv-container") || this.adContainer;
-    const videoAdsElement = document.createElement("video");
+  private createAdsVideoElement(): HTMLVideoElement | undefined {
+    const adsContainerElement = this.adsContainerElement;
+    if (!adsContainerElement) {
+      return undefined;
+    }
+    const videoAdsElement =
+      (document.getElementById("adm-video-ads") as HTMLVideoElement | null) ||
+      document.createElement("video");
     videoAdsElement.id = "adm-video-ads";
     videoAdsElement.style.position = "absolute";
     videoAdsElement.style.top = "0";
@@ -187,7 +200,7 @@ export class AdDisplayContainer implements google.ima.AdDisplayContainer {
     videoAdsElement.setAttribute("x-webkit-airplay", "allow");
     videoAdsElement.setAttribute("object", "fit");
     videoAdsElement.removeAttribute("controls");
-    advContainer.appendChild(videoAdsElement);
+    adsContainerElement.appendChild(videoAdsElement);
     return videoAdsElement;
   }
 }

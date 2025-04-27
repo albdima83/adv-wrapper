@@ -131,9 +131,8 @@ export class AdsManager implements google.ima.AdsManager {
     height: number,
     viewMode: google.ima.ViewMode,
     videoElement?: HTMLVideoElement | null
-  ): void {
-    this.adDisplayContainer.initialize();
-  }
+  ): void {}
+
   public isCustomClickTrackingUsed(): boolean {
     throw new Error("Method not implemented.");
   }
@@ -240,6 +239,7 @@ export class AdsManager implements google.ima.AdsManager {
             }
           }
         }
+        this.adDisplayContainer.initialize();
         return this;
       })
       .catch((error) => {
