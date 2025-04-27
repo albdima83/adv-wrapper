@@ -3,7 +3,9 @@ export class AdDisplayContainer implements google.ima.AdDisplayContainer {
   private videoElement: HTMLVideoElement;
   private contentElement: HTMLVideoElement | undefined;
   private adsContainerElement: HTMLElement | undefined;
+  private adsSpinnerElement: HTMLElement | undefined;
   private videoAdsElement: HTMLVideoElement | undefined;
+
   /**
    * Constructor.
    * @param containerElement The element to display the ads in.
@@ -45,6 +47,9 @@ export class AdDisplayContainer implements google.ima.AdDisplayContainer {
     }
     if (!this.videoAdsElement) {
       this.videoAdsElement = this.createAdsVideoElement();
+    }
+    if (!this.adsSpinnerElement) {
+      this.adsSpinnerElement = this.createAdsSpinner();
     }
   }
 
@@ -105,10 +110,55 @@ export class AdDisplayContainer implements google.ima.AdDisplayContainer {
     adsContainerElement.style.opacity = "0";
   }
 
-  private createAdsContainer(): HTMLElement {
+  public showLoader(): void {
+    const adsSpinnerElement = this.adsSpinnerElement;
+    if (!adsSpinnerElement) {
+      return;
+    }
+    adsSpinnerElement.style.visibility = "block";
+  }
+
+  public hideLoader(): void {
+    const adsSpinnerElement = this.adsSpinnerElement;
+    if (!adsSpinnerElement) {
+      return;
+    }
+    adsSpinnerElement.style.visibility = "none";
+  }
+
+  private createAdsSpinner(): HTMLElement {
     const advContainer =
-      document.getElementById("adm-adv-container") ||
-      document.createElement("div");
+      document.getElementById("adm-adv-container") || this.adContainer;
+    const spinner = document.createElement("div");
+    spinner.id = "adm-adv-spinner";
+    spinner.style.position = "absolute";
+    spinner.style.top = "50%";
+    spinner.style.left = "50%";
+    spinner.style.transform = "translate(-50%, -50%)";
+    spinner.style.width = "40px";
+    spinner.style.height = "40px";
+    spinner.style.border = "5px solid #ccc";
+    spinner.style.borderTop = "5px solid #333";
+    spinner.style.borderRadius = "50%";
+    spinner.style.zIndex = "10";
+    spinner.style.animation = "adm-spinner-animation 1s linear infinite";
+    spinner.style.display = "none";
+    const style = document.createElement("style");
+    style.textContent = `
+      @keyframes adm-spinner-animation {
+        0% { transform: translate(-50%, -50%) rotate(0deg); }
+        100% { transform: translate(-50%, -50%) rotate(360deg); }
+      }
+    `;
+    if (globalThis && globalThis.document) {
+      document.head.appendChild(style);
+    }
+    advContainer.appendChild(spinner);
+    return spinner;
+  }
+
+  private createAdsContainer(): HTMLElement {
+    const advContainer = document.createElement("div");
     advContainer.id = "adm-adv-container";
     advContainer.style.position = "absolute";
     advContainer.style.top = "0";
