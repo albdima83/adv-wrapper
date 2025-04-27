@@ -1,0 +1,147 @@
+export class AdDisplayContainer implements google.ima.AdDisplayContainer {
+  private adContainer: HTMLElement;
+  private videoElement: HTMLVideoElement;
+  private contentElement: HTMLVideoElement | undefined;
+  private adsContainerElement: HTMLElement | undefined;
+  private videoAdsElement: HTMLVideoElement | undefined;
+  /**
+   * Constructor.
+   * @param containerElement The element to display the ads in.
+   *     The element must be inserted into the DOM before creating
+   * AdDisplayContainer.
+   * @param videoElement Specifies the alternative video ad playback element.
+   *     We recommend always passing in your content video player.
+   * @param clickTrackingElement Specifies the alternative video ad click
+   *     element. Leave this null to let the SDK handle clicks. Even if
+   *     supplied, the SDK will only use the custom click tracking element
+   * when non-AdSense/AdX creatives are displayed in environments that do not
+   *     support UI elements overlaying a video player (for example, iPhone or
+   *     pre-4.0 Android). <b>The custom click tracking element should never
+   * be rendered over the video player</b> because it can intercept clicks to
+   *     UI elements that the SDK renders. Also note that the SDK will not
+   *     modify the visibility of the custom click tracking element. This
+   * means that if a custom click tracking element is supplied, it must be
+   *     properly displayed when the linear ad is played. You can check
+   *     ima.AdsManager.isCustomClickTrackingUsed when the
+   *     ima.AdEvent.Type.STARTED event is fired to determine whether or not
+   * to display your custom click tracking element. If appropriate for your
+   * UI, you should hide the click tracking element when the
+   *     ima.AdEvent.Type.CONTENT_RESUME_REQUESTED event fires.
+   */
+  constructor(
+    adContainer: HTMLElement,
+    videoElement: HTMLVideoElement,
+    contentElement?: HTMLVideoElement
+  ) {
+    this.adContainer = adContainer;
+    this.videoElement = videoElement;
+    this.contentElement = contentElement;
+  }
+
+  public initialize(): void {
+    // Custom initialization logic can be added here
+    if (!this.adsContainerElement) {
+      this.adsContainerElement = this.createAdsContainer();
+    }
+    if (!this.videoAdsElement) {
+      this.videoAdsElement = this.createAdsVideoElement();
+    }
+  }
+
+  public destroy(): void {
+    // Custom cleanup logic can be added here
+    console.log("AdDisplayContainer destroyed");
+    this.videoAdsElement = undefined;
+    const adContainer = this.adContainer;
+    while (adContainer?.firstChild) {
+      adContainer?.removeChild(adContainer?.firstChild);
+    }
+  }
+
+  public addEventListener(
+    type: string,
+    listener: (event: google.ima.AdEvent) => void,
+    useCapture?: boolean
+  ): void {
+    // Custom event listener logic can be added here
+    console.log(`Event listener added for type: ${type}`);
+  }
+
+  public removeEventListener(
+    type: string,
+    listener: (event: google.ima.AdEvent) => void,
+    useCapture?: boolean
+  ): void {
+    // Custom event listener removal logic can be added here
+    console.log(`Event listener removed for type: ${type}`);
+  }
+
+  public dispatchEvent(event: google.ima.AdEvent): boolean {
+    // Custom event dispatch logic can be added here
+    console.log(`Event dispatched: ${event.type}`);
+    return true;
+  }
+  public getVideoAdsElement(): HTMLVideoElement {
+    return this.videoAdsElement || this.videoElement;
+  }
+
+  public show(): void {
+    const adsContainerElement = this.adsContainerElement;
+    if (!adsContainerElement) {
+      return;
+    }
+    adsContainerElement.style.display = "block";
+    adsContainerElement.style.visibility = "visible";
+    adsContainerElement.style.opacity = "1";
+  }
+
+  public hide(): void {
+    const adsContainerElement = this.adsContainerElement;
+    if (!adsContainerElement) {
+      return;
+    }
+    adsContainerElement.style.display = "none";
+    adsContainerElement.style.visibility = "hidden";
+    adsContainerElement.style.opacity = "0";
+  }
+
+  private createAdsContainer(): HTMLElement {
+    const advContainer =
+      document.getElementById("adm-adv-container") ||
+      document.createElement("div");
+    advContainer.id = "adm-adv-container";
+    advContainer.style.position = "absolute";
+    advContainer.style.top = "0";
+    advContainer.style.left = "0";
+    /* @TODO: undestand if this is needed */
+    advContainer.style.width = "100%";
+    advContainer.style.height = "100%";
+    advContainer.style.background = "rgb(0,0,0)";
+    advContainer.style.display = "none";
+    this.adContainer.appendChild(advContainer);
+    return advContainer;
+  }
+
+  private createAdsVideoElement(): HTMLVideoElement {
+    const advContainer =
+      document.getElementById("adm-adv-container") || this.adContainer;
+    const videoAdsElement = document.createElement("video");
+    videoAdsElement.id = "adm-video-ads";
+    videoAdsElement.style.position = "absolute";
+    videoAdsElement.style.top = "0";
+    videoAdsElement.style.left = "0";
+    videoAdsElement.style.width = "100%";
+    videoAdsElement.style.height = "100%";
+    videoAdsElement.controls = false;
+    videoAdsElement.playsInline = false;
+    videoAdsElement.setAttribute("disablePictureInPicture", "");
+    videoAdsElement.setAttribute("disableRemotePlayback", "");
+    videoAdsElement.setAttribute("playsinline", "false");
+    videoAdsElement.setAttribute("webkit-playsinline", "true");
+    videoAdsElement.setAttribute("x-webkit-airplay", "allow");
+    videoAdsElement.setAttribute("object", "fit");
+    videoAdsElement.removeAttribute("controls");
+    advContainer.appendChild(videoAdsElement);
+    return videoAdsElement;
+  }
+}
