@@ -1,9 +1,5 @@
-import { AdsManager } from "../custom/ima/AdsManager";
-
 // region GLOBAL
-declare global {
-  var AdsManager: AdsManager | undefined;
-}
+declare global {}
 // end region
 
 export {};
