@@ -35,7 +35,7 @@ jobs:
       - name: Get version from package.json
         id: get_version
         run: |
-          VERSION=$(node -p "require('./package.json').version")
+          VERSION=$(node -p "require('./packages/lib/package.json').version")
           echo "VERSION=v$VERSION" >> $GITHUB_ENV
 
       - name: Create GitHub Release with Auto Changelog
