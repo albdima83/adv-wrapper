@@ -17,29 +17,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "pnpm"
 
-      - name: Install pnpm
-        run: npm install -g pnpm@10
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
 
       - name: Install dependencies
         run: pnpm install
 
-      - name: Find Changed Packages
-        id: changed
-        run: |
-          echo "CHANGED_PACKAGES=$(pnpm exec changeset status --output=json | jq -r '.changes[].name' | paste -sd ',' -)" >> $GITHUB_ENV
-
-      - name: Get package name and version from tag
-        id: get_tag
-        run: |
-          echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
-          echo "PACKAGE_NAME=lib} | cut -d'@' -f1)" >> $GITHUB_ENV
-          echo "PACKAGE_VERSION=$(echo ${GITHUB_REF#refs/tags/} | cut -d'@' -f2)" >> $GITHUB_ENV
-
       - name: Build UMD
         run: |
-          cd packages/${PACKAGE_NAME}
+          cd packages/lib
           pnpm install
           pnpm build
 
@@ -48,6 +37,6 @@ jobs:
         with:
           generate_release_notes: true # ✨ auto "What's new" based on commits
           files: |
-            packages/${{ env.PACKAGE_NAME }}/dist/*.js
+            packages/lib/dist/*.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
