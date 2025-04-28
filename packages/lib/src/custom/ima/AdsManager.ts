@@ -83,6 +83,7 @@ export class AdsManager implements google.ima.AdsManager {
     this.processingAdv = false;
     this.canBeAdSkippable = false;
     this.adRemainingTime = -1;
+    this.fetchVmap = this.fetchVmap.bind(this);
     this.attachContentMediaEventListeners =
       this.attachContentMediaEventListeners.bind(this);
     this.detachContentMediaEventListeners =

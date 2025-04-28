@@ -5,7 +5,7 @@ import { AdsManager } from "./AdsManager";
 import { AdsManagerLoadedEvent } from "./AdsManagerLoadedEvent";
 import { AdsRequest } from "./AdsRequest";
 import { ImaSdkSettings } from "./ImaSdkSettings";
-import { version } from "../../../package.json";
+//import { version } from "../../../package.json";
 
 export class AdsLoader implements google.ima.AdsLoader {
   private adDisplayContainer: AdDisplayContainer;
@@ -38,7 +38,7 @@ export class AdsLoader implements google.ima.AdsLoader {
     return this.imaSdkSettings;
   }
   public getVersion(): string {
-    return `custom/${version}}`;
+    return `custom`;
   }
   public removeEventListener(
     type: string,
@@ -67,6 +67,7 @@ export class AdsLoader implements google.ima.AdsLoader {
     this.adsManager
       .fetchVmap()
       .then((_adsManager) => {
+        this.adsManager = _adsManager;
         return this.eventEmitter.emit(
           google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
           new AdsManagerLoadedEvent.AdsManagerLoadedEvent(_adsManager)
