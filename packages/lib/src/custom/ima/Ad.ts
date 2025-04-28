@@ -50,7 +50,7 @@ export class Ad implements google.ima.Ad {
     this.creativeId = creative.id || "";
     this.dealId = "";
     this.description = vastAd.description || "";
-    this.duration = 0;
+    this.duration = creative.duration || 0;
     this.height = 0;
     this.mediaUrl = null;
     this.minSuggestedDuration = 0;

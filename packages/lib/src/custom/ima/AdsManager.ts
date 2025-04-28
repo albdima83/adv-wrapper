@@ -164,13 +164,18 @@ export class AdsManager implements google.ima.AdsManager {
   }
   public skip(): void {
     const videoAdsElement = this.adDisplayContainer.getVideoAdsElement();
-    const skipDelay = this.currentCreative?.skipDelay || -1;
-    if (!videoAdsElement || skipDelay < 0 || this.adRemainingTime > skipDelay) {
+    const skipDelay = this.currentCreative?.skipDelay || 0;
+    if (
+      !videoAdsElement ||
+      skipDelay <= 0 ||
+      this.adRemainingTime > skipDelay
+    ) {
       return;
     }
     try {
       videoAdsElement.pause();
     } finally {
+      logger.debug(TAG, `video user skipped`);
       this.vastTracker?.skip();
       this.dispatchAdsEvent(AdEvent.Type.SKIPPED);
       this.playCreativities();
@@ -311,6 +316,8 @@ export class AdsManager implements google.ima.AdsManager {
             mediaFile.fileURL
           ) {
             this.currentCreative = creative;
+            console.log("@@@@@@ CREATIVE");
+            console.log(this.currentCreative);
             this.vastTracker = new VASTTracker(
               null,
               this.currentAdVast,
@@ -606,13 +613,18 @@ export class AdsManager implements google.ima.AdsManager {
           const currentTime = videoAdsElement.currentTime || 0;
           const percentage = currentTime / videoDuration;
           const remainingTime = videoDuration - currentTime;
-          const skipDelay = (this.currentCreative?.skipDelay || -1) * 1000;
+          const skipDelay = this.currentCreative?.skipDelay || 0;
           this.adRemainingTime = remainingTime;
           //this.adRemaingTime = videoDuration - currentTime;
           logger.debug(
             TAG,
-            `video adv currentTime: ${currentTime}, Percentage: ${percentage}%`
+            `video adv currentTime: ${currentTime}, Percentage: ${percentage}%, SkipDelay: ${skipDelay}`
           );
+          if (!this.quartilesFired.start) {
+            this.quartilesFired.start = true;
+            this.dispatchAdsEvent(AdEvent.Type.STARTED);
+          }
+
           if (!this.quartilesFired.firstQuartile && percentage >= 0.25) {
             this.quartilesFired.firstQuartile = true;
             this.dispatchAdsEvent(AdEvent.Type.FIRST_QUARTILE);
@@ -628,7 +640,11 @@ export class AdsManager implements google.ima.AdsManager {
             this.dispatchAdsEvent(AdEvent.Type.THIRD_QUARTILE);
           }
           this.vastTracker?.setProgress(currentTime);
-          if (!this.canBeAdSkippable && currentTime >= skipDelay) {
+          if (
+            !this.canBeAdSkippable &&
+            skipDelay > 0 &&
+            currentTime >= skipDelay
+          ) {
             this.canBeAdSkippable = true;
             logger.debug(
               TAG,
