@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsup src/ima3.ts --watch",
+    "dev": "tsup  --watch",
     "build": "tsup",
     "serve": "http-server ./dist -p 8083 -c-1 --log-ip --cors",
     "ngrok:lib": "ngrok http 8083 --region eu --scheme https --domain=ctv.mplay.it"

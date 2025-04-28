@@ -9,13 +9,7 @@ export default defineConfig({
   globalName: "google.ima",
   target: "es5",
   external: ["node:os", "node:path", "node:fs"],
-  skipNodeModulesBundle: true,
   minify: true,
-  outExtension({ format }) {
-    return {
-      js: format === "iife" ? ".js" : `.${format}.js`,
-    };
-  },
   define: {
     "process.env": "{}",
     process: "{}",
