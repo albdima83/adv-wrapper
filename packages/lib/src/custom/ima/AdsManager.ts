@@ -34,7 +34,7 @@ const ADS_VIDEO_EVENTS: Array<keyof HTMLMediaElementEventMap> = [
   "abort",
 ];
 
-/** Therdshould to request new vast xml */
+/** Threadshould to request new vast xml in milleseconds */
 const CUE_THREAD_SHOULD_REQUEST_MS = 500;
 
 const TAG = "ima:AdsManager";
@@ -53,6 +53,7 @@ export class AdsManager implements google.ima.AdsManager {
   private totalAds = 0;
   private totalTimeAds = 0;
   private currentPodIndex = 0; // 0 = PREROLL, -1 = POSTROLL, 1 = MIDROLL
+  private canBeAdSkippable = false;
   private currentAdBreak: AdBreak | undefined = undefined;
   private currentAdVast: VASTAd | undefined = undefined;
   private currentAd: Ad | undefined = undefined;
@@ -80,6 +81,7 @@ export class AdsManager implements google.ima.AdsManager {
     this.adsRenderingSettings = undefined;
     this.started = false;
     this.processingAdv = false;
+    this.canBeAdSkippable = false;
     this.adRemainingTime = -1;
     this.attachContentMediaEventListeners =
       this.attachContentMediaEventListeners.bind(this);
@@ -111,7 +113,7 @@ export class AdsManager implements google.ima.AdsManager {
   public expand(): void {}
   public focus(): void {}
   public getAdSkippableState(): boolean {
-    return (this.currentCreative?.skipDelay || -1) > 0;
+    return this.canBeAdSkippable;
   }
   public getCuePoints(): number[] {
     return this.cuePoints;
@@ -153,10 +155,25 @@ export class AdsManager implements google.ima.AdsManager {
     throw new Error("Method not implemented.");
   }
   public setVolume(volume: number): void {
-    throw new Error("Method not implemented.");
+    const videoAdsElement = this.adDisplayContainer.getVideoAdsElement();
+    if (!videoAdsElement) {
+      return;
+    }
+    videoAdsElement.volume = volume;
   }
   public skip(): void {
-    throw new Error("Method not implemented.");
+    const videoAdsElement = this.adDisplayContainer.getVideoAdsElement();
+    const skipDelay = this.currentCreative?.skipDelay || -1;
+    if (!videoAdsElement || skipDelay < 0 || this.adRemainingTime > skipDelay) {
+      return;
+    }
+    try {
+      videoAdsElement.pause();
+    } finally {
+      this.vastTracker?.skip();
+      this.dispatchAdsEvent(AdEvent.Type.SKIPPED);
+      this.playCreativities();
+    }
   }
   public start(): void {
     if (this.started) {
@@ -266,6 +283,7 @@ export class AdsManager implements google.ima.AdsManager {
     this.currentAd = undefined;
     this.currentCreative = undefined;
     this.adRemainingTime = -1;
+    this.canBeAdSkippable = false;
     this.detachContentMediaEventListeners();
     this.clearVideoAdsContent();
     this.adDisplayContainer.hide();
@@ -586,7 +604,9 @@ export class AdsManager implements google.ima.AdsManager {
         if (!isNaN(videoDuration) && videoDuration >= 0) {
           const currentTime = videoAdsElement.currentTime || 0;
           const percentage = currentTime / videoDuration;
-          this.adRemainingTime = videoDuration - currentTime;
+          const remainingTime = videoDuration - currentTime;
+          const skipDelay = (this.currentCreative?.skipDelay || -1) * 1000;
+          this.adRemainingTime = remainingTime;
           //this.adRemaingTime = videoDuration - currentTime;
           logger.debug(
             TAG,
@@ -607,6 +627,14 @@ export class AdsManager implements google.ima.AdsManager {
             this.dispatchAdsEvent(AdEvent.Type.THIRD_QUARTILE);
           }
           this.vastTracker?.setProgress(currentTime);
+          if (!this.canBeAdSkippable && currentTime >= skipDelay) {
+            this.canBeAdSkippable = true;
+            logger.debug(
+              TAG,
+              `video adv can be skippable: [${currentTime}] [${videoDuration}] [${skipDelay}]`
+            );
+            this.dispatchAdsEvent(AdEvent.Type.SKIPPABLE_STATE_CHANGED);
+          }
         }
         break;
       }
@@ -654,6 +682,7 @@ export class AdsManager implements google.ima.AdsManager {
       return this.playCreativities();
     }
     this.adRemainingTime = -1;
+    this.canBeAdSkippable = false;
     this.adDisplayContainer.show();
     this.adDisplayContainer.showLoader();
     this.removeVideoListeners();
