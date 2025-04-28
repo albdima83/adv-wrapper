@@ -48,6 +48,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Move dist files to a versioned folder
+        run: |
+          mkdir -p packages/lib/dist/${{ env.VERSION }}
+          mv packages/lib/dist/* packages/lib/dist/${{ env.VERSION }}/
+
       - name: Deploy dist/ to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
