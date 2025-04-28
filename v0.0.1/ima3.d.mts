@@ -691,4 +691,6 @@ interface VmapVMAP {
     };
 }
 
-export { Ad, type AdBreak, AdDisplayContainer, AdError, AdErrorEvent, AdEvent, AdPodInfo, type AdSource, type AdTagURI, AdsLoader, AdsManager, AdsManagerLoadedEvent, AdsRenderingSettings, AdsRequest, type Extensions, ImaSdkSettings, type Tracking, type TrackingEvents, ViewMode, type VmapVMAP, activateDebug, settings };
+declare const VERSION: string;
+
+export { Ad, type AdBreak, AdDisplayContainer, AdError, AdErrorEvent, AdEvent, AdPodInfo, type AdSource, type AdTagURI, AdsLoader, AdsManager, AdsManagerLoadedEvent, AdsRenderingSettings, AdsRequest, type Extensions, ImaSdkSettings, type Tracking, type TrackingEvents, VERSION, ViewMode, type VmapVMAP, activateDebug, settings };
