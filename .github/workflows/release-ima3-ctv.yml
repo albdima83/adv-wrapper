@@ -1,0 +1,53 @@
+name: Build and Release UMD ima3 CTV
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install pnpm
+        run: npm install -g pnpm@10
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Find Changed Packages
+        id: changed
+        run: |
+          echo "CHANGED_PACKAGES=$(pnpm exec changeset status --output=json | jq -r '.changes[].name' | paste -sd ',' -)" >> $GITHUB_ENV
+
+      - name: Get package name and version from tag
+        id: get_tag
+        run: |
+          echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+          echo "PACKAGE_NAME=lib} | cut -d'@' -f1)" >> $GITHUB_ENV
+          echo "PACKAGE_VERSION=$(echo ${GITHUB_REF#refs/tags/} | cut -d'@' -f2)" >> $GITHUB_ENV
+
+      - name: Build UMD
+        run: |
+          cd packages/${PACKAGE_NAME}
+          pnpm install
+          pnpm build
+
+      - name: Create GitHub Release with Auto Changelog
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true # ✨ auto "What's new" based on commits
+          files: |
+            packages/${{ env.PACKAGE_NAME }}/dist/*.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
