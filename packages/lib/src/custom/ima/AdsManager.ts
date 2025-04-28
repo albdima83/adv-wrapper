@@ -575,10 +575,10 @@ export class AdsManager implements google.ima.AdsManager {
           this.quartilesFired.start = true;
           this.dispatchAdsEvent(AdEvent.Type.STARTED);
         }
-
         break;
       }
       case "pause": {
+        this.dispatchAdsEvent(AdEvent.Type.PAUSED);
         break;
       }
       case "timeupdate": {
@@ -650,7 +650,8 @@ export class AdsManager implements google.ima.AdsManager {
   private async playAdsContent(src: string): Promise<void> {
     const videoAdsElement = this.adDisplayContainer.getVideoAdsElement();
     if (!videoAdsElement) {
-      return;
+      logger.error(TAG, "playAdsContent no Video Ads Element: ");
+      return this.playCreativities();
     }
     this.adRemainingTime = -1;
     this.adDisplayContainer.show();
