@@ -1,5 +1,10 @@
 // region GLOBAL
-declare global {}
+declare global {
+  interface Window {
+    google?: unknown;
+    GoogleIma?: unknown;
+  }
+}
 // end region
 
 export {};
