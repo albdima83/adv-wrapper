@@ -1,3 +1,8 @@
+/**
+ * Utility to preload Video
+ * @param video @type {HTMLVideoElement}
+ * @returns
+ */
 export function preloadVideo(video: HTMLVideoElement): Promise<void> {
   return new Promise((resolve, reject) => {
     video.preload = "auto";

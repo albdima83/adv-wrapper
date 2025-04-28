@@ -18,6 +18,9 @@ const MAP_CONSOLE_FN: Record<LogLevel, typeof console.log> = {
   trace: console.trace || console.log,
 };
 
+/**
+ * Simple AdsLogger to formatted log and use speiecific console function if it is supported
+ */
 class AdsLogger {
   private enable: boolean;
   private level: LogLevel;
