@@ -5,6 +5,7 @@ import { AdsManager } from "./AdsManager";
 import { AdsManagerLoadedEvent } from "./AdsManagerLoadedEvent";
 import { AdsRequest } from "./AdsRequest";
 import { ImaSdkSettings } from "./ImaSdkSettings";
+import { version } from "../../../package.json";
 
 export class AdsLoader implements google.ima.AdsLoader {
   private adDisplayContainer: AdDisplayContainer;
@@ -37,7 +38,7 @@ export class AdsLoader implements google.ima.AdsLoader {
     return this.imaSdkSettings;
   }
   public getVersion(): string {
-    return "1.0.0";
+    return `custom/${version}}`;
   }
   public removeEventListener(
     type: string,
