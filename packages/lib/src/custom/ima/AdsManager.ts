@@ -316,8 +316,6 @@ export class AdsManager implements google.ima.AdsManager {
             mediaFile.fileURL
           ) {
             this.currentCreative = creative;
-            console.log("@@@@@@ CREATIVE");
-            console.log(this.currentCreative);
             this.vastTracker = new VASTTracker(
               null,
               this.currentAdVast,
@@ -567,6 +565,11 @@ export class AdsManager implements google.ima.AdsManager {
         this.nextAds = adsSlot;
         this.totalAds = totalAds;
         this.totalTimeAds = totalDuration;
+        if (this.nextAds.length === 0) {
+          this.allAdsCompleted();
+        } else {
+          this.playCreativities();
+        }
       }
     } catch (error) {
       logger.error(TAG, "fetchVastAds error:", error);
