@@ -223,6 +223,9 @@ export class AdDisplayContainer implements google.ima.AdDisplayContainer {
     videoAdsElement.style.left = "0";
     videoAdsElement.style.right = "0";
     videoAdsElement.style.bottom = "0";
+    videoAdsElement.style.width = "100%";
+    videoAdsElement.style.height = "100%";
+    videoAdsElement.style.objectFit = "cover";
     videoAdsElement.style.background = "black";
     videoAdsElement.controls = false;
     videoAdsElement.playsInline = false;
