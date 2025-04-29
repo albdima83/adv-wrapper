@@ -146,7 +146,6 @@ export class AdDisplayContainer implements google.ima.AdDisplayContainer {
       return;
     }
     videoAdsElement.style.display = "none";
-    videoAdsElement.style.background = "black";
     videoAdsElement.autoplay = false;
     videoAdsElement.pause();
     videoAdsElement.src = "";
@@ -163,11 +162,11 @@ export class AdDisplayContainer implements google.ima.AdDisplayContainer {
       document.createElement("div");
     advContainer.id = "adm-adv-container";
     advContainer.style.position = "absolute";
+    advContainer.style.inset = "0";
     advContainer.style.top = "0";
     advContainer.style.left = "0";
-    /* @TODO: undestand if this is needed */
-    advContainer.style.width = "100%";
-    advContainer.style.height = "100%";
+    advContainer.style.right = "0";
+    advContainer.style.bottom = "0";
     advContainer.style.background = "rgb(0,0,0)";
     advContainer.style.display = "none";
     adContainer.appendChild(advContainer);
@@ -219,15 +218,14 @@ export class AdDisplayContainer implements google.ima.AdDisplayContainer {
       document.createElement("video");
     videoAdsElement.id = "adm-video-ads";
     videoAdsElement.style.position = "absolute";
+    videoAdsElement.style.inset = "0";
     videoAdsElement.style.top = "0";
     videoAdsElement.style.left = "0";
-    videoAdsElement.style.width = "100%";
-    videoAdsElement.style.height = "100%";
-    videoAdsElement.style = "background: black;";
+    videoAdsElement.style.right = "0";
+    videoAdsElement.style.bottom = "0";
+    videoAdsElement.style.background = "black";
     videoAdsElement.controls = false;
     videoAdsElement.playsInline = false;
-    videoAdsElement.poster =
-      "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
     videoAdsElement.setAttribute("disablePictureInPicture", "");
     videoAdsElement.setAttribute("disableRemotePlayback", "");
     videoAdsElement.setAttribute("playsinline", "false");
