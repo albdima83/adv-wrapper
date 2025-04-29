@@ -121,17 +121,33 @@ export class AdDisplayContainer implements google.ima.AdDisplayContainer {
     adsSpinnerElement.style.visibility = "none";
   }
 
-  public clearAdsVideoElement(): void {
+  public hideAdVideoElement(): void {
+    const videoAdsElement = this.videoAdsElement;
+    if (!videoAdsElement) {
+      return;
+    }
+    videoAdsElement.style.visibility = "hidden";
+    videoAdsElement.style.opacity = "0";
+  }
+
+  public showAdVideoElement(): void {
+    const videoAdsElement = this.videoAdsElement;
+    if (!videoAdsElement) {
+      return;
+    }
+    videoAdsElement.style.display = "block";
+    videoAdsElement.style.visibility = "visible";
+    videoAdsElement.style.opacity = "1";
+  }
+
+  public clearAdVideoElement(): void {
     const videoAdsElement = this.videoAdsElement;
     if (!videoAdsElement) {
       return;
     }
     videoAdsElement.style.display = "none";
-    videoAdsElement.style = "background: black;";
-    videoAdsElement.poster =
-      "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
+    videoAdsElement.style.background = "black";
     videoAdsElement.autoplay = false;
-    videoAdsElement.removeAttribute("poster");
     videoAdsElement.pause();
     videoAdsElement.src = "";
     videoAdsElement.load();

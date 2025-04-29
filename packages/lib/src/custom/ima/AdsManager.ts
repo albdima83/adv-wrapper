@@ -294,8 +294,8 @@ export class AdsManager implements google.ima.AdsManager {
     this.adRemainingTime = -1;
     this.canBeAdSkippable = false;
     this.detachContentMediaEventListeners();
-    this.clearVideoAdsContent();
-    this.adDisplayContainer.hide();
+    this.adDisplayContainer?.clearAdVideoElement();
+    this.adDisplayContainer?.hide();
     this.processingAdv = false;
     this.dispatchAdsEvent(AdEvent.Type.CONTENT_RESUME_REQUESTED);
   }
@@ -677,11 +677,9 @@ export class AdsManager implements google.ima.AdsManager {
   }
 
   private adsVideoErrorListener(ev: Event): void {
-    this.clearVideoAdsContent();
-  }
-
-  private clearVideoAdsContent(): void {
-    this.adDisplayContainer?.clearAdsVideoElement();
+    this.adDisplayContainer?.hideAdVideoElement();
+    this.adDisplayContainer?.clearAdVideoElement();
+    this.playCreativities();
   }
 
   private resetQuartilesFired(): void {
@@ -705,21 +703,22 @@ export class AdsManager implements google.ima.AdsManager {
     this.canBeAdSkippable = false;
     this.resetQuartilesFired();
     this.removeVideoListeners();
-    this.adDisplayContainer.show();
-    this.adDisplayContainer.showLoader();
-    this.clearVideoAdsContent();
+    this.adDisplayContainer?.show();
+    this.adDisplayContainer?.showLoader();
+    this.adDisplayContainer?.hideAdVideoElement();
     videoAdsElement.src = src;
     videoAdsElement.autoplay = true;
     try {
       await preloadVideo(videoAdsElement);
       await videoAdsElement.play();
-      videoAdsElement.style.display = "block";
       this.addVideoListeners();
-      this.adDisplayContainer.hideLoader();
+      this.adDisplayContainer?.showAdVideoElement();
+      this.adDisplayContainer?.hideLoader();
       this.dispatchAdsEvent(AdEvent.Type.AD_CAN_PLAY);
     } catch (error) {
       logger.error(TAG, "playAdsContent error: ", error);
       this.dispatchAdsEvent(AdEvent.Type.AD_BREAK_FETCH_ERROR);
+      this.adDisplayContainer?.hideAdVideoElement();
       this.playCreativities();
     } finally {
       this.adDisplayContainer.hideLoader();
