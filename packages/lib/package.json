@@ -16,6 +16,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsup  --watch",
     "build": "tsup",
+    "postbuild": "cp ./dist/ima3.js ./dist/ima3.global.js",
     "serve": "http-server ./dist -p 8083 -c-1 --log-ip --cors",
     "ngrok:lib": "ngrok http 8083 --region eu --scheme https --domain=ctv.mplay.it"
   },
