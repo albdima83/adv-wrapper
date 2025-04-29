@@ -284,6 +284,7 @@ export class AdsManager implements google.ima.AdsManager {
 
   private allAdsCompleted(): void {
     this.dispatchAdsEvent(AdEvent.Type.ALL_ADS_COMPLETED);
+    this.removeVideoListeners();
     this.nextAds = [];
     this.queueCreatives = [];
     this.vastTracker = undefined;
