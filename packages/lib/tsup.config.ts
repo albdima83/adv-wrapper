@@ -19,6 +19,11 @@ export default defineConfig({
     ),
     "process.env.LOG_LEVEL": JSON.stringify(process.env.LOG_LEVEL || "error"),
   },
+  outExtension({ format }) {
+    return {
+      js: format === "iife" ? ".js" : `.${format}.js`,
+    };
+  },
   onSuccess: (): Promise<void | (() => void | Promise<void>) | undefined> => {
     const code = `
     (function(){
@@ -27,7 +32,7 @@ export default defineConfig({
         window.google.ima = window.GoogleIma;
       }
     })();`;
-    appendFileSync("dist/ima3.global.js", code);
+    appendFileSync("dist/ima3.js", code);
     return Promise.resolve();
   },
 });
