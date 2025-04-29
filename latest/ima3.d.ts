@@ -179,7 +179,9 @@ declare class AdDisplayContainer implements google.ima.AdDisplayContainer {
     hide(): void;
     showLoader(): void;
     hideLoader(): void;
-    clearAdsVideoElement(): void;
+    hideAdVideoElement(): void;
+    showAdVideoElement(): void;
+    clearAdVideoElement(): void;
     private createAdsContainer;
     private createAdsSpinner;
     private createAdsVideoElement;
@@ -804,7 +806,6 @@ declare class AdsManager implements google.ima.AdsManager {
     private dispatchAdsEvent;
     private adsVideoEventsListener;
     private adsVideoErrorListener;
-    private clearVideoAdsContent;
     private resetQuartilesFired;
     private playAdsContent;
     private addVideoListeners;
