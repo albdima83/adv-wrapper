@@ -179,6 +179,7 @@ declare class AdDisplayContainer implements google.ima.AdDisplayContainer {
     hide(): void;
     showLoader(): void;
     hideLoader(): void;
+    clearAdsVideoElement(): void;
     private createAdsContainer;
     private createAdsSpinner;
     private createAdsVideoElement;
@@ -757,6 +758,7 @@ declare class AdsManager implements google.ima.AdsManager {
     private processingAdv;
     private timerUpdateContentTime;
     private adRemainingTime;
+    private adDuration;
     private quartilesFired;
     constructor(adsRequest: AdsRequest, adDisplayContainer: AdDisplayContainer);
     collapse(): void;
