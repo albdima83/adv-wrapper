@@ -686,6 +686,8 @@ export class AdsManager implements google.ima.AdsManager {
       return;
     }
     videoAdsElement.autoplay = false;
+    videoAdsElement.style.display = "none";
+    videoAdsElement.removeAttribute("poster");
     videoAdsElement.pause();
     videoAdsElement.src = "";
     videoAdsElement.load();
@@ -714,11 +716,14 @@ export class AdsManager implements google.ima.AdsManager {
     this.adDisplayContainer.showLoader();
     this.removeVideoListeners();
     this.resetQuartilesFired();
-    videoAdsElement.autoplay = true;
+    videoAdsElement.style.display = "none";
+    videoAdsElement.removeAttribute("poster");
     videoAdsElement.src = src;
+    videoAdsElement.autoplay = true;
     try {
       await preloadVideo(videoAdsElement);
       await videoAdsElement.play();
+      videoAdsElement.style.display = "block";
       this.addVideoListeners();
       this.adDisplayContainer.hideLoader();
       this.dispatchAdsEvent(AdEvent.Type.AD_CAN_PLAY);
