@@ -107,6 +107,7 @@ export class AdsManager implements google.ima.AdsManager {
   }
 
   public destroy(): void {
+    this.detachContentMediaEventListeners();
     this.eventEmitter.clearAllEventListeners();
     this.content = undefined;
     this.adsRenderingSettings = undefined;
@@ -283,8 +284,8 @@ export class AdsManager implements google.ima.AdsManager {
   }
 
   private allAdsCompleted(): void {
-    this.dispatchAdsEvent(AdEvent.Type.ALL_ADS_COMPLETED);
     this.removeVideoListeners();
+    this.dispatchAdsEvent(AdEvent.Type.ALL_ADS_COMPLETED);
     this.nextAds = [];
     this.queueCreatives = [];
     this.vastTracker = undefined;
@@ -294,7 +295,7 @@ export class AdsManager implements google.ima.AdsManager {
     this.currentCreative = undefined;
     this.adRemainingTime = -1;
     this.canBeAdSkippable = false;
-    this.detachContentMediaEventListeners();
+    this.adDisplayContainer?.hideAdVideoElement();
     this.adDisplayContainer?.clearAdVideoElement();
     this.adDisplayContainer?.hide();
     this.processingAdv = false;
