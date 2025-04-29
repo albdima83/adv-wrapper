@@ -79,7 +79,7 @@ export default defineConfig(() => {
         const code = fs.readFileSync(file, "utf8");
         fs.writeFileSync(
           file,
-          `/* CJS | Version: ${version} | Commit: ${commit} */\n${code}\n/* Built on ${now} */`,
+          `/* UMD | Version: ${version} | Commit: ${commit} */\n${code}\n/* Built on ${now} */`,
           "utf8"
         );
         return Promise.resolve();
