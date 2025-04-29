@@ -1,3 +1,5 @@
+import { AdError } from "./AdError";
+
 export namespace AdErrorEvent {
   export enum Type {
     /**
@@ -10,12 +12,22 @@ export namespace AdErrorEvent {
     target?: object | null | undefined;
     currentTarget?: object | null | undefined;
     type: string = Type.AD_ERROR;
+    private adError: AdError.AdError | undefined;
+    private userRequestContext: object | undefined;
+
+    constructor(
+      adError: AdError.AdError | undefined,
+      userRequestContext?: object | undefined
+    ) {
+      this.adError = adError;
+      this.userRequestContext = userRequestContext;
+    }
 
     getError(): google.ima.AdError | null {
-      return null;
+      return this.adError || null;
     }
     getUserRequestContext(): object | null {
-      return null;
+      return this.userRequestContext || null;
     }
 
     preventDefault(): void {}
