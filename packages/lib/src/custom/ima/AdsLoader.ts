@@ -1,12 +1,14 @@
 import { EventEmitter } from "../utils/eventEmitter";
+import logger from "../utils/logger";
 import { AdDisplayContainer } from "./AdDisplayContainer";
 import { AdError } from "./AdError";
+import { AdErrorEvent } from "./AdErrorEvent";
 import { AdsManager } from "./AdsManager";
 import { AdsManagerLoadedEvent } from "./AdsManagerLoadedEvent";
 import { AdsRequest } from "./AdsRequest";
 import { ImaSdkSettings } from "./ImaSdkSettings";
-//import { version } from "../../../package.json";
 
+const TAG = "ima:AdsLoader";
 export class AdsLoader implements google.ima.AdsLoader {
   private adDisplayContainer: AdDisplayContainer;
   private adsManager: AdsManager | undefined = undefined;
@@ -56,11 +58,14 @@ export class AdsLoader implements google.ima.AdsLoader {
     this.userRequestContext = userRequestContext || undefined;
     const adTagUrl = adsRequest.adTagUrl;
     if (!adTagUrl) {
-      const adError = new AdError(
+      const adError = new AdError.AdError(
         google.ima.AdError.ErrorCode.FAILED_TO_REQUEST_ADS,
-        "Admanegger is already defined or adTagUrl is not defined"
+        "AdManager is already defined or adTagUrl is not defined"
       );
-      this.eventEmitter.emit(google.ima.AdErrorEvent.Type.AD_ERROR, adError);
+      this.eventEmitter.emit(
+        google.ima.AdErrorEvent.Type.AD_ERROR,
+        new AdErrorEvent.AdErrorEvent(adError)
+      );
       return;
     }
     this.adsManager = new AdsManager(adsRequest, this.adDisplayContainer);
@@ -74,9 +79,15 @@ export class AdsLoader implements google.ima.AdsLoader {
         );
       })
       .catch((error) => {
-        const adError = new AdError(
+        const nessage = error.message || "Unable to retrive vmap files";
+        const adError = new AdError.AdError(
           google.ima.AdError.ErrorCode.FAILED_TO_REQUEST_ADS,
-          error.message
+          error.message || "Unable to retrive vmap files"
+        );
+        logger.error(TAG, nessage, adError);
+        return this.eventEmitter.emit(
+          google.ima.AdErrorEvent.Type.AD_ERROR,
+          new AdErrorEvent.AdErrorEvent(adError)
         );
       });
   }
