@@ -1,38 +1,89 @@
 import { defineConfig } from "tsup";
-import { appendFileSync } from "fs";
+import { version } from "./package.json";
+import { execSync } from "child_process";
+import * as fs from "fs";
 
-export default defineConfig({
-  entry: ["src/ima3.ts"],
-  format: ["cjs", "esm", "iife"],
-  dts: true,
-  clean: true,
-  outDir: "dist",
-  globalName: "GoogleIma",
-  target: "es5",
-  external: ["node:os", "node:path", "node:fs"],
-  minify: true,
-  define: {
+export default defineConfig(() => {
+  const now = new Date().toISOString();
+  const commit =
+    process.env.GIT_COMMIT ||
+    execSync("git rev-parse --short HEAD").toString().trim();
+  const define = {
     "process.env": "{}",
     process: "{}",
     "process.env.NODE_ENV": JSON.stringify(
       process.env.NODE_ENV || "production"
     ),
     "process.env.LOG_LEVEL": JSON.stringify(process.env.LOG_LEVEL || "error"),
-  },
-  outExtension({ format }) {
-    return {
-      js: format === "iife" ? ".js" : `.${format}.js`,
-    };
-  },
-  onSuccess: (): Promise<void | (() => void | Promise<void>) | undefined> => {
-    const code = `
-    (function(){
-      if (typeof window !== 'undefined') {
-        window.google = window.google || {};
-        window.google.ima = window.GoogleIma;
-      }
-    })();`;
-    appendFileSync("dist/ima3.js", code);
-    return Promise.resolve();
-  },
+    __VERSION__: `'${version}'`,
+    __COMMIT__: `'${commit}'`,
+  };
+
+  return [
+    // ESM
+    {
+      entry: ["src/ima3.ts"],
+      format: ["esm"],
+      outDir: "dist",
+      target: "esnext",
+      outExtension: () => ({ js: ".esm.js" }),
+      bundle: true,
+      minify: true,
+      define,
+      banner: {
+        js: `/* ESM | Version: ${version} | Commit: ${commit} */`,
+      },
+      footer: {
+        js: `/* Built on ${now} */`,
+      },
+    },
+    // CJS
+    {
+      entry: ["src/ima3.ts"],
+      format: ["cjs"],
+      outDir: "dist",
+      target: "node14",
+      outExtension: () => ({ js: ".esm.cjs" }),
+      bundle: true,
+      minify: true,
+      define,
+      banner: {
+        js: `/* CJS | Version: ${version} | Commit: ${commit} */`,
+      },
+      footer: {
+        js: `/* Built on ${now} */`,
+      },
+    },
+    // IIFE
+    {
+      entry: ["src/ima3.ts"],
+      format: ["iife"],
+      outDir: "dist",
+      globalName: "GoogleIma",
+      target: "es5",
+      outExtension: () => ({ js: ".js" }),
+      bundle: true,
+      minify: true,
+      define,
+      footer: {
+        js: `
+      (function(){
+        if (typeof window !== 'undefined') {
+          window.google = window.google || {};
+          window.google.ima = window.GoogleIma;
+        }
+      })();`,
+      },
+      onSuccess: () => {
+        const file = "dist/ima3.js"; // Adjust path as needed
+        const code = fs.readFileSync(file, "utf8");
+        fs.writeFileSync(
+          file,
+          `/* CJS | Version: ${version} | Commit: ${commit} */\n${code}\n/* Built on ${now} */`,
+          "utf8"
+        );
+        return Promise.resolve();
+      },
+    },
+  ];
 });
