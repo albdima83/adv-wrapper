@@ -121,6 +121,22 @@ export class AdDisplayContainer implements google.ima.AdDisplayContainer {
     adsSpinnerElement.style.visibility = "none";
   }
 
+  public clearAdsVideoElement(): void {
+    const videoAdsElement = this.videoAdsElement;
+    if (!videoAdsElement) {
+      return;
+    }
+    videoAdsElement.style.display = "none";
+    videoAdsElement.style = "background: black;";
+    videoAdsElement.poster =
+      "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
+    videoAdsElement.autoplay = false;
+    videoAdsElement.removeAttribute("poster");
+    videoAdsElement.pause();
+    videoAdsElement.src = "";
+    videoAdsElement.load();
+  }
+
   private createAdsContainer(): HTMLElement | undefined {
     const adContainer = this.adContainer;
     if (!adContainer) {
@@ -191,12 +207,15 @@ export class AdDisplayContainer implements google.ima.AdDisplayContainer {
     videoAdsElement.style.left = "0";
     videoAdsElement.style.width = "100%";
     videoAdsElement.style.height = "100%";
+    videoAdsElement.style = "background: black;";
     videoAdsElement.controls = false;
     videoAdsElement.playsInline = false;
+    videoAdsElement.poster =
+      "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
     videoAdsElement.setAttribute("disablePictureInPicture", "");
     videoAdsElement.setAttribute("disableRemotePlayback", "");
     videoAdsElement.setAttribute("playsinline", "false");
-    videoAdsElement.setAttribute("webkit-playsinline", "true");
+    videoAdsElement.setAttribute("webkit-playsinline", "false");
     videoAdsElement.setAttribute("x-webkit-airplay", "allow");
     videoAdsElement.setAttribute("object", "fit");
     videoAdsElement.removeAttribute("controls");

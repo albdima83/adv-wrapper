@@ -681,16 +681,7 @@ export class AdsManager implements google.ima.AdsManager {
   }
 
   private clearVideoAdsContent(): void {
-    const videoAdsElement = this.adDisplayContainer.getVideoAdsElement();
-    if (!videoAdsElement) {
-      return;
-    }
-    videoAdsElement.autoplay = false;
-    videoAdsElement.style.display = "none";
-    videoAdsElement.removeAttribute("poster");
-    videoAdsElement.pause();
-    videoAdsElement.src = "";
-    videoAdsElement.load();
+    this.adDisplayContainer?.clearAdsVideoElement();
   }
 
   private resetQuartilesFired(): void {
@@ -712,12 +703,11 @@ export class AdsManager implements google.ima.AdsManager {
     this.adRemainingTime = -1;
     this.adDuration = -1;
     this.canBeAdSkippable = false;
+    this.resetQuartilesFired();
+    this.removeVideoListeners();
     this.adDisplayContainer.show();
     this.adDisplayContainer.showLoader();
-    this.removeVideoListeners();
-    this.resetQuartilesFired();
-    videoAdsElement.style.display = "none";
-    videoAdsElement.removeAttribute("poster");
+    this.clearVideoAdsContent();
     videoAdsElement.src = src;
     videoAdsElement.autoplay = true;
     try {
