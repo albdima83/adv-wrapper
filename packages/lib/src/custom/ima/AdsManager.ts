@@ -63,6 +63,7 @@ export class AdsManager implements google.ima.AdsManager {
   private timerUpdateContentTime: ReturnType<typeof setTimeout> | undefined =
     undefined;
   private adRemainingTime: number = -1;
+  private adDuration: number = -1;
   private quartilesFired = {
     start: false,
     firstQuartile: false,
@@ -83,6 +84,7 @@ export class AdsManager implements google.ima.AdsManager {
     this.processingAdv = false;
     this.canBeAdSkippable = false;
     this.adRemainingTime = -1;
+    this.adDuration = -1;
     this.fetchVmap = this.fetchVmap.bind(this);
     this.attachContentMediaEventListeners =
       this.attachContentMediaEventListeners.bind(this);
@@ -168,7 +170,8 @@ export class AdsManager implements google.ima.AdsManager {
     if (
       !videoAdsElement ||
       skipDelay <= 0 ||
-      this.adRemainingTime > skipDelay
+      (this.adRemainingTime > skipDelay &&
+        this.adRemainingTime < this.adDuration)
     ) {
       return;
     }
@@ -618,6 +621,7 @@ export class AdsManager implements google.ima.AdsManager {
           const remainingTime = videoDuration - currentTime;
           const skipDelay = this.currentCreative?.skipDelay || 0;
           this.adRemainingTime = remainingTime;
+          this.adDuration = videoDuration;
           //this.adRemaingTime = videoDuration - currentTime;
           logger.debug(
             TAG,
@@ -659,6 +663,8 @@ export class AdsManager implements google.ima.AdsManager {
         break;
       }
       case "ended": {
+        this.adRemainingTime = -1;
+        this.adDuration = -1;
         if (!this.quartilesFired.complete) {
           this.quartilesFired.complete = true;
           this.dispatchAdsEvent(AdEvent.Type.COMPLETE);
@@ -702,6 +708,7 @@ export class AdsManager implements google.ima.AdsManager {
       return this.playCreativities();
     }
     this.adRemainingTime = -1;
+    this.adDuration = -1;
     this.canBeAdSkippable = false;
     this.adDisplayContainer.show();
     this.adDisplayContainer.showLoader();
