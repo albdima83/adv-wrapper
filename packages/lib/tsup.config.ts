@@ -7,6 +7,7 @@ export default defineConfig(() => {
   const now = new Date().toISOString();
   const commit =
     process.env.GIT_COMMIT ||
+    process.env.CODEBUILD_RESOLVED_SOURCE_VERSION ||
     execSync("git rev-parse --short HEAD").toString().trim();
   const define = {
     "process.env": "{}",
