@@ -236,13 +236,13 @@ export namespace AdError {
       return new Error(this.message);
     }
     getMessage(): string {
-      throw this.message;
+      return this.message;
     }
     getType(): string {
-      throw "";
+      return "";
     }
     getVastErrorCode(): number {
-      throw this.code;
+      return this.code;
     }
   }
 }
