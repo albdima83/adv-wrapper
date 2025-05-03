@@ -36,7 +36,9 @@ jobs:
         id: get_version
         run: |
           VERSION=$(node -p "require('./packages/lib/package.json').version")
+          MAJOR=$(echo "$VERSION" | cut -d. -f1)
           echo "VERSION=v$VERSION" >> $GITHUB_ENV
+          echo "MAJOR=v$MAJOR" >> $GITHUB_ENV
 
       - name: Create GitHub Release with Auto Changelog
         uses: softprops/action-gh-release@v2
@@ -50,8 +52,8 @@ jobs:
 
       - name: Move dist files to a versioned folder
         run: |
-          mkdir -p packages/lib/dist/${{ env.VERSION }}
-          find packages/lib/dist -maxdepth 1 -type f -exec mv {} packages/lib/dist/${{ env.VERSION }}/ \;
+          mkdir -p packages/lib/dist/${{ env.MAJOR }}
+          find packages/lib/dist -maxdepth 1 -type f -exec mv {} packages/lib/dist/${{ env.MAJOR }}/ \;
 
       - name: Copy versioned files to latest folder
         run: |
