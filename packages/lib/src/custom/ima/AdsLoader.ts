@@ -14,7 +14,7 @@ export class AdsLoader implements google.ima.AdsLoader {
   private adsManager: AdsManager | undefined = undefined;
   private eventEmitter: EventEmitter;
   private userRequestContext: object | undefined = undefined;
-  private imaSdkSettings = new ImaSdkSettings.ImaSdkSettings();
+  private imaSdkSettings = new ImaSdkSettings();
 
   constructor(adDisplayContainer: AdDisplayContainer) {
     this.adDisplayContainer = adDisplayContainer;
