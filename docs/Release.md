@@ -28,10 +28,4 @@ pnpm changeset version
 pnpm build
 ```
 
-- Publish to NPM in the correct order
-
-```shell
-pnpm changeset publish
-```
-
 3. Make a Pull Request from **develop** to **main**
