@@ -1,5 +1,5 @@
 export interface EventListener {
-  handler: Function;
+  handler: (...args: unknown[]) => void;
   scope: object | null;
   capture: boolean;
 }
@@ -7,10 +7,12 @@ export interface EventListener {
 export class EventEmitter {
   private listeners: { [event: string]: EventListener[] } = {};
 
-  // Add an event listener
   public addEventListener(
     type: string,
-    handler: null | object,
+    handler:
+      | { handleEvent?: (...args: unknown[]) => void }
+      | ((...args: unknown[]) => void)
+      | null,
     capture: boolean = false,
     handlerScope: object | null = null
   ): void {
@@ -18,59 +20,57 @@ export class EventEmitter {
       throw new Error("Handler cannot be null");
     }
 
-    // If the event doesn't exist, initialize an empty array for it
     if (!this.listeners[type]) {
       this.listeners[type] = [];
     }
 
-    // Add the listener
+    const extractedHandler =
+      typeof handler === "function" ? handler : handler.handleEvent;
+
+    if (typeof extractedHandler !== "function") {
+      throw new Error(
+        "Handler must be a function or have a handleEvent method"
+      );
+    }
+
     this.listeners[type].push({
-      handler:
-        handler instanceof Function
-          ? handler
-          : (handler as { handleEvent: Function })?.handleEvent,
+      handler: extractedHandler,
       scope: handlerScope,
       capture,
     });
   }
 
-  // Emit an event
   public emit(type: string, ...args: unknown[]): void {
     if (this.listeners[type]) {
       this.listeners[type].forEach((listener) => {
-        // Call the handler in the context of the scope, if defined
         listener.handler.apply(listener.scope, args);
       });
     }
   }
 
-  // Remove a specific event listener
   public removeEventListener(
     type: string,
-    handler: null | object,
+    handler:
+      | { handleEvent?: (...args: unknown[]) => void }
+      | ((...args: unknown[]) => void)
+      | null,
     capture: boolean = false
   ): void {
-    if (!this.listeners[type]) return;
+    if (!this.listeners[type] || handler === null) return;
 
-    // Filter out the listener by the handler and capture flag
+    const extractedHandler =
+      typeof handler === "function" ? handler : handler.handleEvent;
+
     this.listeners[type] = this.listeners[type].filter(
       (listener) =>
-        listener.handler !==
-          (handler instanceof Function
-            ? handler
-            : (handler as { handleEvent: Function })?.handleEvent) ||
-        listener.capture !== capture
+        listener.handler !== extractedHandler || listener.capture !== capture
     );
   }
 
-  // Clear all event listeners for a specific event type
   public clearEventListeners(type: string): void {
-    if (this.listeners[type]) {
-      delete this.listeners[type];
-    }
+    delete this.listeners[type];
   }
 
-  // Clear all event listeners for all event types
   public clearAllEventListeners(): void {
     this.listeners = {};
   }
