@@ -1,3 +1,6 @@
+import logger from "../utils/logger";
+
+const TAG = "ima:AdsRequest";
 class AdsRequest implements google.ima.AdsRequest {
   /**
    * Specifies the ad tag url that is requested from the ad server.
@@ -142,7 +145,9 @@ class AdsRequest implements google.ima.AdsRequest {
    * @param autoPlay Whether the content and the ad will be autoplayed or
    *     whether it will be started by a user action.
    */
-  setAdWillAutoPlay(autoPlay: boolean): void {}
+  setAdWillAutoPlay(autoPlay: boolean): void {
+    logger.debug(TAG, `setAdWillAutoPlay [${autoPlay}]`);
+  }
 
   /**
    * Notifies the SDK whether the player intends to start ad while muted.
@@ -152,7 +157,9 @@ class AdsRequest implements google.ima.AdsRequest {
    * @param muted Whether the ad will be played while muted.
    */
 
-  setAdWillPlayMuted(muted: boolean): void {}
+  setAdWillPlayMuted(muted: boolean): void {
+    logger.debug(TAG, `setAdWillPlayMuted [${muted}]`);
+  }
 
   /**
    * Notifies the SDK whether the player intends to continuously play the
@@ -163,7 +170,9 @@ class AdsRequest implements google.ima.AdsRequest {
    * @param continuousPlayback Whether the content video is played one after
    *     another continuously.
    */
-  setContinuousPlayback(continuousPlayback: boolean): void {}
+  setContinuousPlayback(continuousPlayback: boolean): void {
+    logger.debug(TAG, `setContinuousPlayback [${continuousPlayback}]`);
+  }
 }
 
 export { AdsRequest };

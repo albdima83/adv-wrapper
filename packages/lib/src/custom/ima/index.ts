@@ -1,18 +1,7 @@
 import { settings } from "./settings";
+import { google_ima_ViewMode } from "@lib/generated";
 
-enum ViewMode {
-  /**
-   * Fullscreen ad view mode. Indicates to the ads manager that the publisher
-   * considers the current AdDisplayContainer arrangement as fullscreen (for
-   * example, simulated fullscreen). This does not cause the ads manager to
-   * enter fullscreen.
-   */
-  FULLSCREEN = "fullscreen",
-  /**
-   * Normal ad view mode.
-   */
-  NORMAL = "normal",
-}
+const ViewMode = google_ima_ViewMode;
 
 export * from "./Ad";
 export * from "./AdDisplayContainer";

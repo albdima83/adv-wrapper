@@ -1,6 +1,8 @@
 import { VASTAd, VASTCreative, VASTMediaFile } from "@dailymotion/vast-client";
 import { AdPodInfo } from "./AdPodInfo";
+import logger from "../utils/logger";
 
+const TAG = "ima:Ad";
 export class Ad implements google.ima.Ad {
   private adId: string;
   private adPodInfo: AdPodInfo;
@@ -93,6 +95,11 @@ export class Ad implements google.ima.Ad {
     adSlotHeight: number,
     settings?: google.ima.CompanionAdSelectionSettings
   ): google.ima.CompanionAd[] {
+    logger.debug(
+      TAG,
+      `Ad adSlotWidth:[${adSlotWidth}] adSlotHeight[${adSlotHeight}] settings:`,
+      settings
+    );
     return this.companionAds;
   }
   getCreativeAdId(): string {

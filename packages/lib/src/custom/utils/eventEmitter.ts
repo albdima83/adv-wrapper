@@ -35,7 +35,7 @@ export class EventEmitter {
   }
 
   // Emit an event
-  public emit(type: string, ...args: any[]): void {
+  public emit(type: string, ...args: unknown[]): void {
     if (this.listeners[type]) {
       this.listeners[type].forEach((listener) => {
         // Call the handler in the context of the scope, if defined

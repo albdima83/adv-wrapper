@@ -33,6 +33,7 @@ export class AdsLoader implements google.ima.AdsLoader {
   public contentComplete(): void {}
 
   public dispatchEvent(event: Event | null): boolean {
+    logger.debug(TAG, "dispatchEvent", event);
     return true;
   }
 
@@ -42,6 +43,8 @@ export class AdsLoader implements google.ima.AdsLoader {
   public getVersion(): string {
     return `custom`;
   }
+
+  /* eslint-disable @typescript-eslint/no-unused-vars */
   public removeEventListener(
     type: string,
     handler: null | object,
@@ -58,13 +61,13 @@ export class AdsLoader implements google.ima.AdsLoader {
     this.userRequestContext = userRequestContext || undefined;
     const adTagUrl = adsRequest.adTagUrl;
     if (!adTagUrl) {
-      const adError = new AdError.AdError(
+      const adError = new AdError(
         google.ima.AdError.ErrorCode.FAILED_TO_REQUEST_ADS,
         "AdManager is already defined or adTagUrl is not defined"
       );
       this.eventEmitter.emit(
         google.ima.AdErrorEvent.Type.AD_ERROR,
-        new AdErrorEvent.AdErrorEvent(adError)
+        new AdErrorEvent(adError)
       );
       return;
     }
@@ -75,19 +78,19 @@ export class AdsLoader implements google.ima.AdsLoader {
         this.adsManager = _adsManager;
         return this.eventEmitter.emit(
           google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
-          new AdsManagerLoadedEvent.AdsManagerLoadedEvent(_adsManager)
+          new AdsManagerLoadedEvent(_adsManager)
         );
       })
       .catch((error) => {
         const nessage = error.message || "Unable to retrive vmap files";
-        const adError = new AdError.AdError(
+        const adError = new AdError(
           google.ima.AdError.ErrorCode.FAILED_TO_REQUEST_ADS,
           error.message || "Unable to retrive vmap files"
         );
         logger.error(TAG, nessage, adError);
         return this.eventEmitter.emit(
           google.ima.AdErrorEvent.Type.AD_ERROR,
-          new AdErrorEvent.AdErrorEvent(adError)
+          new AdErrorEvent(adError)
         );
       });
   }

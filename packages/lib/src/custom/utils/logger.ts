@@ -30,19 +30,19 @@ class AdsLogger {
     this.level = config.level || "info";
   }
 
-  public debug(tag: string, message: string, ...args: any[]) {
+  public debug(tag: string, message: string, ...args: unknown[]) {
     this.log("debug", tag, message, ...args);
   }
 
-  public info(tag: string, message: string, ...args: any[]) {
+  public info(tag: string, message: string, ...args: unknown[]) {
     this.log("info", tag, message, ...args);
   }
 
-  public warn(tag: string, message: string, ...args: any[]) {
+  public warn(tag: string, message: string, ...args: unknown[]) {
     this.log("warn", tag, message, ...args);
   }
 
-  public error(tag: string, message: string, ...args: any[]) {
+  public error(tag: string, message: string, ...args: unknown[]) {
     this.log("error", tag, message, ...args);
   }
 
@@ -54,7 +54,12 @@ class AdsLogger {
     this.enable = enable;
   }
 
-  private log(level: LogLevel, tag: string, message: string, ...args: any[]) {
+  private log(
+    level: LogLevel,
+    tag: string,
+    message: string,
+    ...args: unknown[]
+  ) {
     if (!this.enable) {
       return;
     }
@@ -63,7 +68,7 @@ class AdsLogger {
     ) {
       const timestamp = new Date().toISOString();
       const fn = MAP_CONSOLE_FN[level] ?? console.log;
-      fn(`[${tag}][${level}]`, message, ...args);
+      fn(`[${timestamp}]  [${tag}] [${level}]`, message, ...args);
     }
   }
 }

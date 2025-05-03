@@ -1,69 +1,97 @@
-export namespace ImaSdkSettings {
-  export enum CompanionBackfillMode {
-    ALWAYS = "always",
-    ON_MASTER_AD = "on_master_ad",
-  }
-  /**
-   * A set of constants for enabling VPAID functionality.
-   */
-  export enum VpaidMode {
-    /**
-     * VPAID ads will not play and an error will be returned.
-     */
-    DISABLED = 0,
-    /**
-     * VPAID ads are enabled using a cross domain iframe. The VPAID ad cannot
-     * access the site. VPAID ads that depend on friendly iframe access may
-     * error. This is the default.
-     */
-    ENABLED = 1,
-    /**
-     * VPAID ads are enabled using a friendly iframe. This allows the ad
-     * access to the site through JavaScript.
-     */
-    INSECURE = 2,
-  }
+import {
+  google_ima_ImaSdkSettings_CompanionBackfillMode,
+  google_ima_ImaSdkSettings_VpaidMode,
+} from "../../generated";
 
-  export class ImaSdkSettings implements google.ima.ImaSdkSettings {
-    getCompanionBackfill(): CompanionBackfillMode {
-      return CompanionBackfillMode.ALWAYS;
-    }
-    getDisableCustomPlaybackForIOS10Plus(): boolean {
-      return true;
-    }
-    getFeatureFlags(): Record<string, unknown> {
-      return {};
-    }
-    getLocale(): string {
-      return "";
-    }
-    getNumRedirects(): number {
-      return -1;
-    }
-    getPlayerType(): string {
-      return "lib";
-    }
-    getPlayerVersion(): string {
-      return "1.0.0";
-    }
-    getPpid(): string | null {
-      return "";
-    }
-    isCookiesEnabled(): boolean {
-      return false;
-    }
-    setAutoPlayAdBreaks(autoPlayAdBreaks: boolean): void {}
-    setCompanionBackfill(): void {}
-    setCookiesEnabled(cookiesEnabled: boolean): void {}
-    setDisableCustomPlaybackForIOS10Plus(disable: boolean): void {}
-    setFeatureFlags(featureFlags: Record<string, unknown>): void {}
-    setLocale(locale: string): void {}
-    setNumRedirects(numRedirects: number): void {}
-    setPlayerType(playerType: string): void {}
-    setPlayerVersion(playerVersion: string): void {}
-    setPpid(ppid: string): void {}
-    setSessionId(sessionId: string): void {}
-    setVpaidAllowed(allowVpaid: boolean): void {}
-    setVpaidMode(vpaidMode: VpaidMode): void {}
+const ImaCompanionBackfillMode =
+  google_ima_ImaSdkSettings_CompanionBackfillMode;
+const ImaVpaidMode = google_ima_ImaSdkSettings_VpaidMode;
+
+export class ImaSdkSettings implements google.ima.ImaSdkSettings {
+  static CompanionBackfillMode = ImaCompanionBackfillMode;
+  static VpaidMode = ImaVpaidMode;
+
+  private autoPlayAdBreaks: boolean = true;
+  private cookiesEnabled: boolean = true;
+  private companionBackfill: google.ima.ImaSdkSettings.CompanionBackfillMode =
+    google.ima.ImaSdkSettings.CompanionBackfillMode.ALWAYS;
+  private featureFlags: Record<string, unknown> = {};
+  private locale: string = "en";
+  private vpaidMode: google.ima.ImaSdkSettings.VpaidMode =
+    google.ima.ImaSdkSettings.VpaidMode.ENABLED;
+  private numRedirects: number = -1;
+  private disableCustomPlaybackForIOS10Plus: boolean = false;
+  private playerType = "";
+  private playerVersion = "";
+  private ppid: string = "";
+  private sessionId: string = "";
+  private allowVpaid: boolean = true;
+
+  getCompanionBackfill(): google.ima.ImaSdkSettings.CompanionBackfillMode {
+    return google.ima.ImaSdkSettings.CompanionBackfillMode.ALWAYS;
+  }
+  getDisableCustomPlaybackForIOS10Plus(): boolean {
+    return true;
+  }
+  getFeatureFlags(): Record<string, unknown> {
+    return this.featureFlags;
+  }
+  getLocale(): string {
+    return this.locale;
+  }
+  getNumRedirects(): number {
+    return this.numRedirects;
+  }
+  getPlayerType(): string {
+    return this.playerType;
+  }
+  getPlayerVersion(): string {
+    return this.playerVersion;
+  }
+  getPpid(): string | null {
+    return this.ppid;
+  }
+  isCookiesEnabled(): boolean {
+    return this.cookiesEnabled;
+  }
+  setAutoPlayAdBreaks(autoPlayAdBreaks: boolean): void {
+    this.autoPlayAdBreaks = autoPlayAdBreaks;
+  }
+  setCompanionBackfill(): void {
+    this.companionBackfill =
+      google.ima.ImaSdkSettings.CompanionBackfillMode.ALWAYS;
+  }
+  setCookiesEnabled(cookiesEnabled: boolean): void {
+    this.cookiesEnabled = cookiesEnabled;
+  }
+  setDisableCustomPlaybackForIOS10Plus(disable: boolean): void {
+    this.disableCustomPlaybackForIOS10Plus = disable;
+  }
+  setFeatureFlags(featureFlags: Record<string, unknown>): void {
+    this.featureFlags = featureFlags;
+  }
+  setLocale(locale: string): void {
+    this.locale = locale;
+  }
+  setNumRedirects(numRedirects: number): void {
+    this.numRedirects = numRedirects;
+  }
+  setPlayerType(playerType: string): void {
+    this.playerType = playerType;
+  }
+  setPlayerVersion(playerVersion: string): void {
+    this.playerVersion = playerVersion;
+  }
+  setPpid(ppid: string): void {
+    this.ppid = ppid;
+  }
+  setSessionId(sessionId: string): void {
+    this.sessionId = sessionId;
+  }
+  setVpaidAllowed(allowVpaid: boolean): void {
+    this.allowVpaid = allowVpaid;
+  }
+  setVpaidMode(vpaidMode: google.ima.ImaSdkSettings.VpaidMode): void {
+    this.vpaidMode = vpaidMode;
   }
 }

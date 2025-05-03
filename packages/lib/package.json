@@ -2,6 +2,7 @@
   "name": "lib",
   "version": "0.0.3",
   "description": "",
+  "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -16,8 +17,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsup  --watch",
     "build": "tsup",
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
     "serve": "http-server ./dist -p 8083 -c-1 --log-ip --cors",
-    "ngrok:lib": "ngrok http 8083 --region eu --scheme https"
+    "ngrok:lib": "ngrok http 8083 --region eu --scheme https",
+    "ima:extract:enums": "node --loader ts-node/esm ./scripts/extract-all-enums-ima.ts"
   },
   "keywords": [],
   "author": "",
@@ -26,7 +29,8 @@
   "devDependencies": {
     "@swc/core": "^1.11.22",
     "http-server": "^14.1.1",
-    "tsup": "^8.4.0"
+    "puppeteer": "^24.8.0",
+    "ts-node": "^10.9.2"
   },
   "dependencies": {
     "@dailymotion/vast-client": "^6.3.1",

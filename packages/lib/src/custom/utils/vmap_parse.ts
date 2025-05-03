@@ -1,3 +1,6 @@
+import logger from "./logger";
+
+const TAG = "utils:VmpaParse";
 /**
  * Returns all the elements of the given node which nodeName match the given name.
  * @param  {Node} node - The node to use to find the matches.
@@ -44,7 +47,9 @@ function parseNodeValue(node: Node): string | object {
   if (cdatas && cdatas.length > 0) {
     try {
       return JSON.parse((cdatas[0] as CDATASection).data);
-    } catch (e) {}
+    } catch (e) {
+      logger.error(TAG, "json parse node", e);
+    }
   }
 
   // Didn't find any CDATA or failed to parse it as JSON
@@ -71,12 +76,12 @@ function parseNodeValue(node: Node): string | object {
  */
 function parseXMLNode(node: Node): {
   attributes: Record<string, string>;
-  children: Record<string, any>;
+  children: Record<string, unknown>;
   value: string | object;
 } {
   const parsedNode = {
     attributes: {} as Record<string, string>,
-    children: {} as Record<string, any>,
+    children: {} as Record<string, unknown>,
     value: {},
   };
 

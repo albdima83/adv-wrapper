@@ -2,17 +2,22 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
+    "lib": ["ESNext", "DOM"],
     "strict": true,
     "esModuleInterop": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
     "outDir": "dist",
     "baseUrl": ".",
+    "types": ["node", "google_interactive_media_ads_types"],
     "paths": {
       "@lib/*": ["packages/lib/src/*"]
     }
   },
-  "include": ["packages/**/*"]
+  "include": [
+    "packages/**/*",
+    "node_modules/google_interactive_media_ads_types"
+  ]
 }

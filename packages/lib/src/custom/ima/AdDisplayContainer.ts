@@ -70,15 +70,26 @@ export class AdDisplayContainer implements google.ima.AdDisplayContainer {
     type: string,
     listener: (event: google.ima.AdEvent) => void,
     useCapture?: boolean
-  ): void {}
+  ): void {
+    logger.debug(
+      TAG,
+      `addEventListener [${type}] listener [${listener}] useCapture [${useCapture}]`
+    );
+  }
 
   public removeEventListener(
     type: string,
     listener: (event: google.ima.AdEvent) => void,
     useCapture?: boolean
-  ): void {}
+  ): void {
+    logger.debug(
+      TAG,
+      `removeEventListener [${type}] listener [${listener}] useCapture [${useCapture}]`
+    );
+  }
 
   public dispatchEvent(event: google.ima.AdEvent): boolean {
+    logger.debug(TAG, `dispatchEvent [${event}`);
     return true;
   }
   public getVideoAdsElement(): HTMLVideoElement {
