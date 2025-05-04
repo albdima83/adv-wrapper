@@ -50,15 +50,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Move dist files to a versioned folder
+      - name: Copy dist files to a versioned folder
         run: |
           mkdir -p packages/lib/dist/${{ env.MAJOR }}
-          find packages/lib/dist -maxdepth 1 -type f -exec mv {} packages/lib/dist/${{ env.MAJOR }}/ \;
-
-      - name: Copy versioned files to latest folder
-        run: |
           mkdir -p packages/lib/dist/latest
-          find packages/lib/dist -maxdepth 1 -type f -exec mv {} packages/lib/dist/latest/ \;
+          cp packages/lib/dist/*.js packages/lib/dist/${{ env.MAJOR }}/
+          mv packages/lib/dist/*.js packages/lib/dist/latest/
 
       - name: Deploy dist/ to gh-pages
         uses: peaceiris/actions-gh-pages@v4
