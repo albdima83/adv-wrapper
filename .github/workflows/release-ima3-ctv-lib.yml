@@ -58,7 +58,7 @@ jobs:
       - name: Copy versioned files to latest folder
         run: |
           mkdir -p packages/lib/dist/latest
-          cp -r packages/lib/dist/${{ env.VERSION }}/* packages/lib/dist/latest/
+          find packages/lib/dist -maxdepth 1 -type f -exec mv {} packages/lib/dist/latest/ \;
 
       - name: Deploy dist/ to gh-pages
         uses: peaceiris/actions-gh-pages@v4
