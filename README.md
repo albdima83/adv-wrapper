@@ -18,7 +18,7 @@ We use this specific to parse VMAP and Vast files [guide](https://iabtechlab.com
 Please refer to the following documentation
 
 - [Platform Compatibility](./docs/Platforms.md)
-- [How to release](./doc/Release.md)
+- [How to release](./docs/Release.md)
 
 ## Development
 
@@ -72,4 +72,4 @@ pnpm serve
 ## How to Release
 
 We use changeset to release a new version of webapp or shell.  
-Follow this [guide](./docs/release.md)
+Follow this [guide](./docs/Release.md)
