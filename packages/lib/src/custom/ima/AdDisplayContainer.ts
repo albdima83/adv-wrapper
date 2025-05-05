@@ -1,4 +1,4 @@
-import logger from "../utils/logger";
+import logger from "../../utils/logger";
 
 const TAG = "ima:AdDisplayContainer";
 export class AdDisplayContainer implements google.ima.AdDisplayContainer {

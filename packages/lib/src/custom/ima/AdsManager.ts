@@ -7,15 +7,15 @@ import {
 } from "@dailymotion/vast-client";
 import { XMLParser } from "fast-xml-parser";
 import { AdBreak, VmapVMAP } from "../../types/vmpa";
-import { EventEmitter } from "../utils/eventEmitter";
+import { EventEmitter } from "../../utils/eventEmitter";
 import { AdDisplayContainer } from "./AdDisplayContainer";
 import { AdsRequest } from "./AdsRequest";
 import { AdEvent } from "./AdEvent";
 import { Ad } from "./Ad";
 import { AdPodInfo } from "./AdPodInfo";
-import { getTimeOffset } from "../utils/time";
-import { preloadVideo } from "../utils/player";
-import logger from "../utils/logger";
+import { getTimeOffset } from "../../utils/time";
+import { preloadVideo } from "../../utils/player";
+import logger from "../../utils/logger";
 
 const ADS_VIDEO_EVENTS: Array<keyof HTMLMediaElementEventMap> = [
   "play",

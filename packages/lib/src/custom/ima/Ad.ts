@@ -1,6 +1,6 @@
 import { VASTAd, VASTCreative, VASTMediaFile } from "@dailymotion/vast-client";
 import { AdPodInfo } from "./AdPodInfo";
-import logger from "../utils/logger";
+import logger from "../../utils/logger";
 
 const TAG = "ima:Ad";
 export class Ad implements google.ima.Ad {

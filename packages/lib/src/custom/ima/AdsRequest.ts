@@ -1,4 +1,4 @@
-import logger from "../utils/logger";
+import logger from "../../utils/logger";
 
 const TAG = "ima:AdsRequest";
 class AdsRequest implements google.ima.AdsRequest {

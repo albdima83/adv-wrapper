@@ -1,5 +1,5 @@
-import { EventEmitter } from "../utils/eventEmitter";
-import logger from "../utils/logger";
+import { EventEmitter } from "../../utils/eventEmitter";
+import logger from "../../utils/logger";
 import { AdDisplayContainer } from "./AdDisplayContainer";
 import { AdError } from "./AdError";
 import { AdErrorEvent } from "./AdErrorEvent";
