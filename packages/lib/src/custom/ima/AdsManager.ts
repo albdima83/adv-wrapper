@@ -54,7 +54,6 @@ export class AdsManager implements google.ima.AdsManager {
   private totalTimeAds = 0;
   private currentPodIndex = 0; // 0 = PREROLL, -1 = POSTROLL, 1 = MIDROLL
   private canBeAdSkippable = false;
-  private currentAdBreak: AdBreak | undefined = undefined;
   private currentAdVast: VASTAd | undefined = undefined;
   private currentAd: Ad | undefined = undefined;
   private currentCreative: VASTCreative | undefined = undefined;
@@ -297,12 +296,15 @@ export class AdsManager implements google.ima.AdsManager {
 
   private allAdsCompleted(): void {
     this.removeVideoListeners();
-    this.dispatchAdsEvent(google.ima.AdEvent.Type.ALL_ADS_COMPLETED);
+    //if finisched all cue points, notify that all ads completed
+    if (this.cuePoints.length === 0) {
+      this.dispatchAdsEvent(google.ima.AdEvent.Type.ALL_ADS_COMPLETED);
+    }
+    //clear all data
     this.nextAds = [];
     this.queueCreatives = [];
     this.vastTracker = undefined;
     this.currentAdVast = undefined;
-    this.currentAdBreak = undefined;
     this.currentAd = undefined;
     this.currentCreative = undefined;
     this.adRemainingTime = -1;
@@ -618,12 +620,23 @@ export class AdsManager implements google.ima.AdsManager {
     if (!videoAdsElement) {
       return;
     }
-    switch (ev.type) {
+    switch (ev.type as keyof GlobalEventHandlersEventMap) {
+      case "loadstart": {
+        this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_BREAK_READY);
+        break;
+      }
+      case "durationchange": {
+        const newDuration = videoAdsElement.duration;
+        if (this.currentAd?.getDuration() !== newDuration) {
+          this.dispatchAdsEvent(google.ima.AdEvent.Type.DURATION_CHANGE);
+        }
+        break;
+      }
       case "canplay": {
         this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_CAN_PLAY);
         break;
       }
-      case "metadata": {
+      case "loadedmetadata": {
         this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_METADATA);
         break;
       }
@@ -631,6 +644,8 @@ export class AdsManager implements google.ima.AdsManager {
         if (!this.quartilesFired.start) {
           this.quartilesFired.start = true;
           this.dispatchAdsEvent(google.ima.AdEvent.Type.STARTED);
+        } else {
+          this.dispatchAdsEvent(google.ima.AdEvent.Type.RESUMED);
         }
         break;
       }
@@ -671,6 +686,8 @@ export class AdsManager implements google.ima.AdsManager {
             this.quartilesFired.thirdQuartile = true;
             this.dispatchAdsEvent(google.ima.AdEvent.Type.THIRD_QUARTILE);
           }
+          //@TODO: debounce the event for ad progress
+          this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_PROGRESS);
           this.vastTracker?.setProgress(currentTime);
           if (
             !this.canBeAdSkippable &&
