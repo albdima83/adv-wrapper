@@ -5,7 +5,7 @@ export function getTimeOffset(time: string): number {
     return 0;
   }
   if (time == "end") {
-    return 0;
+    return -1;
   }
   if (timeRegex.test(time)) {
     const [hours = "00", minutes = "00", secondsAndMs = "00"] = time.split(":");
