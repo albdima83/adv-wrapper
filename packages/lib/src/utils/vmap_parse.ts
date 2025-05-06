@@ -8,19 +8,15 @@ const TAG = "utils:VmpaParse";
  * @return {Array<ChildNode>}
  */
 function childrenByName(node: Node, name: string): ChildNode[] {
-  const children = [];
-  for (const childKey in node.childNodes) {
-    const child = node.childNodes[childKey];
+	const children = [];
+	for (const childKey in node.childNodes) {
+		const child = node.childNodes[childKey];
 
-    if (
-      child.nodeName === name ||
-      name === `vmap:${child.nodeName}` ||
-      child.nodeName === `vmap:${name}`
-    ) {
-      children.push(child);
-    }
-  }
-  return children;
+		if (child.nodeName === name || name === `vmap:${child.nodeName}` || child.nodeName === `vmap:${name}`) {
+			children.push(child);
+		}
+	}
+	return children;
 }
 
 /**
@@ -29,44 +25,44 @@ function childrenByName(node: Node, name: string): ChildNode[] {
  * @return {String|Object}
  */
 function parseNodeValue(node: Node): string | object {
-  if (!node || !node.childNodes) {
-    return {};
-  }
-  const childNodes = node.childNodes;
+	if (!node || !node.childNodes) {
+		return {};
+	}
+	const childNodes = node.childNodes;
 
-  // Trying to find and parse CDATA as JSON
-  const cdatas = [];
-  for (const childKey in childNodes) {
-    const childNode = childNodes[childKey];
+	// Trying to find and parse CDATA as JSON
+	const cdatas = [];
+	for (const childKey in childNodes) {
+		const childNode = childNodes[childKey];
 
-    if (childNode.nodeName === "#cdata-section") {
-      cdatas.push(childNode);
-    }
-  }
+		if (childNode.nodeName === "#cdata-section") {
+			cdatas.push(childNode);
+		}
+	}
 
-  if (cdatas && cdatas.length > 0) {
-    try {
-      return JSON.parse((cdatas[0] as CDATASection).data);
-    } catch (e) {
-      logger.error(TAG, "json parse node", e);
-    }
-  }
+	if (cdatas && cdatas.length > 0) {
+		try {
+			return JSON.parse((cdatas[0] as CDATASection).data);
+		} catch (e) {
+			logger.error(TAG, "json parse node", e);
+		}
+	}
 
-  // Didn't find any CDATA or failed to parse it as JSON
-  let nodeText = "";
-  for (const childKey in childNodes) {
-    const childNode = childNodes[childKey];
+	// Didn't find any CDATA or failed to parse it as JSON
+	let nodeText = "";
+	for (const childKey in childNodes) {
+		const childNode = childNodes[childKey];
 
-    switch (childNode.nodeName) {
-      case "#text":
-        nodeText += childNode.textContent ? childNode.textContent.trim() : "";
-        break;
-      case "#cdata-section":
-        nodeText += (childNode as CDATASection).data;
-        break;
-    }
-  }
-  return nodeText;
+		switch (childNode.nodeName) {
+			case "#text":
+				nodeText += childNode.textContent ? childNode.textContent.trim() : "";
+				break;
+			case "#cdata-section":
+				nodeText += (childNode as CDATASection).data;
+				break;
+		}
+	}
+	return nodeText;
 }
 
 /**
@@ -75,46 +71,40 @@ function parseNodeValue(node: Node): string | object {
  * @return {Object}
  */
 function parseXMLNode(node: Node): {
-  attributes: Record<string, string>;
-  children: Record<string, unknown>;
-  value: string | object;
+	attributes: Record<string, string>;
+	children: Record<string, unknown>;
+	value: string | object;
 } {
-  const parsedNode = {
-    attributes: {} as Record<string, string>,
-    children: {} as Record<string, unknown>,
-    value: {},
-  };
+	const parsedNode = {
+		attributes: {} as Record<string, string>,
+		children: {} as Record<string, unknown>,
+		value: {},
+	};
 
-  parsedNode.value = parseNodeValue(node);
+	parsedNode.value = parseNodeValue(node);
 
-  const attributes = (node as Element).attributes;
-  if (attributes) {
-    for (const attrKey in attributes) {
-      const nodeAttr = attributes[attrKey];
+	const attributes = (node as Element).attributes;
+	if (attributes) {
+		for (const attrKey in attributes) {
+			const nodeAttr = attributes[attrKey];
 
-      if (
-        nodeAttr.nodeName &&
-        nodeAttr.nodeValue !== undefined &&
-        nodeAttr.nodeValue !== null
-      ) {
-        parsedNode.attributes[nodeAttr.nodeName as string] =
-          nodeAttr.nodeValue as string;
-      }
-    }
-  }
+			if (nodeAttr.nodeName && nodeAttr.nodeValue !== undefined && nodeAttr.nodeValue !== null) {
+				parsedNode.attributes[nodeAttr.nodeName as string] = nodeAttr.nodeValue as string;
+			}
+		}
+	}
 
-  const childNodes = node.childNodes;
-  if (childNodes) {
-    for (const childKey in childNodes) {
-      const childNode = childNodes[childKey];
-      if (childNode.nodeName && childNode.nodeName.substring(0, 1) !== "#") {
-        parsedNode.children[childNode.nodeName as string] =
-          parseXMLNode(childNode);
-      }
-    }
-  }
+	const childNodes = node.childNodes;
+	if (childNodes) {
+		for (const childKey in childNodes) {
+			const childNode = childNodes[childKey];
+			if (childNode.nodeName && childNode.nodeName.substring(0, 1) !== "#") {
+				parsedNode.children[childNode.nodeName as string] = parseXMLNode(childNode);
+			}
+		}
+	}
 
-  return parsedNode;
+	return parsedNode;
 }
 
 export { childrenByName, parseNodeValue, parseXMLNode };
