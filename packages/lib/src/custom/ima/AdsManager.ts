@@ -367,11 +367,13 @@ export class AdsManager implements google.ima.AdsManager {
 	}
 
 	private startTimerUpdateContentTime(): void {
+		//timeupdate basedon hardwareConcurrency value
+		const timeUpdate = (globalThis.navigator?.hardwareConcurrency || 0) <= 2 ? 500 : 300;
 		this.clearTimerUpdateContentTime();
 		this.timerUpdateContentTime = setTimeout(() => {
 			this.handleContentTimeUpdate();
 			this.startTimerUpdateContentTime();
-		}, 300);
+		}, timeUpdate);
 	}
 
 	private attachContentMediaEventListeners(): void {
@@ -417,8 +419,9 @@ export class AdsManager implements google.ima.AdsManager {
 		if (creatives && creatives.length > 0) {
 			for (const creative of creatives) {
 				const creativeType = creative.type;
+				//@TODO manage not linear creativity like iframe/img etc...
 				if (creativeType === "linear") {
-					const linearCreative = creative as VASTCreative;
+					const linearCreative = creative;
 					const mediaFiles = linearCreative.mediaFiles;
 					if (mediaFiles && mediaFiles.length > 0) {
 						for (const mediaFile of mediaFiles) {
