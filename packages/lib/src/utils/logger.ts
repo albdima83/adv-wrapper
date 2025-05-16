@@ -19,11 +19,10 @@ class AdsLogger {
 	private level: LogLevel;
 
 	constructor(config: { enable?: boolean; level?: LogLevel }) {
-		this.enable =
-			config.enable || "localStorage" in globalThis
-				? Boolean(globalThis.localStorage?.getItem("advDebug") || false)
-				: false;
-		this.level = config.level || "info";
+		const debugLocalStorage =
+			"localStorage" in globalThis ? Boolean(globalThis.localStorage?.getItem("advDebug") || false) : false;
+		this.enable = config.enable || debugLocalStorage;
+		this.level = debugLocalStorage ? "debug" : config.level || "info";
 	}
 
 	public debug(tag: string, message: string, ...args: unknown[]) {
