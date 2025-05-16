@@ -1,0 +1,89 @@
+<!doctype html>
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" href="./favicon.ico" />
+		<meta
+			name="viewport"
+			content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width"
+		/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<% (meta??[]).forEach(function(mt) { %>
+		<meta name="<%= mt.name %>" content="<%= mt.value %>" />
+		<% }); %>
+		<title><%= title %></title>
+		<style>
+			html,
+			body,
+			* {
+				padding: 0;
+				margin: 0;
+			}
+
+			body {
+				overflow: hidden;
+				background-color: #0a1316;
+			}
+
+			#app {
+				z-index: 0;
+			}
+
+			/* Page Loader */
+
+			.loader-container {
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				justify-content: center;
+				align-items: center;
+				display: none;
+			}
+
+			.loader-img {
+				height: 56px;
+				width: 56px;
+				animation: rotation 1s linear infinite;
+			}
+
+			@media screen and (max-width: 1280px) {
+				.loader-img {
+					height: 38px;
+					width: 38px;
+				}
+			}
+
+			/* Player */
+
+			#adm-player {
+				position: fixed;
+				inset: 0;
+				top: 0px;
+				left: 0px;
+				right: 0px;
+				bottom: 0px;
+				display: block;
+			}
+
+			#adm-player.hidden {
+				display: none;
+			}
+
+			/* Animations */
+			@keyframes rotation {
+				0% {
+					transform: rotate(0deg);
+				}
+				100% {
+					transform: rotate(360deg);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script type="module" src="./src/main.ts"></script>
+	</body>
+</html>
