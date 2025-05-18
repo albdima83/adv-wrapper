@@ -358,6 +358,7 @@ export class AdsManager implements google.ima.AdsManager {
 		logger.debug(TAG, `Content current time: [${currentTime}]`);
 		const nextCue = this.cuePoints.find((cue) => Math.abs(cue - currentTime) <= CUE_THREAD_SHOULD_REQUEST_MS);
 		if (nextCue) {
+			logger.debug(TAG, `fetchVastAds: [${nextCue}]`);
 			this.fetchVastAds(nextCue);
 		}
 	}
@@ -425,8 +426,8 @@ export class AdsManager implements google.ima.AdsManager {
 					const mediaFiles = linearCreative.mediaFiles;
 					if (mediaFiles && mediaFiles.length > 0) {
 						for (const mediaFile of mediaFiles) {
-							const mimeType = mediaFile.mimeType;
-							if (mimeType && mimeType.startsWith("video/mp4") && mediaFile.fileURL) {
+							const mimeType = (mediaFile.mimeType || "").toLowerCase();
+							if (mimeType && mimeType === "video/mp4" && mediaFile.fileURL) {
 								return creative;
 							}
 						}
@@ -538,11 +539,15 @@ export class AdsManager implements google.ima.AdsManager {
 				this.nextAds = adsSlot;
 				this.totalAds = totalAds;
 				this.totalTimeAds = totalDuration;
-				if (this.nextAds.length === 0) {
+
+				logger.error(TAG, `fetchVastAds totalAds: [${totalAds}] [${totalDuration}]`);
+				if (!this.nextAds || this.nextAds.length === 0) {
 					this.allAdsCompleted();
 				} else {
 					this.playCreativities();
 				}
+			} else {
+				this.allAdsCompleted();
 			}
 		} catch (error) {
 			logger.error(TAG, "fetchVastAds error:", error);

@@ -12,11 +12,11 @@ export class ImaSdkSettings implements google.ima.ImaSdkSettings {
 
 	private autoPlayAdBreaks: boolean = true;
 	private cookiesEnabled: boolean = true;
-	private companionBackfill: google.ima.ImaSdkSettings.CompanionBackfillMode =
-		google.ima.ImaSdkSettings.CompanionBackfillMode.ALWAYS;
+	private companionBackfill: (typeof ImaSdkSettings.CompanionBackfillMode)[keyof typeof ImaSdkSettings.CompanionBackfillMode] =
+		ImaSdkSettings.CompanionBackfillMode.ALWAYS;
 	private featureFlags: Record<string, unknown> = {};
 	private locale: string = "en";
-	private vpaidMode: google.ima.ImaSdkSettings.VpaidMode = google.ima.ImaSdkSettings.VpaidMode.ENABLED;
+	private vpaidMode: (typeof ImaVpaidMode)[keyof typeof ImaVpaidMode] = ImaVpaidMode.ENABLED;
 	private numRedirects: number = -1;
 	private disableCustomPlaybackForIOS10Plus: boolean = false;
 	private playerType = "";
@@ -26,7 +26,7 @@ export class ImaSdkSettings implements google.ima.ImaSdkSettings {
 	private allowVpaid: boolean = true;
 
 	getCompanionBackfill(): google.ima.ImaSdkSettings.CompanionBackfillMode {
-		return google.ima.ImaSdkSettings.CompanionBackfillMode.ALWAYS;
+		return this.companionBackfill as unknown as google.ima.ImaSdkSettings.CompanionBackfillMode;
 	}
 	getDisableCustomPlaybackForIOS10Plus(): boolean {
 		return true;
@@ -56,7 +56,7 @@ export class ImaSdkSettings implements google.ima.ImaSdkSettings {
 		this.autoPlayAdBreaks = autoPlayAdBreaks;
 	}
 	setCompanionBackfill(): void {
-		this.companionBackfill = google.ima.ImaSdkSettings.CompanionBackfillMode.ALWAYS;
+		this.companionBackfill = ImaCompanionBackfillMode.ALWAYS;
 	}
 	setCookiesEnabled(cookiesEnabled: boolean): void {
 		this.cookiesEnabled = cookiesEnabled;
@@ -89,6 +89,6 @@ export class ImaSdkSettings implements google.ima.ImaSdkSettings {
 		this.allowVpaid = allowVpaid;
 	}
 	setVpaidMode(vpaidMode: google.ima.ImaSdkSettings.VpaidMode): void {
-		this.vpaidMode = vpaidMode;
+		this.vpaidMode = vpaidMode as unknown as (typeof ImaVpaidMode)[keyof typeof ImaVpaidMode];
 	}
 }
