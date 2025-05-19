@@ -69,7 +69,7 @@ declare module "@dailymotion/vast-client" {
 	export class VASTParser {
 		constructor();
 
-		parseVAST(xml: string): Promise<VASTResponse>;
+		parseVAST(xml: object): Promise<VASTResponse>;
 
 		fetchVAST(url: string, options?: { withCredentials?: boolean }): Promise<string>;
 
