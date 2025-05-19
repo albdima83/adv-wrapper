@@ -1,0 +1,65 @@
+name: Build and Release to GitHub
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    defaults:
+      run:
+        working-directory: packages/lib
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: .
+
+      - name: Build UMD
+        run: pnpm build
+
+      - name: Get version from package.json
+        id: pkg
+        run: echo "VERSION=$(node -p 'require(\"./package.json\").version')" >> $GITHUB_OUTPUT
+
+      - name: Get version from package.json
+        id: get_version
+        run: |
+          VERSION=$(node -p "require('./packages/lib/package.json').version")
+          MAJOR=$(echo "$VERSION" | cut -d. -f1)
+          echo "VERSION=v$VERSION" >> $GITHUB_ENV
+          echo "MAJOR=v$MAJOR" >> $GITHUB_ENV
+
+      - name: Create Git Tag
+        run: |
+          git tag adv-wrapper-v${{ steps.pkg.outputs.VERSION }}
+          git push origin adv-wrapper-v${{ steps.pkg.outputs.VERSION }}
+
+      - name: Upload dist to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: adv-wrapper-lib-v${{ steps.pkg.outputs.VERSION }}
+          name: adv-wrapper-lib v${{ steps.pkg.outputs.VERSION }}
+          files: packages/lib/dist/**/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,6 +1,7 @@
 packages:
   - packages/*
-  - scripts"
+  - apps/*
+
 onlyBuiltDependencies:
   - "@swc/core"
   - esbuild
