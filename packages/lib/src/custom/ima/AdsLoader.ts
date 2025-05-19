@@ -67,7 +67,7 @@ export class AdsLoader implements google.ima.AdsLoader {
 		}
 		this.adsManager = new AdsManager(adsRequest, this.adDisplayContainer);
 		this.adsManager
-			.fetchVmap()
+			.fetchAds()
 			.then((_adsManager) => {
 				this.adsManager = _adsManager;
 				return this.eventEmitter.emit(
@@ -85,7 +85,7 @@ export class AdsLoader implements google.ima.AdsLoader {
 				return this.eventEmitter.emit(google.ima.AdErrorEvent.Type.AD_ERROR, new AdErrorEvent(adError));
 			});
 	}
-	destroy(): void {
+	public destroy(): void {
 		this.adsManager?.destroy();
 		this.adDisplayContainer.destroy();
 		this.eventEmitter.clearAllEventListeners();
