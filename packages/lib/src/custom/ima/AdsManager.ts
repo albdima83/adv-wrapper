@@ -1,4 +1,11 @@
-import { VASTAd, VASTClient, VASTCreative, VASTResponse, VASTTracker } from "@dailymotion/vast-client";
+import {
+	VASTAd,
+	VASTClient,
+	VASTCreative,
+	VASTParser,
+	VASTResponse,
+	VASTTracker,
+} from "@dailymotion/vast-client";
 import { XMLParser } from "fast-xml-parser";
 import { AdBreak, VmapVMAP } from "../../types/vmpa";
 import { EventEmitter } from "../../utils/eventEmitter";
@@ -76,7 +83,7 @@ export class AdsManager implements google.ima.AdsManager {
 		this.canBeAdSkippable = false;
 		this.adRemainingTime = -1;
 		this.adDuration = -1;
-		this.fetchVmap = this.fetchVmap.bind(this);
+		this.fetchAds = this.fetchAds.bind(this);
 		this.attachContentMediaEventListeners = this.attachContentMediaEventListeners.bind(this);
 		this.detachContentMediaEventListeners = this.detachContentMediaEventListeners.bind(this);
 		this.handleContentTimeUpdate = this.handleContentTimeUpdate.bind(this);
@@ -181,8 +188,12 @@ export class AdsManager implements google.ima.AdsManager {
 			return;
 		}
 		this.started = true;
-		this.fetchVastAds(0);
-		this.attachContentMediaEventListeners();
+		if (this.cuePoints.length > 0) {
+			this.fetchVastAds(0);
+			this.attachContentMediaEventListeners();
+		} else {
+			this.playCreativities();
+		}
 	}
 	public stop(): void {
 		this.started = false;
@@ -212,44 +223,80 @@ export class AdsManager implements google.ima.AdsManager {
 		return true;
 	}
 
-	public fetchVmap(): Promise<AdsManager> {
+	public fetchAds(): Promise<AdsManager> {
 		const adTagUrl = this.adsRequest.adTagUrl;
 		return fetch(adTagUrl)
 			.then((response) => response.text())
-			.then((xmlText) => {
+			.then(async (xmlText) => {
 				const parser = new XMLParser({
 					ignoreAttributes: false,
 					attributeNamePrefix: "@_",
 					textNodeName: "#text",
 				});
-				const vmpa = parser.parse(xmlText) as VmapVMAP;
-				const adBreaks = vmpa?.["vmap:VMAP"]["vmap:AdBreak"];
-				if (!adBreaks) {
-					return this;
+				const jsonObj = parser.parse(xmlText);
+				//check if a valid json object
+				if (!jsonObj) {
+					return Promise.reject(new Error("Invalid XML response"));
 				}
-				if (Array.isArray(adBreaks)) {
-					adBreaks.forEach((adBreak) => {
-						const timeOffset = adBreak["@_timeOffset"];
-						if (timeOffset) {
-							const time = getTimeOffset(timeOffset);
-							if (!isNaN(time) && this.isValidAdBreak(adBreak)) {
-								logger.debug(TAG, `vmap adBreak timeOffset [${timeOffset}]:`, time);
-								if (!this.cuePoints.includes(time)) {
-									this.cuePoints.push(time);
-								}
-								const adBreaks = this.cueMapPoints[time] || [];
-								adBreaks.push(adBreak);
-								this.cueMapPoints[time] = adBreaks;
+				//check if a valid vast object
+				if (jsonObj["VAST"]) {
+					const vastXml = new globalThis.DOMParser().parseFromString(xmlText, "text/xml");
+					const vastParser = new VASTParser();
+					const vastXML = await vastParser.parseVAST(vastXml);
+					const adsSlot: Array<VASTAd> = [];
+					let totalDuration = 0;
+					let totalAds = 0;
+					logger.debug(TAG, `fetchVastAds: [${adTagUrl}]: `, vastXML);
+					const ads = vastXML?.ads ?? undefined;
+					if (ads && ads.length > 0) {
+						for (const ad of ads) {
+							const creative = this.getAdValidCreative(ad);
+							if (creative) {
+								adsSlot.push(ad);
+								totalDuration += creative.duration || 0;
+								totalAds += 1;
 							}
 						}
-					});
+					} else {
+						vastXML.errorURLTemplates?.forEach((errorUrl) => {
+							this.trackUrl(errorUrl);
+						});
+					}
+					this.nextAds = adsSlot;
+					this.totalAds = totalAds;
+					this.totalTimeAds = totalDuration;
+
+					logger.debug(TAG, `fetchVastAds totalAds: [${totalAds}] [${totalDuration}]`);
 				} else {
-					const timeOffset = adBreaks["@_timeOffset"];
-					if (timeOffset) {
-						const time = getTimeOffset(timeOffset);
-						if (!isNaN(time) && this.isValidAdBreak(adBreaks)) {
-							this.cuePoints.push(time);
-							this.cueMapPoints[time] = [adBreaks];
+					const vmpa = parser.parse(xmlText) as VmapVMAP;
+					const adBreaks = vmpa?.["vmap:VMAP"]["vmap:AdBreak"];
+					if (!adBreaks) {
+						return this;
+					}
+					if (Array.isArray(adBreaks)) {
+						adBreaks.forEach((adBreak) => {
+							const timeOffset = adBreak["@_timeOffset"];
+							if (timeOffset) {
+								const time = getTimeOffset(timeOffset);
+								if (!isNaN(time) && this.isValidAdBreak(adBreak)) {
+									logger.debug(TAG, `vmap adBreak timeOffset [${timeOffset}]:`, time);
+									if (!this.cuePoints.includes(time)) {
+										this.cuePoints.push(time);
+									}
+									const adBreaks = this.cueMapPoints[time] || [];
+									adBreaks.push(adBreak);
+									this.cueMapPoints[time] = adBreaks;
+								}
+							}
+						});
+					} else {
+						const timeOffset = adBreaks["@_timeOffset"];
+						if (timeOffset) {
+							const time = getTimeOffset(timeOffset);
+							if (!isNaN(time) && this.isValidAdBreak(adBreaks)) {
+								this.cuePoints.push(time);
+								this.cueMapPoints[time] = [adBreaks];
+							}
 						}
 					}
 				}
@@ -540,7 +587,7 @@ export class AdsManager implements google.ima.AdsManager {
 				this.totalAds = totalAds;
 				this.totalTimeAds = totalDuration;
 
-				logger.error(TAG, `fetchVastAds totalAds: [${totalAds}] [${totalDuration}]`);
+				logger.debug(TAG, `fetchVastAds totalAds: [${totalAds}] [${totalDuration}]`);
 				if (!this.nextAds || this.nextAds.length === 0) {
 					this.allAdsCompleted();
 				} else {
