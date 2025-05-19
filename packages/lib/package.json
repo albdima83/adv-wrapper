@@ -19,6 +19,7 @@
 		"build": "tsup",
 		"lint": "eslint 'src/**/*.{ts,tsx}'",
 		"serve": "http-server ./dist -p 8083 -c-1 --log-ip --cors",
+		"release": "release-it --only-version",
 		"ngrok:lib": "ngrok http 8083 --region eu --scheme https",
 		"ima:extract:enums": "node --loader ts-node/esm ./scripts/extract-all-enums-ima.ts"
 	},
@@ -30,6 +31,7 @@
 		"@swc/core": "^1.11.22",
 		"http-server": "^14.1.1",
 		"puppeteer": "^24.8.0",
+		"release-it": "^19.0.2",
 		"ts-node": "^10.9.2",
 		"tsup": "^8.4.0"
 	},
@@ -37,5 +39,17 @@
 		"@dailymotion/vast-client": "^6.3.1",
 		"@iabtcf/core": "^1.5.6",
 		"fast-xml-parser": "^5.2.1"
+	},
+	"auto-changelog": {
+		"output": "HISTORY.md",
+		"template": "keepachangelog",
+		"unreleased": true,
+		"commitLimit": false
+	},
+	"lint-staged": {
+		"*.{js,ts,jsx,tsx},!vendor/*.js": [
+			"eslint --fix",
+			"prettier --write"
+		]
 	}
 }
