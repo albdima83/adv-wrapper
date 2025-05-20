@@ -29,8 +29,11 @@ jobs:
       - name: Build library
         run: pnpm --filter lib build
 
-      - name: Build demo app
-        run: pnpm --filter adv-wrapper-demo build
+      - name: Build demo app with env vars
+        run: |
+          BASE_URL="/demo/" \
+          IMA_LIB_URL="https://albdima83.github.io/adv-wrapper/demo/lib/latest/ima3.js" \
+          pnpm --filter demo build
 
       - name: Prepare GitHub Pages content
         run: |

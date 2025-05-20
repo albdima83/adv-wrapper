@@ -1,5 +1,4 @@
-const IMA_SRC = "https://albdima83.github.io/adv-wrapper/latest/ima3.js";
-//const IMA_SRC = "https://imasdk.googleapis.com/js/sdkloader/ima3.js";
+const IMA_SRC = __IMA_LIB_URL__ || "https://imasdk.googleapis.com/js/sdkloader/ima3.js";
 
 let adsManager: google.ima.AdsManager;
 let adsLoader: google.ima.AdsLoader;
