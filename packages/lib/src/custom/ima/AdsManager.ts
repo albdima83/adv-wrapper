@@ -53,6 +53,7 @@ export class AdsManager implements google.ima.AdsManager {
 	private totalAds = 0;
 	private totalTimeAds = 0;
 	private currentPodIndex = 0; // 0 = PREROLL, -1 = POSTROLL, 1 = MIDROLL
+	private currentPodTimeOffset = 0;
 	private canBeAdSkippable = false;
 	private currentAdVast: VASTAd | undefined = undefined;
 	private currentAd: Ad | undefined = undefined;
@@ -356,7 +357,7 @@ export class AdsManager implements google.ima.AdsManager {
 							false,
 							this.totalTimeAds,
 							this.currentPodIndex,
-							0,
+							this.currentPodTimeOffset,
 							this.totalAds,
 						);
 						logger.debug(TAG, `current podInfo: [${adPosition}] [${this.totalTimeAds}] [${this.totalAds}]`);
@@ -545,7 +546,8 @@ export class AdsManager implements google.ima.AdsManager {
 			return;
 		}
 		try {
-			this.currentPodIndex = time;
+			this.currentPodIndex = time > 0 ? this.currentPodIndex + 1 : time;
+			this.currentPodTimeOffset = time;
 			const adBreaks = this.cueMapPoints[time];
 			delete this.cueMapPoints[time];
 			const promiseVastFetch: Array<Promise<VASTResponse>> = [];
