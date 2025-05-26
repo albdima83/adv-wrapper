@@ -1,4 +1,4 @@
-/* UMD | Version: 0.0.5 | Commit: 7149ba2 */
+/* UMD | Version: 0.0.5 | Commit: 20fee1c */
 (function (M, z) {
   typeof exports == "object" && typeof module != "undefined" ? z(exports) : typeof define == "function" && define.amd ? define(["exports"], z) : (M = typeof globalThis != "undefined" ? globalThis : M || self, z(M.GoogleIma = {}));
 })(this, function (M) {
@@ -7193,4 +7193,4 @@
     window.google.ima = window.GoogleIma;
   }
 })();
-/* Built on 2025-05-26T21:45:40.481Z */
+/* Built on 2025-05-26T22:19:32.368Z */
