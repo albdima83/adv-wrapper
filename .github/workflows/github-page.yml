@@ -23,11 +23,6 @@ jobs:
         with:
           node-version: 22
 
-      - name: Set environment file
-        run: |
-          echo "VITE_BASE_URL=/adv-wrapper/demo/" >> .env
-          echo "VITE_IMA_LIB_URL=https://albdima83.github.io/adv-wrapper/demo/lib/latest/ima3.js" >> .env
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -36,6 +31,8 @@ jobs:
 
       - name: Build demo app with env vars
         run: |
+          export VITE_BASE_URL="/adv-wrapper/demo/"
+          export VITE_IMA_LIB_URL="https://albdima83.github.io/adv-wrapper/demo/lib/latest/ima3.js"
           pnpm --filter adv-wrapper-demo build
 
       - name: Prepare GitHub Pages content
