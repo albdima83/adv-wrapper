@@ -16,6 +16,7 @@
 	"packageManager": "pnpm@10.7.0",
 	"devDependencies": {
 		"@types/google_interactive_media_ads_types": "^1.20241219.0",
-		"vite": "^6.3.5"
+		"vite": "^6.3.5",
+		"vite-plugin-ejs": "^1.7.0"
 	}
 }
