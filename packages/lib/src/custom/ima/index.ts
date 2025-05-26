@@ -1,5 +1,5 @@
+import { google_ima_ViewMode } from "../../generated";
 import { settings } from "./settings";
-import { google_ima_ViewMode } from "@lib/generated";
 
 const ViewMode = google_ima_ViewMode;
 

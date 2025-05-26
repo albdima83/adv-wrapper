@@ -19,70 +19,17 @@ export default defineConfig(() => {
 	};
 
 	return [
-		// ESM
 		{
 			entry: ["src/ima3.ts"],
-			format: ["esm"],
+			format: ["esm", "iife"],
 			outDir: "dist",
 			target: "esnext",
-			outExtension: () => ({ js: ".esm.js" }),
+			outExtension: ({ format }) => ({
+				js: format === "esm" ? ".esm.js" : ".js",
+			}),
 			bundle: true,
 			minify: true,
 			define,
-			banner: {
-				js: `/* ESM | Version: ${version} | Commit: ${commit} */`,
-			},
-			footer: {
-				js: `/* Built on ${now} */`,
-			},
-		},
-		// CJS
-		{
-			entry: ["src/ima3.ts"],
-			format: ["cjs"],
-			outDir: "dist",
-			target: "node14",
-			outExtension: () => ({ js: ".esm.cjs" }),
-			bundle: true,
-			minify: true,
-			define,
-			banner: {
-				js: `/* CJS | Version: ${version} | Commit: ${commit} */`,
-			},
-			footer: {
-				js: `/* Built on ${now} */`,
-			},
-		},
-		// IIFE
-		{
-			entry: ["src/ima3.ts"],
-			format: ["iife"],
-			outDir: "dist",
-			globalName: "GoogleIma",
-			target: "es5",
-			outExtension: () => ({ js: ".js" }),
-			bundle: true,
-			minify: true,
-			define,
-			footer: {
-				js: `
-      (function(){
-        if (typeof window !== 'undefined') {
-          window.google = window.google || {};
-          window.google.ima = window.GoogleIma;
-        }
-      })();`,
-			},
-			onSuccess: () => {
-				const file = "dist/ima3.js"; // Adjust path as needed
-				const code = fs.readFileSync(file, "utf8");
-				fs.writeFileSync(
-					file,
-					`/* UMD | Version: ${version} | Commit: ${commit} */\n${code}\n/* Built on ${now} */`,
-					"utf8",
-				);
-				return Promise.resolve();
-			},
 		},
 	];
 });
