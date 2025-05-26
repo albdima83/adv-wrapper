@@ -1,4 +1,4 @@
-/* UMD | Version: 0.0.5 | Commit: e77dadb */
+/* UMD | Version: 0.0.5 | Commit: 6691956 */
 (function (M, z) {
   typeof exports == "object" && typeof module != "undefined" ? z(exports) : typeof define == "function" && define.amd ? define(["exports"], z) : (M = typeof globalThis != "undefined" ? globalThis : M || self, z(M.GoogleIma = {}));
 })(this, function (M) {
@@ -7193,4 +7193,4 @@
     window.google.ima = window.GoogleIma;
   }
 })();
-/* Built on 2025-05-26T22:31:02.031Z */
+/* Built on 2025-05-26T22:35:45.686Z */
