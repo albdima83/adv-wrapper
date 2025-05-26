@@ -36,7 +36,7 @@ jobs:
 
       - name: Build demo app with env vars
         run: |
-          pnpm --filter demo build
+          pnpm --filter adv-wrapper-demo build
 
       - name: Prepare GitHub Pages content
         run: |
