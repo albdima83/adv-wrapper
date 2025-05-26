@@ -25,8 +25,6 @@ export default defineConfig(() => {
         process.env.CODEBUILD_RESOLVED_SOURCE_VERSION ||
         execSync("git rev-parse --short HEAD").toString().trim();
     const define = {
-        "process.env": "{}",
-        process: "{}",
         "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV || "production"),
         "process.env.LOG_LEVEL": JSON.stringify(process.env.LOG_LEVEL || "error"),
         __VERSION__: `'${version}'`,
@@ -34,8 +32,8 @@ export default defineConfig(() => {
     };
 
     return {
+        define,
         build: {
-            define,
             emptyOutDir: true,
             lib: {
                 entry: 'src/ima3.ts',
