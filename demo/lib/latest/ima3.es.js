@@ -1,16 +1,16 @@
-/* ES | Version: 0.0.5 | Commit: 6691956 */
-var Fr = Object.defineProperty, Ur = Object.defineProperties;
-var Pr = Object.getOwnPropertyDescriptors;
+/* ES | Version: 0.0.5 | Commit: 2062271 */
+var Br = Object.defineProperty, Fr = Object.defineProperties;
+var Ur = Object.getOwnPropertyDescriptors;
 var Bt = Object.getOwnPropertySymbols;
-var xr = Object.prototype.hasOwnProperty, Vr = Object.prototype.propertyIsEnumerable;
-var ht = (t, e, r) => e in t ? Fr(t, e, { enumerable: !0, configurable: !0, writable: !0, value: r }) : t[e] = r, Fe = (t, e) => {
+var Pr = Object.prototype.hasOwnProperty, xr = Object.prototype.propertyIsEnumerable;
+var ht = (t, e, r) => e in t ? Br(t, e, { enumerable: !0, configurable: !0, writable: !0, value: r }) : t[e] = r, Fe = (t, e) => {
   for (var r in e || (e = {}))
-    xr.call(e, r) && ht(t, r, e[r]);
+    Pr.call(e, r) && ht(t, r, e[r]);
   if (Bt)
     for (var r of Bt(e))
-      Vr.call(e, r) && ht(t, r, e[r]);
+      xr.call(e, r) && ht(t, r, e[r]);
   return t;
-}, Ft = (t, e) => Ur(t, Pr(e));
+}, Ft = (t, e) => Fr(t, Ur(e));
 var g = (t, e, r) => ht(t, typeof e != "symbol" ? e + "" : e, r);
 var Ne = (t, e, r) => new Promise((n, s) => {
   var i = (l) => {
@@ -28,7 +28,7 @@ var Ne = (t, e, r) => new Promise((n, s) => {
   }, o = (l) => l.done ? n(l.value) : Promise.resolve(l.value).then(i, c);
   o((r = r.apply(t, e)).next());
 });
-function Mr(t, e) {
+function Vr(t, e) {
   for (var r = 0; r < e.length; r++) {
     const n = e[r];
     if (typeof n != "string" && !Array.isArray(n)) {
@@ -44,9 +44,9 @@ function Mr(t, e) {
   }
   return Object.freeze(Object.defineProperty(t, Symbol.toStringTag, { value: "Module" }));
 }
-const qr = "0.0.5";
-var cr = /* @__PURE__ */ ((t) => (t[t.DEPRECATED_ERROR_CODE = -1] = "DEPRECATED_ERROR_CODE", t[t.VAST_MALFORMED_RESPONSE = -1] = "VAST_MALFORMED_RESPONSE", t[t.VAST_SCHEMA_VALIDATION_ERROR = 101] = "VAST_SCHEMA_VALIDATION_ERROR", t[t.VAST_UNSUPPORTED_VERSION = 102] = "VAST_UNSUPPORTED_VERSION", t[t.VAST_TRAFFICKING_ERROR = 200] = "VAST_TRAFFICKING_ERROR", t[t.VAST_UNEXPECTED_LINEARITY = 201] = "VAST_UNEXPECTED_LINEARITY", t[t.VAST_UNEXPECTED_DURATION_ERROR = 202] = "VAST_UNEXPECTED_DURATION_ERROR", t[t.VAST_WRAPPER_ERROR = 300] = "VAST_WRAPPER_ERROR", t[t.VAST_LOAD_TIMEOUT = 301] = "VAST_LOAD_TIMEOUT", t[t.VAST_TOO_MANY_REDIRECTS = 302] = "VAST_TOO_MANY_REDIRECTS", t[t.VAST_NO_ADS_AFTER_WRAPPER = 303] = "VAST_NO_ADS_AFTER_WRAPPER", t[t.VIDEO_PLAY_ERROR = 400] = "VIDEO_PLAY_ERROR", t[t.VAST_MEDIA_LOAD_TIMEOUT = 402] = "VAST_MEDIA_LOAD_TIMEOUT", t[t.VAST_LINEAR_ASSET_MISMATCH = 403] = "VAST_LINEAR_ASSET_MISMATCH", t[t.VAST_PROBLEM_DISPLAYING_MEDIA_FILE = 405] = "VAST_PROBLEM_DISPLAYING_MEDIA_FILE", t[t.OVERLAY_AD_PLAYING_FAILED = 500] = "OVERLAY_AD_PLAYING_FAILED", t[t.NONLINEAR_DIMENSIONS_ERROR = 501] = "NONLINEAR_DIMENSIONS_ERROR", t[t.OVERLAY_AD_LOADING_FAILED = -1] = "OVERLAY_AD_LOADING_FAILED", t[t.VAST_NONLINEAR_ASSET_MISMATCH = 503] = "VAST_NONLINEAR_ASSET_MISMATCH", t[t.COMPANION_REQUIRED_ERROR = 602] = "COMPANION_REQUIRED_ERROR", t[t.COMPANION_AD_LOADING_FAILED = -1] = "COMPANION_AD_LOADING_FAILED", t[t.UNKNOWN_ERROR = 900] = "UNKNOWN_ERROR", t[t.VPAID_ERROR = 901] = "VPAID_ERROR", t[t.FAILED_TO_REQUEST_ADS = 1005] = "FAILED_TO_REQUEST_ADS", t[t.VAST_ASSET_NOT_FOUND = 1007] = "VAST_ASSET_NOT_FOUND", t[t.VAST_EMPTY_RESPONSE = 1009] = "VAST_EMPTY_RESPONSE", t[t.UNKNOWN_AD_RESPONSE = 1010] = "UNKNOWN_AD_RESPONSE", t[t.UNSUPPORTED_LOCALE = 1011] = "UNSUPPORTED_LOCALE", t[t.ADS_REQUEST_NETWORK_ERROR = 1012] = "ADS_REQUEST_NETWORK_ERROR", t[t.INVALID_AD_TAG = 1013] = "INVALID_AD_TAG", t[t.PROTECTED_AUDIENCE_API_ERROR = 1014] = "PROTECTED_AUDIENCE_API_ERROR", t[t.STREAM_INITIALIZATION_FAILED = 1020] = "STREAM_INITIALIZATION_FAILED", t[t.ASSET_FALLBACK_FAILED = 1021] = "ASSET_FALLBACK_FAILED", t[t.UNSUPPORTED_URL = 1022] = "UNSUPPORTED_URL", t[t.INVALID_ARGUMENTS = 1101] = "INVALID_ARGUMENTS", t[t.NATIVE_MESSAGE_ERROR = 1204] = "NATIVE_MESSAGE_ERROR", t[t.AUTOPLAY_DISALLOWED = 1205] = "AUTOPLAY_DISALLOWED", t[t.CONSENT_MANAGEMENT_PROVIDER_NOT_READY = 1300] = "CONSENT_MANAGEMENT_PROVIDER_NOT_READY", t[t.Cj = 2002] = "Cj", t[t.VIDEO_ELEMENT_USED = -1] = "VIDEO_ELEMENT_USED", t[t.VIDEO_ELEMENT_REQUIRED = -1] = "VIDEO_ELEMENT_REQUIRED", t[t.VAST_MEDIA_ERROR = -1] = "VAST_MEDIA_ERROR", t[t.ADSLOT_NOT_VISIBLE = -1] = "ADSLOT_NOT_VISIBLE", t))(cr || {}), dr = /* @__PURE__ */ ((t) => (t.AD_LOAD = "adLoadError", t.AD_PLAY = "adPlayError", t))(dr || {}), hr = /* @__PURE__ */ ((t) => (t.AD_ERROR = "adError", t))(hr || {}), pr = /* @__PURE__ */ ((t) => (t.AD_CAN_PLAY = "adCanPlay", t.wi = "adStarted", t.CONTENT_PAUSE_REQUESTED = "contentPauseRequested", t.CONTENT_RESUME_REQUESTED = "contentResumeRequested", t.CLICK = "click", t.VIDEO_CLICKED = "videoClicked", t.VIDEO_ICON_CLICKED = "videoIconClicked", t.Ne = "engagedView", t.EXPANDED_CHANGED = "expandedChanged", t.STARTED = "start", t.AD_PROGRESS = "adProgress", t.AD_BUFFERING = "adBuffering", t.IMPRESSION = "impression", t.Ue = "measurable_impression", t.VIEWABLE_IMPRESSION = "viewable_impression", t.Oe = "fully_viewable_audible_half_duration_impression", t.mg = "overlay_resize", t.ng = "overlay_unmeasurable_impression", t.og = "overlay_unviewable_impression", t.qg = "overlay_viewable_immediate_impression", t.pg = "overlay_viewable_end_of_session_impression", t.Oi = "externalActivityEvent", t.PAUSED = "pause", t.RESUMED = "resume", t.FIRST_QUARTILE = "firstQuartile", t.MIDPOINT = "midpoint", t.THIRD_QUARTILE = "thirdQuartile", t.COMPLETE = "complete", t.DURATION_CHANGE = "durationChange", t.USER_CLOSE = "userClose", t.Ij = "userRecall", t.vj = "prefetched", t.LOADED = "loaded", t.ALL_ADS_COMPLETED = "allAdsCompleted", t.SKIPPED = "skip", t.ug = "skipShown", t.LINEAR_CHANGED = "linearChanged", t.SKIPPABLE_STATE_CHANGED = "skippableStateChanged", t.AD_METADATA = "adMetadata", t.AD_BREAK_FETCH_ERROR = "adBreakFetchError", t.AD_BREAK_READY = "adBreakReady", t.LOG = "log", t.VOLUME_CHANGED = "volumeChange", t.VOLUME_MUTED = "mute", t.INTERACTION = "interaction", t.Bi = "companionBackfill", t.Gj = "trackingUrlPinged", t.Jj = "video_card_endcap_collapse", t.Kj = "video_card_endcap_dismiss", t.Lj = "video_card_endcap_impression", t.Ei = "companionInitialized", t.Di = "companionImpression", t.Ci = "companionClick", t.pj = "mediaUrlPinged", t.LOAD_START = "loadStart", t.rj = "navigationRequested", t))(pr || {}), fr = /* @__PURE__ */ ((t) => (t.ADS_MANAGER_LOADED = "adsManagerLoaded", t))(fr || {}), mr = /* @__PURE__ */ ((t) => (t.ALWAYS = "always", t.ON_MASTER_AD = "on_master_ad", t))(mr || {}), gr = /* @__PURE__ */ ((t) => (t[t.DISABLED = 0] = "DISABLED", t[t.ENABLED = 1] = "ENABLED", t[t.INSECURE = 2] = "INSECURE", t))(gr || {}), Ar = /* @__PURE__ */ ((t) => (t.NORMAL = "normal", t.FULLSCREEN = "fullscreen", t))(Ar || {});
-const Ut = mr, Pt = gr, Ge = class Ge {
+const Mr = "0.0.5";
+var lr = /* @__PURE__ */ ((t) => (t[t.DEPRECATED_ERROR_CODE = -1] = "DEPRECATED_ERROR_CODE", t[t.VAST_MALFORMED_RESPONSE = -1] = "VAST_MALFORMED_RESPONSE", t[t.VAST_SCHEMA_VALIDATION_ERROR = 101] = "VAST_SCHEMA_VALIDATION_ERROR", t[t.VAST_UNSUPPORTED_VERSION = 102] = "VAST_UNSUPPORTED_VERSION", t[t.VAST_TRAFFICKING_ERROR = 200] = "VAST_TRAFFICKING_ERROR", t[t.VAST_UNEXPECTED_LINEARITY = 201] = "VAST_UNEXPECTED_LINEARITY", t[t.VAST_UNEXPECTED_DURATION_ERROR = 202] = "VAST_UNEXPECTED_DURATION_ERROR", t[t.VAST_WRAPPER_ERROR = 300] = "VAST_WRAPPER_ERROR", t[t.VAST_LOAD_TIMEOUT = 301] = "VAST_LOAD_TIMEOUT", t[t.VAST_TOO_MANY_REDIRECTS = 302] = "VAST_TOO_MANY_REDIRECTS", t[t.VAST_NO_ADS_AFTER_WRAPPER = 303] = "VAST_NO_ADS_AFTER_WRAPPER", t[t.VIDEO_PLAY_ERROR = 400] = "VIDEO_PLAY_ERROR", t[t.VAST_MEDIA_LOAD_TIMEOUT = 402] = "VAST_MEDIA_LOAD_TIMEOUT", t[t.VAST_LINEAR_ASSET_MISMATCH = 403] = "VAST_LINEAR_ASSET_MISMATCH", t[t.VAST_PROBLEM_DISPLAYING_MEDIA_FILE = 405] = "VAST_PROBLEM_DISPLAYING_MEDIA_FILE", t[t.OVERLAY_AD_PLAYING_FAILED = 500] = "OVERLAY_AD_PLAYING_FAILED", t[t.NONLINEAR_DIMENSIONS_ERROR = 501] = "NONLINEAR_DIMENSIONS_ERROR", t[t.OVERLAY_AD_LOADING_FAILED = -1] = "OVERLAY_AD_LOADING_FAILED", t[t.VAST_NONLINEAR_ASSET_MISMATCH = 503] = "VAST_NONLINEAR_ASSET_MISMATCH", t[t.COMPANION_REQUIRED_ERROR = 602] = "COMPANION_REQUIRED_ERROR", t[t.COMPANION_AD_LOADING_FAILED = -1] = "COMPANION_AD_LOADING_FAILED", t[t.UNKNOWN_ERROR = 900] = "UNKNOWN_ERROR", t[t.VPAID_ERROR = 901] = "VPAID_ERROR", t[t.FAILED_TO_REQUEST_ADS = 1005] = "FAILED_TO_REQUEST_ADS", t[t.VAST_ASSET_NOT_FOUND = 1007] = "VAST_ASSET_NOT_FOUND", t[t.VAST_EMPTY_RESPONSE = 1009] = "VAST_EMPTY_RESPONSE", t[t.UNKNOWN_AD_RESPONSE = 1010] = "UNKNOWN_AD_RESPONSE", t[t.UNSUPPORTED_LOCALE = 1011] = "UNSUPPORTED_LOCALE", t[t.ADS_REQUEST_NETWORK_ERROR = 1012] = "ADS_REQUEST_NETWORK_ERROR", t[t.INVALID_AD_TAG = 1013] = "INVALID_AD_TAG", t[t.PROTECTED_AUDIENCE_API_ERROR = 1014] = "PROTECTED_AUDIENCE_API_ERROR", t[t.STREAM_INITIALIZATION_FAILED = 1020] = "STREAM_INITIALIZATION_FAILED", t[t.ASSET_FALLBACK_FAILED = 1021] = "ASSET_FALLBACK_FAILED", t[t.UNSUPPORTED_URL = 1022] = "UNSUPPORTED_URL", t[t.INVALID_ARGUMENTS = 1101] = "INVALID_ARGUMENTS", t[t.NATIVE_MESSAGE_ERROR = 1204] = "NATIVE_MESSAGE_ERROR", t[t.AUTOPLAY_DISALLOWED = 1205] = "AUTOPLAY_DISALLOWED", t[t.CONSENT_MANAGEMENT_PROVIDER_NOT_READY = 1300] = "CONSENT_MANAGEMENT_PROVIDER_NOT_READY", t[t.Cj = 2002] = "Cj", t[t.VIDEO_ELEMENT_USED = -1] = "VIDEO_ELEMENT_USED", t[t.VIDEO_ELEMENT_REQUIRED = -1] = "VIDEO_ELEMENT_REQUIRED", t[t.VAST_MEDIA_ERROR = -1] = "VAST_MEDIA_ERROR", t[t.ADSLOT_NOT_VISIBLE = -1] = "ADSLOT_NOT_VISIBLE", t))(lr || {}), cr = /* @__PURE__ */ ((t) => (t.AD_LOAD = "adLoadError", t.AD_PLAY = "adPlayError", t))(cr || {}), dr = /* @__PURE__ */ ((t) => (t.AD_ERROR = "adError", t))(dr || {}), hr = /* @__PURE__ */ ((t) => (t.AD_CAN_PLAY = "adCanPlay", t.wi = "adStarted", t.CONTENT_PAUSE_REQUESTED = "contentPauseRequested", t.CONTENT_RESUME_REQUESTED = "contentResumeRequested", t.CLICK = "click", t.VIDEO_CLICKED = "videoClicked", t.VIDEO_ICON_CLICKED = "videoIconClicked", t.Ne = "engagedView", t.EXPANDED_CHANGED = "expandedChanged", t.STARTED = "start", t.AD_PROGRESS = "adProgress", t.AD_BUFFERING = "adBuffering", t.IMPRESSION = "impression", t.Ue = "measurable_impression", t.VIEWABLE_IMPRESSION = "viewable_impression", t.Oe = "fully_viewable_audible_half_duration_impression", t.mg = "overlay_resize", t.ng = "overlay_unmeasurable_impression", t.og = "overlay_unviewable_impression", t.qg = "overlay_viewable_immediate_impression", t.pg = "overlay_viewable_end_of_session_impression", t.Oi = "externalActivityEvent", t.PAUSED = "pause", t.RESUMED = "resume", t.FIRST_QUARTILE = "firstQuartile", t.MIDPOINT = "midpoint", t.THIRD_QUARTILE = "thirdQuartile", t.COMPLETE = "complete", t.DURATION_CHANGE = "durationChange", t.USER_CLOSE = "userClose", t.Ij = "userRecall", t.vj = "prefetched", t.LOADED = "loaded", t.ALL_ADS_COMPLETED = "allAdsCompleted", t.SKIPPED = "skip", t.ug = "skipShown", t.LINEAR_CHANGED = "linearChanged", t.SKIPPABLE_STATE_CHANGED = "skippableStateChanged", t.AD_METADATA = "adMetadata", t.AD_BREAK_FETCH_ERROR = "adBreakFetchError", t.AD_BREAK_READY = "adBreakReady", t.LOG = "log", t.VOLUME_CHANGED = "volumeChange", t.VOLUME_MUTED = "mute", t.INTERACTION = "interaction", t.Bi = "companionBackfill", t.Gj = "trackingUrlPinged", t.Jj = "video_card_endcap_collapse", t.Kj = "video_card_endcap_dismiss", t.Lj = "video_card_endcap_impression", t.Ei = "companionInitialized", t.Di = "companionImpression", t.Ci = "companionClick", t.pj = "mediaUrlPinged", t.LOAD_START = "loadStart", t.rj = "navigationRequested", t))(hr || {}), pr = /* @__PURE__ */ ((t) => (t.ADS_MANAGER_LOADED = "adsManagerLoaded", t))(pr || {}), fr = /* @__PURE__ */ ((t) => (t.ALWAYS = "always", t.ON_MASTER_AD = "on_master_ad", t))(fr || {}), mr = /* @__PURE__ */ ((t) => (t[t.DISABLED = 0] = "DISABLED", t[t.ENABLED = 1] = "ENABLED", t[t.INSECURE = 2] = "INSECURE", t))(mr || {}), gr = /* @__PURE__ */ ((t) => (t.NORMAL = "normal", t.FULLSCREEN = "fullscreen", t))(gr || {});
+const Ut = fr, Pt = mr, Ge = class Ge {
   constructor() {
     g(this, "autoPlayAdBreaks", !0);
     g(this, "cookiesEnabled", !0);
@@ -131,7 +131,7 @@ const Ut = mr, Pt = gr, Ge = class Ge {
 };
 g(Ge, "CompanionBackfillMode", Ut), g(Ge, "VpaidMode", Pt);
 let Ze = Ge;
-const bi = new Ze(), xt = ["debug", "info", "warn", "error", "fatal", "trace"], jr = {
+const Di = new Ze(), xt = ["debug", "info", "warn", "error", "fatal", "trace"], qr = {
   debug: console.debug || console.log,
   info: console.info || console.log,
   warn: console.warn || console.log,
@@ -139,7 +139,7 @@ const bi = new Ze(), xt = ["debug", "info", "warn", "error", "fatal", "trace"], 
   fatal: console.error || console.log,
   trace: console.trace || console.log
 };
-class Gr {
+class jr {
   constructor(e) {
     g(this, "enable");
     g(this, "level");
@@ -169,16 +169,15 @@ class Gr {
     var i;
     if (this.enable && xt.indexOf(e) >= xt.indexOf(this.level)) {
       const c = (/* @__PURE__ */ new Date()).toISOString();
-      ((i = jr[e]) != null ? i : console.log)(`[${c}]  [${r}] [${e}]`, n, ...s);
+      ((i = qr[e]) != null ? i : console.log)(`[${c}]  [${r}] [${e}]`, n, ...s);
     }
   }
 }
-var lr;
-const x = new Gr({
-  enable: process.env.NODE_ENV !== "production",
-  level: (lr = process.env.LOG_LEVEL) != null ? lr : "error"
-}), Hr = "ima:Ad";
-class Wr {
+const x = new jr({
+  enable: !1,
+  level: "error"
+}), Gr = "ima:Ad";
+class Hr {
   constructor(e, r, n, s) {
     g(this, "adId");
     g(this, "adPodInfo");
@@ -229,7 +228,7 @@ class Wr {
     return this.apiFramework;
   }
   getCompanionAds(e, r, n) {
-    return x.debug(Hr, `Ad adSlotWidth:[${e}] adSlotHeight[${r}] settings:`, n), this.companionAds;
+    return x.debug(Gr, `Ad adSlotWidth:[${e}] adSlotHeight[${r}] settings:`, n), this.companionAds;
   }
   getCreativeAdId() {
     return this.creativeAdId;
@@ -308,7 +307,7 @@ class Wr {
   }
 }
 const Ve = "ima:AdDisplayContainer";
-class yi {
+class bi {
   /**
    * Constructor.
    * @param containerElement The element to display the ads in.
@@ -418,7 +417,7 @@ class yi {
     return r.id = "adm-video-ads", r.style.position = "absolute", r.style.inset = "0", r.style.top = "0", r.style.left = "0", r.style.right = "0", r.style.bottom = "0", r.style.width = "100%", r.style.height = "100%", r.style.objectFit = "cover", r.style.background = "black", r.controls = !1, r.playsInline = !1, r.setAttribute("disablePictureInPicture", ""), r.setAttribute("disableRemotePlayback", ""), r.setAttribute("playsinline", "false"), r.setAttribute("webkit-playsinline", "false"), r.setAttribute("x-webkit-airplay", "allow"), r.setAttribute("object", "fit"), r.removeAttribute("controls"), e.appendChild(r), r;
   }
 }
-const $r = cr, _r = dr;
+const Wr = lr, $r = cr;
 class Je {
   constructor(e, r) {
     g(this, "name");
@@ -444,8 +443,8 @@ class Je {
     return this.code;
   }
 }
-g(Je, "ErrorCode", $r), g(Je, "Type", _r);
-const Yr = hr, rt = class rt {
+g(Je, "ErrorCode", Wr), g(Je, "Type", $r);
+const _r = dr, rt = class rt {
   constructor(e, r) {
     g(this, "target");
     g(this, "currentTarget");
@@ -465,9 +464,9 @@ const Yr = hr, rt = class rt {
   stopPropagation() {
   }
 };
-g(rt, "Type", Yr);
+g(rt, "Type", _r);
 let et = rt;
-const zr = pr, nt = class nt {
+const Yr = hr, nt = class nt {
   constructor(e, r) {
     g(this, "currentTarget");
     g(this, "target");
@@ -487,9 +486,9 @@ const zr = pr, nt = class nt {
   stopPropagation() {
   }
 };
-g(nt, "Type", zr);
+g(nt, "Type", Yr);
 let gt = nt;
-class Kr {
+class zr {
   constructor(e, r, n, s, i, c) {
     g(this, "adPosition");
     g(this, "isBumper");
@@ -518,7 +517,7 @@ class Kr {
     return this.totalAds;
   }
 }
-class Er {
+class Ar {
   constructor() {
     g(this, "listeners", {});
   }
@@ -558,22 +557,22 @@ function Dt() {
   let t = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
   return { id: t.id || null, adId: t.adId || null, sequence: t.sequence || null, apiFramework: t.apiFramework || null, universalAdIds: [], creativeExtensions: [] };
 }
-const Xr = ["ADCATEGORIES", "ADCOUNT", "ADPLAYHEAD", "ADSERVINGID", "ADTYPE", "APIFRAMEWORKS", "APPBUNDLE", "ASSETURI", "BLOCKEDADCATEGORIES", "BREAKMAXADLENGTH", "BREAKMAXADS", "BREAKMAXDURATION", "BREAKMINADLENGTH", "BREAKMINDURATION", "BREAKPOSITION", "CLICKPOS", "CLICKTYPE", "CLIENTUA", "CONTENTID", "CONTENTPLAYHEAD", "CONTENTURI", "DEVICEIP", "DEVICEUA", "DOMAIN", "EXTENSIONS", "GDPRCONSENT", "IFA", "IFATYPE", "INVENTORYSTATE", "LATLONG", "LIMITADTRACKING", "MEDIAMIME", "MEDIAPLAYHEAD", "OMIDPARTNER", "PAGEURL", "PLACEMENTTYPE", "PLAYERCAPABILITIES", "PLAYERSIZE", "PLAYERSTATE", "PODSEQUENCE", "REGULATIONS", "SERVERSIDE", "SERVERUA", "TRANSACTIONID", "UNIVERSALADID", "VASTVERSIONS", "VERIFICATIONVENDORS"];
+const Kr = ["ADCATEGORIES", "ADCOUNT", "ADPLAYHEAD", "ADSERVINGID", "ADTYPE", "APIFRAMEWORKS", "APPBUNDLE", "ASSETURI", "BLOCKEDADCATEGORIES", "BREAKMAXADLENGTH", "BREAKMAXADS", "BREAKMAXDURATION", "BREAKMINADLENGTH", "BREAKMINDURATION", "BREAKPOSITION", "CLICKPOS", "CLICKTYPE", "CLIENTUA", "CONTENTID", "CONTENTPLAYHEAD", "CONTENTURI", "DEVICEIP", "DEVICEUA", "DOMAIN", "EXTENSIONS", "GDPRCONSENT", "IFA", "IFATYPE", "INVENTORYSTATE", "LATLONG", "LIMITADTRACKING", "MEDIAMIME", "MEDIAPLAYHEAD", "OMIDPARTNER", "PAGEURL", "PLACEMENTTYPE", "PLAYERCAPABILITIES", "PLAYERSIZE", "PLAYERSTATE", "PODSEQUENCE", "REGULATIONS", "SERVERSIDE", "SERVERUA", "TRANSACTIONID", "UNIVERSALADID", "VASTVERSIONS", "VERIFICATIONVENDORS"];
 function Vt(t) {
   let e = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, r = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
-  const n = [], s = Tr(t);
-  !e.ERRORCODE || r.isCustomCode || /^[0-9]{3}$/.test(e.ERRORCODE) || (e.ERRORCODE = 900), e.CACHEBUSTING = yr(Math.round(1e8 * Math.random())), e.TIMESTAMP = (/* @__PURE__ */ new Date()).toISOString(), e.RANDOM = e.random = e.CACHEBUSTING;
-  for (const i in e) e[i] = br(e[i]);
+  const n = [], s = vr(t);
+  !e.ERRORCODE || r.isCustomCode || /^[0-9]{3}$/.test(e.ERRORCODE) || (e.ERRORCODE = 900), e.CACHEBUSTING = br(Math.round(1e8 * Math.random())), e.TIMESTAMP = (/* @__PURE__ */ new Date()).toISOString(), e.RANDOM = e.random = e.CACHEBUSTING;
+  for (const i in e) e[i] = Dr(e[i]);
   for (const i in s) {
     const c = s[i];
-    typeof c == "string" && n.push(vr(c, e));
+    typeof c == "string" && n.push(Er(c, e));
   }
   return n;
 }
-function vr(t, e) {
+function Er(t, e) {
   const r = (t = Mt(t, e)).match(/[^[\]]+(?=])/g);
   if (!r) return t;
-  let n = r.filter((s) => Xr.indexOf(s) > -1);
+  let n = r.filter((s) => Kr.indexOf(s) > -1);
   return n.length === 0 ? t : (n = n.reduce((s, i) => (s[i] = -1, s), {}), Mt(t, n));
 }
 function Mt(t, e) {
@@ -584,27 +583,27 @@ function Mt(t, e) {
   }
   return r;
 }
-function Tr(t) {
+function vr(t) {
   return Array.isArray(t) ? t.map((e) => e && e.hasOwnProperty("url") ? e.url : e) : t;
 }
 function qt(t) {
   return /^(https?:\/\/|\/\/)/.test(t);
 }
 function jt(t, e) {
-  for (let r = 0; r < e.length; r++) if (Dr(e[r], t)) return !0;
+  for (let r = 0; r < e.length; r++) if (Tr(e[r], t)) return !0;
   return !1;
 }
-function Dr(t, e) {
+function Tr(t, e) {
   if (t && e) {
     const r = Object.getOwnPropertyNames(t), n = Object.getOwnPropertyNames(e);
     return r.length === n.length && t.id === e.id && t.url === e.url;
   }
   return !1;
 }
-function br(t) {
+function Dr(t) {
   return encodeURIComponent(t).replace(/[!'()*]/g, (e) => "%".concat(e.charCodeAt(0).toString(16)));
 }
-function yr(t) {
+function br(t) {
   let e = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 8;
   return t.toString().padStart(e, "0");
 }
@@ -612,12 +611,12 @@ const W = { track: function(t, e, r) {
   Vt(t, e, r).forEach((n) => {
     typeof window != "undefined" && window !== null && (new Image().src = n);
   });
-}, resolveURLTemplates: Vt, extractURLsFromTemplates: Tr, filterUrlTemplates: function(t) {
+}, resolveURLTemplates: Vt, extractURLsFromTemplates: vr, filterUrlTemplates: function(t) {
   return t.reduce((e, r) => {
     const n = r.url || r;
     return qt(n) ? e.validUrls.push(n) : e.invalidUrls.push(n), e;
   }, { validUrls: [], invalidUrls: [] });
-}, containsTemplateObject: jt, isTemplateObjectEqual: Dr, encodeURIComponentRFC3986: br, replaceUrlMacros: vr, isNumeric: function(t) {
+}, containsTemplateObject: jt, isTemplateObjectEqual: Tr, encodeURIComponentRFC3986: Dr, replaceUrlMacros: Er, isNumeric: function(t) {
   return !isNaN(parseFloat(t)) && isFinite(t);
 }, flatten: function t(e) {
   return e.reduce((r, n) => r.concat(Array.isArray(n) ? t(n) : n), []);
@@ -627,7 +626,7 @@ const W = { track: function(t, e, r) {
   return r.concat(n).reduce((s, i) => (jt(i, s) || s.push(i), s), []);
 }, isValidTimeValue: function(t) {
   return Number.isFinite(t) && t >= -2;
-}, addLeadingZeros: yr, isValidUrl: qt, isBrowserEnvironment: function() {
+}, addLeadingZeros: br, isValidUrl: qt, isBrowserEnvironment: function() {
   return typeof window != "undefined";
 }, formatMacrosValues: function(t) {
   return typeof t != "object" ? t : JSON.stringify(t);
@@ -635,7 +634,7 @@ const W = { track: function(t, e, r) {
 function Gt(t) {
   return ["true", "TRUE", "True", "1"].includes(t);
 }
-function Qr(t) {
+function Xr(t) {
   if (t == null) return -1;
   if (W.isNumeric(t)) return parseInt(t);
   const e = t.split(":");
@@ -668,7 +667,7 @@ const m = { childByName: function(t, e) {
   n && r.setAttribute(t, n);
 }, parseAttributes: function(t) {
   return Array.from(t.attributes).reduce((e, r) => (e[r.nodeName] = r.nodeValue, e), {});
-}, parseDuration: Qr, getStandAloneAds: function() {
+}, parseDuration: Xr, getStandAloneAds: function() {
   return (arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : []).filter((t) => !parseInt(t.sequence, 10));
 }, getSortedAdPods: function() {
   return (arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : []).filter((t) => parseInt(t.sequence, 10)).sort((t, e) => t.sequence - e.sequence);
@@ -706,7 +705,7 @@ const m = { childByName: function(t, e) {
     o.length && (t.creatives = t.creatives.concat(o));
   }
 } };
-function Zr(t, e) {
+function Qr(t, e) {
   const r = function() {
     let n = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
     const { id: s, adId: i, sequence: c, apiFramework: o } = Dt(n);
@@ -736,7 +735,7 @@ function Zr(t, e) {
     return c && (s.adParameters = { value: m.parseNodeText(c), xmlEncoded: c.getAttribute("xmlEncoded") || null }), s;
   }), r;
 }
-function Jr(t, e) {
+function Zr(t, e) {
   let r;
   const n = function() {
     let l = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
@@ -840,7 +839,7 @@ function Jr(t, e) {
     }(l));
   }), n;
 }
-function en(t, e) {
+function Jr(t, e) {
   const r = function() {
     let n = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
     const { id: s, adId: i, sequence: c, apiFramework: o } = Dt(n);
@@ -869,11 +868,11 @@ function en(t, e) {
 function Ht(t) {
   const e = [];
   return t.forEach((r) => {
-    const n = Cr(r);
+    const n = yr(r);
     n && e.push(n);
   }), e;
 }
-function Cr(t) {
+function yr(t) {
   if (t.nodeName === "#comment") return null;
   const e = { name: null, value: null, attributes: {}, children: [] }, r = t.attributes, n = t.childNodes;
   if (e.name = t.nodeName, t.attributes) {
@@ -883,7 +882,7 @@ function Cr(t) {
     }
   }
   for (const i in n) if (n.hasOwnProperty(i)) {
-    const c = Cr(n[i]);
+    const c = yr(n[i]);
     c && e.children.push(c);
   }
   if (e.children.length === 0 || e.children.length === 1 && ["#cdata-section", "#text"].indexOf(e.children[0].name) >= 0) {
@@ -893,7 +892,7 @@ function Cr(t) {
   return (s = e).value === null && Object.keys(s.attributes).length === 0 && s.children.length === 0 ? null : e;
   var s;
 }
-function tn(t) {
+function en(t) {
   return t.getAttribute("AdID") || t.getAttribute("adID") || t.getAttribute("adId") || null;
 }
 const Xe = { Wrapper: { subElements: ["VASTAdTagURI", "Impression"] }, BlockedAdCategories: { attributes: ["authority"] }, InLine: { subElements: ["AdSystem", "AdTitle", "Impression", "AdServingId", "Creatives"] }, Category: { attributes: ["authority"] }, Pricing: { attributes: ["model", "currency"] }, Verification: { oneOfinLineResources: ["JavaScriptResource", "ExecutableResource"], attributes: ["vendor"] }, UniversalAdId: { attributes: ["idRegistry"] }, JavaScriptResource: { attributes: ["apiFramework", "browserOptional"] }, ExecutableResource: { attributes: ["apiFramework", "type"] }, Tracking: { attributes: ["event"] }, Creatives: { subElements: ["Creative"] }, Creative: { subElements: ["UniversalAdId"] }, Linear: { subElements: ["MediaFiles", "Duration"] }, MediaFiles: { subElements: ["MediaFile"] }, MediaFile: { attributes: ["delivery", "type", "width", "height"] }, Mezzanine: { attributes: ["delivery", "type", "width", "height"] }, NonLinear: { oneOfinLineResources: ["StaticResource", "IFrameResource", "HTMLResource"], attributes: ["width", "height"] }, Companion: { oneOfinLineResources: ["StaticResource", "IFrameResource", "HTMLResource"], attributes: ["width", "height"] }, StaticResource: { attributes: ["creativeType"] }, Icons: { subElements: ["Icon"] }, Icon: { oneOfinLineResources: ["StaticResource", "IFrameResource", "HTMLResource"] } };
@@ -919,32 +918,32 @@ function He(t, e) {
   let { name: r, parentName: n, attributes: s, subElements: i, oneOfResources: c } = t, o = "Element '".concat(r, "'");
   o += s ? " missing required attribute(s) '".concat(s.join(", "), "' ") : i ? " missing required sub element(s) '".concat(i.join(", "), "' ") : c ? " must provide one of the following '".concat(c.join(", "), "' ") : " is empty", e("VAST-warning", { message: o, parentElement: n, specVersion: 4.1 });
 }
-const rn = { verifyRequiredValues: function t(e, r, n) {
+const tn = { verifyRequiredValues: function t(e, r, n) {
   if (e && e.nodeName) if (e.nodeName === "InLine" && (n = !0), Wt(e, r), _t(e)) {
     $t(e, r, n);
     for (let s = 0; s < e.children.length; s++) t(e.children[s], r, n);
   } else m.parseNodeText(e).length === 0 && He({ name: e.nodeName, parentName: e.parentNode.nodeName }, r);
 }, hasSubElements: _t, emitMissingValueWarning: He, verifyRequiredAttributes: Wt, verifyRequiredSubElements: $t };
-function nn(t, e) {
+function rn(t, e) {
   let { allowMultipleAds: r, followAdditionalWrappers: n } = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
   const s = Array.from(t.childNodes).filter((i) => {
     const c = i.nodeName.toLowerCase();
     return c === "inline" || n !== !1 && c === "wrapper";
   });
   for (const i of s) {
-    if (m.copyNodeAttribute("id", t, i), m.copyNodeAttribute("sequence", t, i), m.copyNodeAttribute("adType", t, i), i.nodeName === "Wrapper") return { ad: un(i, e), type: "WRAPPER" };
-    if (i.nodeName === "InLine") return { ad: sn(i, e, { allowMultipleAds: r }), type: "INLINE" };
+    if (m.copyNodeAttribute("id", t, i), m.copyNodeAttribute("sequence", t, i), m.copyNodeAttribute("adType", t, i), i.nodeName === "Wrapper") return { ad: sn(i, e), type: "WRAPPER" };
+    if (i.nodeName === "InLine") return { ad: nn(i, e, { allowMultipleAds: r }), type: "INLINE" };
     const c = i.nodeName.toLowerCase();
     e("VAST-warning", { message: "<".concat(i.nodeName, c === "inline" ? "> must be written <InLine>" : "> must be written <Wrapper>"), wrongNode: i });
   }
 }
-function sn(t, e) {
+function nn(t, e) {
   let { allowMultipleAds: r } = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
-  return r === !1 && t.getAttribute("sequence") ? null : Nr(t, e);
+  return r === !1 && t.getAttribute("sequence") ? null : Cr(t, e);
 }
-function Nr(t, e) {
+function Cr(t, e) {
   let r = [];
-  e && rn.verifyRequiredValues(t, e);
+  e && tn.verifyRequiredValues(t, e);
   const n = Array.from(t.childNodes), s = function() {
     let i = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
     return { id: i.id || null, sequence: i.sequence || null, adType: i.adType || null, adServingId: null, categories: [], expires: null, viewableImpression: [], system: null, title: null, description: null, advertiser: null, pricing: null, survey: null, errorURLTemplates: [], impressionURLTemplates: [], creatives: [], extensions: [], adVerifications: [], blockedAdCategories: [], followAdditionalWrappers: !0, allowMultipleAds: !1, fallbackOnNoAd: null };
@@ -961,7 +960,7 @@ function Nr(t, e) {
         s.creatives = function(c) {
           const o = [];
           return c.forEach((l) => {
-            const h = { id: l.getAttribute("id") || null, adId: tn(l), sequence: l.getAttribute("sequence") || null, apiFramework: l.getAttribute("apiFramework") || null }, p = [];
+            const h = { id: l.getAttribute("id") || null, adId: en(l), sequence: l.getAttribute("sequence") || null, apiFramework: l.getAttribute("apiFramework") || null }, p = [];
             let E;
             m.childrenByName(l, "UniversalAdId").forEach((y) => {
               const R = { idRegistry: y.getAttribute("idRegistry") || "unknown", value: m.parseNodeText(y) };
@@ -974,13 +973,13 @@ function Nr(t, e) {
               let C;
               switch (R.nodeName) {
                 case "Linear":
-                  C = Jr(R, h);
+                  C = Zr(R, h);
                   break;
                 case "NonLinearAds":
-                  C = en(R, h);
+                  C = Jr(R, h);
                   break;
                 case "CompanionAds":
-                  C = Zr(R, h);
+                  C = Qr(R, h);
               }
               C && (p && (C.universalAdIds = p), E && (C.creativeExtensions = E), o.push(C));
             }
@@ -1039,8 +1038,8 @@ function Nr(t, e) {
     }
   }), r.length && (s.adVerifications = s.adVerifications.concat(r)), s;
 }
-function un(t, e) {
-  const r = Nr(t, e), n = t.getAttribute("followAdditionalWrappers"), s = t.getAttribute("allowMultipleAds"), i = t.getAttribute("fallbackOnNoAd");
+function sn(t, e) {
+  const r = Cr(t, e), n = t.getAttribute("followAdditionalWrappers"), s = t.getAttribute("allowMultipleAds"), i = t.getAttribute("fallbackOnNoAd");
   r.followAdditionalWrappers = !n || m.parseBoolean(n), r.allowMultipleAds = !!s && m.parseBoolean(s), r.fallbackOnNoAd = i ? m.parseBoolean(i) : null;
   let c = m.childByName(t, "VASTAdTagURI");
   if (c ? r.nextWrapperURL = m.parseNodeText(c) : (c = m.childByName(t, "VASTAdTagURL"), c && (r.nextWrapperURL = m.parseNodeText(m.childByName(c, "URL")))), r.creatives.forEach((o) => {
@@ -1084,7 +1083,7 @@ function Yt(t) {
     }), e.push(n);
   }), e;
 }
-class Rr {
+class Nr {
   constructor() {
     this._handlers = [];
   }
@@ -1126,17 +1125,17 @@ class Rr {
   }
 }
 let zt = 0, At = 0;
-const wr = (t, e) => {
+const Rr = (t, e) => {
   !t || !e || t <= 0 || e <= 0 || (At = (At * zt + 8 * t / e) / ++zt);
-}, an = { ERRORCODE: 900, extensions: [] }, Kt = "VAST response version not supported";
-class Ir extends Rr {
+}, un = { ERRORCODE: 900, extensions: [] }, Kt = "VAST response version not supported";
+class wr extends Nr {
   constructor() {
     let { fetcher: e } = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
     super(), this.maxWrapperDepth = null, this.rootErrorURLTemplates = [], this.errorURLTemplates = [], this.remainingAds = [], this.parsingOptions = {}, this.fetcher = e || null;
   }
   trackVastError(e, r) {
     for (var n = arguments.length, s = new Array(n > 2 ? n - 2 : 0), i = 2; i < n; i++) s[i - 2] = arguments[i];
-    this.emit("VAST-error", Object.assign({}, an, r, ...s)), W.track(e, r);
+    this.emit("VAST-error", Object.assign({}, un, r, ...s)), W.track(e, r);
   }
   getErrorURLTemplates() {
     return this.rootErrorURLTemplates.concat(this.errorURLTemplates);
@@ -1146,7 +1145,7 @@ class Ir extends Rr {
   }
   initParsingStatus() {
     let e = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
-    this.maxWrapperDepth = e.wrapperLimit || 10, this.parsingOptions = { allowMultipleAds: e.allowMultipleAds }, this.rootURL = "", this.resetParsingStatus(), wr(e.byteLength, e.requestDuration);
+    this.maxWrapperDepth = e.wrapperLimit || 10, this.parsingOptions = { allowMultipleAds: e.allowMultipleAds }, this.rootURL = "", this.resetParsingStatus(), Rr(e.byteLength, e.requestDuration);
   }
   resetParsingStatus() {
     this.errorURLTemplates = [], this.rootErrorURLTemplates = [], this.vastVersion = null;
@@ -1185,7 +1184,7 @@ class Ir extends Rr {
       } else if (y.nodeName === "Ad") {
         if (this.vastVersion && parseFloat(this.vastVersion) < 3) c = !0;
         else if (c === !1 && h.length > 1) break;
-        const R = nn(y, this.emit.bind(this), { allowMultipleAds: c, followAdditionalWrappers: o });
+        const R = rn(y, this.emit.bind(this), { allowMultipleAds: c, followAdditionalWrappers: o });
         R.ad ? (h.push(R.ad), this.emit("VAST-ad-parsed", { type: R.type, url: s, wrapperDepth: i, adIndex: h.length - 1, vastVersion: E })) : this.trackVastError(this.getErrorURLTemplates(), { ERRORCODE: 101 });
       }
     }
@@ -1244,7 +1243,7 @@ class Ir extends Rr {
   }
 }
 let me = null;
-const on = { data: {}, length: 0, getItem(t) {
+const an = { data: {}, length: 0, getItem(t) {
   return this.data[t];
 }, setItem(t, e) {
   this.data[t] = e, this.length = Object.keys(this.data).length;
@@ -1253,7 +1252,7 @@ const on = { data: {}, length: 0, getItem(t) {
 }, clear() {
   this.data = {}, this.length = 0;
 } };
-class ln {
+class on {
   constructor() {
     this.storage = this.initStorage();
   }
@@ -1264,7 +1263,7 @@ class ln {
     } catch (e) {
       me = null;
     }
-    return me && !this.isStorageDisabled(me) || (me = on, me.clear()), me;
+    return me && !this.isStorageDisabled(me) || (me = an, me.clear()), me;
   }
   isStorageDisabled(e) {
     const r = "__VASTStorage__";
@@ -1288,7 +1287,7 @@ class ln {
     return this.storage.clear();
   }
 }
-const Et = 12e4, cn = { get: function(t, e) {
+const Et = 12e4, ln = { get: function(t, e) {
   return Ne(this, null, function* () {
     try {
       const r = new AbortController(), n = setTimeout(() => {
@@ -1302,7 +1301,7 @@ const Et = 12e4, cn = { get: function(t, e) {
         return Ne(this, null, function* () {
           const o = yield c.text();
           let l;
-          return l = W.isBrowserEnvironment() ? new DOMParser() : new (yield Promise.resolve().then(() => Ti)).DOMParser(), { xml: l.parseFromString(o, "text/xml"), details: { byteLength: o.length, statusCode: c.status, rawXml: o } };
+          return l = W.isBrowserEnvironment() ? new DOMParser() : new (yield Promise.resolve().then(() => vi)).DOMParser(), { xml: l.parseFromString(o, "text/xml"), details: { byteLength: o.length, statusCode: c.status, rawXml: o } };
         });
       }(s);
     } catch (r) {
@@ -1310,13 +1309,13 @@ const Et = 12e4, cn = { get: function(t, e) {
     }
   });
 } };
-class dn {
+class cn {
   constructor() {
     this.URLTemplateFilters = [];
   }
   setOptions() {
     let e = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
-    this.urlHandler = e.urlHandler || e.urlhandler || cn, this.fetchingOptions = { timeout: e.timeout || Et, withCredentials: !!e.withCredentials };
+    this.urlHandler = e.urlHandler || e.urlhandler || ln, this.fetchingOptions = { timeout: e.timeout || Et, withCredentials: !!e.withCredentials };
   }
   addURLTemplateFilter(e) {
     typeof e == "function" && this.URLTemplateFilters.push(e);
@@ -1339,15 +1338,15 @@ class dn {
         n = v(n);
       }), i("VAST-resolving", { url: n, previousUrl: o, wrapperDepth: c, maxWrapperDepth: s, timeout: this.fetchingOptions.timeout, wrapperAd: l });
       const p = yield this.urlHandler.get(n, this.fetchingOptions), E = Math.round(Date.now() - h);
-      if (i("VAST-resolved", Fe({ url: n, previousUrl: o, wrapperDepth: c, error: (p == null ? void 0 : p.error) || null, duration: E, statusCode: (p == null ? void 0 : p.statusCode) || null }, p == null ? void 0 : p.details)), wr(p == null || (r = p.details) === null || r === void 0 ? void 0 : r.byteLength, E), p.error) throw new Error(p.error);
+      if (i("VAST-resolved", Fe({ url: n, previousUrl: o, wrapperDepth: c, error: (p == null ? void 0 : p.error) || null, duration: E, statusCode: (p == null ? void 0 : p.statusCode) || null }, p == null ? void 0 : p.details)), Rr(p == null || (r = p.details) === null || r === void 0 ? void 0 : r.byteLength, E), p.error) throw new Error(p.error);
       return p.xml;
     });
   }
 }
-class hn {
+class dn {
   constructor() {
-    let e = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0, r = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0, n = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : new ln();
-    this.cappingFreeLunch = e, this.cappingMinimumTimeInterval = r, this.fetcher = new dn(), this.vastParser = new Ir({ fetcher: this.fetcher }), this.storage = n, this.lastSuccessfulAd === void 0 && (this.lastSuccessfulAd = 0), this.totalCalls === void 0 && (this.totalCalls = 0), this.totalCallsTimeout === void 0 && (this.totalCallsTimeout = 0);
+    let e = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0, r = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0, n = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : new on();
+    this.cappingFreeLunch = e, this.cappingMinimumTimeInterval = r, this.fetcher = new cn(), this.vastParser = new wr({ fetcher: this.fetcher }), this.storage = n, this.lastSuccessfulAd === void 0 && (this.lastSuccessfulAd = 0), this.totalCalls === void 0 && (this.totalCalls = 0), this.totalCallsTimeout === void 0 && (this.totalCallsTimeout = 0);
   }
   addURLTemplateFilter(e) {
     this.fetcher.addURLTemplateFilter(e);
@@ -1407,7 +1406,7 @@ class hn {
     });
   }
 }
-class pn extends Rr {
+class hn extends Nr {
   constructor(e, r, n) {
     let s = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : null, i = arguments.length > 4 && arguments[4] !== void 0 && arguments[4];
     super(), this.ad = r, this.creative = n, this.variation = s, this.muted = i, this.impressed = !1, this.skippable = !1, this.trackingEvents = {}, this.trackedProgressEvents = [], this.lastPercentage = 0, this._alreadyTriggeredQuartiles = {}, this.emitAlwaysEvents = ["creativeView", "start", "firstQuartile", "midpoint", "thirdQuartile", "complete", "resume", "pause", "rewind", "skip", "closeLinear", "close"];
@@ -1618,8 +1617,8 @@ class pn extends Rr {
     return this.convertToTimecode(this.progress);
   }
 }
-const Sr = ":A-Za-z_\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD", fn = Sr + "\\-.\\d\\u00B7\\u0300-\\u036F\\u203F-\\u2040", mn = "[" + Sr + "][" + fn + "]*", gn = new RegExp("^" + mn + "$");
-function Lr(t, e) {
+const Ir = ":A-Za-z_\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD", pn = Ir + "\\-.\\d\\u00B7\\u0300-\\u036F\\u203F-\\u2040", fn = "[" + Ir + "][" + pn + "]*", mn = new RegExp("^" + fn + "$");
+function Sr(t, e) {
   const r = [];
   let n = e.exec(t);
   for (; n; ) {
@@ -1633,19 +1632,19 @@ function Lr(t, e) {
   return r;
 }
 const bt = function(t) {
-  const e = gn.exec(t);
+  const e = mn.exec(t);
   return !(e === null || typeof e == "undefined");
 };
-function An(t) {
+function gn(t) {
   return typeof t != "undefined";
 }
-const En = {
+const An = {
   allowBooleanAttributes: !1,
   //A tag can have attributes without any value
   unpairedTags: []
 };
-function vn(t, e) {
-  e = Object.assign({}, En, e);
+function En(t, e) {
+  e = Object.assign({}, An, e);
   const r = [];
   let n = !1, s = !1;
   t[0] === "\uFEFF" && (t = t.substr(1));
@@ -1664,11 +1663,11 @@ function vn(t, e) {
         for (; i < t.length && t[i] !== ">" && t[i] !== " " && t[i] !== "	" && t[i] !== `
 ` && t[i] !== "\r"; i++)
           l += t[i];
-        if (l = l.trim(), l[l.length - 1] === "/" && (l = l.substring(0, l.length - 1), i--), !wn(l)) {
+        if (l = l.trim(), l[l.length - 1] === "/" && (l = l.substring(0, l.length - 1), i--), !Rn(l)) {
           let E;
           return l.trim().length === 0 ? E = "Invalid space after '<'." : E = "Tag '" + l + "' is an invalid name.", z("InvalidTag", E, ie(t, i));
         }
-        const h = bn(t, i);
+        const h = Dn(t, i);
         if (h === !1)
           return z("InvalidAttr", "Attributes for '" + l + "' have open quote.", ie(t, i));
         let p = h.value;
@@ -1717,7 +1716,7 @@ function vn(t, e) {
             } else
               break;
           else if (t[i] === "&") {
-            const E = Nn(t, i);
+            const E = Cn(t, i);
             if (E == -1)
               return z("InvalidChar", "char '&' is not expected.", ie(t, i));
             i = E;
@@ -1780,11 +1779,11 @@ function Zt(t, e) {
   }
   return e;
 }
-const Tn = '"', Dn = "'";
-function bn(t, e) {
+const vn = '"', Tn = "'";
+function Dn(t, e) {
   let r = "", n = "", s = !1;
   for (; e < t.length; e++) {
-    if (t[e] === Tn || t[e] === Dn)
+    if (t[e] === vn || t[e] === Tn)
       n === "" ? n = t[e] : n !== t[e] || (n = "");
     else if (t[e] === ">" && n === "") {
       s = !0;
@@ -1798,9 +1797,9 @@ function bn(t, e) {
     tagClosed: s
   };
 }
-const yn = new RegExp(`(\\s*)([^\\s=]+)(\\s*=)?(\\s*(['"])(([\\s\\S])*?)\\5)?`, "g");
+const bn = new RegExp(`(\\s*)([^\\s=]+)(\\s*=)?(\\s*(['"])(([\\s\\S])*?)\\5)?`, "g");
 function Jt(t, e) {
-  const r = Lr(t, yn), n = {};
+  const r = Sr(t, bn), n = {};
   for (let s = 0; s < r.length; s++) {
     if (r[s][1].length === 0)
       return z("InvalidAttr", "Attribute '" + r[s][2] + "' has no space in starting.", Me(r[s]));
@@ -1809,7 +1808,7 @@ function Jt(t, e) {
     if (r[s][3] === void 0 && !e.allowBooleanAttributes)
       return z("InvalidAttr", "boolean attribute '" + r[s][2] + "' is not allowed.", Me(r[s]));
     const i = r[s][2];
-    if (!Rn(i))
+    if (!Nn(i))
       return z("InvalidAttr", "Attribute '" + i + "' is an invalid name.", Me(r[s]));
     if (!n.hasOwnProperty(i))
       n[i] = 1;
@@ -1818,7 +1817,7 @@ function Jt(t, e) {
   }
   return !0;
 }
-function Cn(t, e) {
+function yn(t, e) {
   let r = /\d/;
   for (t[e] === "x" && (e++, r = /[\da-fA-F]/); e < t.length; e++) {
     if (t[e] === ";")
@@ -1828,11 +1827,11 @@ function Cn(t, e) {
   }
   return -1;
 }
-function Nn(t, e) {
+function Cn(t, e) {
   if (e++, t[e] === ";")
     return -1;
   if (t[e] === "#")
-    return e++, Cn(t, e);
+    return e++, yn(t, e);
   let r = 0;
   for (; e < t.length; e++, r++)
     if (!(t[e].match(/\w/) && r < 20)) {
@@ -1852,10 +1851,10 @@ function z(t, e, r) {
     }
   };
 }
-function Rn(t) {
+function Nn(t) {
   return bt(t);
 }
-function wn(t) {
+function Rn(t) {
   return bt(t);
 }
 function ie(t, e) {
@@ -1869,7 +1868,7 @@ function ie(t, e) {
 function Me(t) {
   return t.startIndex + t[1].length;
 }
-const In = {
+const wn = {
   preserveOrder: !1,
   attributeNamePrefix: "@_",
   attributesGroupName: !1,
@@ -1913,8 +1912,8 @@ const In = {
   },
   // skipEmptyListItem: false
   captureMetaData: !1
-}, Sn = function(t) {
-  return Object.assign({}, In, t);
+}, In = function(t) {
+  return Object.assign({}, wn, t);
 };
 let tt;
 typeof Symbol != "function" ? tt = "@@xmlMetadata" : tt = Symbol("XML Node Metadata");
@@ -1933,31 +1932,31 @@ class we {
     return tt;
   }
 }
-function Ln(t, e) {
+function Sn(t, e) {
   const r = {};
   if (t[e + 3] === "O" && t[e + 4] === "C" && t[e + 5] === "T" && t[e + 6] === "Y" && t[e + 7] === "P" && t[e + 8] === "E") {
     e = e + 9;
     let n = 1, s = !1, i = !1, c = "";
     for (; e < t.length; e++)
       if (t[e] === "<" && !i) {
-        if (s && Un(t, e)) {
+        if (s && Fn(t, e)) {
           e += 7;
           let o, l;
-          [o, l, e] = kn(t, e + 1), l.indexOf("&") === -1 && (r[o] = {
+          [o, l, e] = Ln(t, e + 1), l.indexOf("&") === -1 && (r[o] = {
             regx: RegExp(`&${o};`, "g"),
             val: l
           });
-        } else if (s && Pn(t, e)) {
+        } else if (s && Un(t, e)) {
           e += 8;
-          const { index: o } = Bn(t, e + 1);
-          e = o;
-        } else if (s && xn(t, e))
-          e += 8;
-        else if (s && Vn(t, e)) {
-          e += 9;
           const { index: o } = On(t, e + 1);
           e = o;
-        } else if (Fn) i = !0;
+        } else if (s && Pn(t, e))
+          e += 8;
+        else if (s && xn(t, e)) {
+          e += 9;
+          const { index: o } = kn(t, e + 1);
+          e = o;
+        } else if (Bn) i = !0;
         else throw new Error("Invalid DOCTYPE");
         n++, c = "";
       } else if (t[e] === ">") {
@@ -1975,7 +1974,7 @@ const ve = (t, e) => {
     e++;
   return e;
 };
-function kn(t, e) {
+function Ln(t, e) {
   e = ve(t, e);
   let r = "";
   for (; e < t.length && !/\s/.test(t[e]) && t[e] !== '"' && t[e] !== "'"; )
@@ -1987,7 +1986,7 @@ function kn(t, e) {
   let n = "";
   return [e, n] = Qe(t, e, "entity"), e--, [r, n, e];
 }
-function On(t, e) {
+function kn(t, e) {
   e = ve(t, e);
   let r = "";
   for (; e < t.length && !/\s/.test(t[e]); )
@@ -2015,7 +2014,7 @@ function Qe(t, e, r) {
     throw new Error(`Unterminated ${r} value`);
   return e++, [e, n];
 }
-function Bn(t, e) {
+function On(t, e) {
   e = ve(t, e);
   let r = "";
   for (; e < t.length && !/\s/.test(t[e]); )
@@ -2036,19 +2035,19 @@ function Bn(t, e) {
     index: e
   };
 }
-function Fn(t, e) {
+function Bn(t, e) {
   return t[e + 1] === "!" && t[e + 2] === "-" && t[e + 3] === "-";
 }
-function Un(t, e) {
+function Fn(t, e) {
   return t[e + 1] === "!" && t[e + 2] === "E" && t[e + 3] === "N" && t[e + 4] === "T" && t[e + 5] === "I" && t[e + 6] === "T" && t[e + 7] === "Y";
 }
-function Pn(t, e) {
+function Un(t, e) {
   return t[e + 1] === "!" && t[e + 2] === "E" && t[e + 3] === "L" && t[e + 4] === "E" && t[e + 5] === "M" && t[e + 6] === "E" && t[e + 7] === "N" && t[e + 8] === "T";
 }
-function xn(t, e) {
+function Pn(t, e) {
   return t[e + 1] === "!" && t[e + 2] === "A" && t[e + 3] === "T" && t[e + 4] === "T" && t[e + 5] === "L" && t[e + 6] === "I" && t[e + 7] === "S" && t[e + 8] === "T";
 }
-function Vn(t, e) {
+function xn(t, e) {
   return t[e + 1] === "!" && t[e + 2] === "N" && t[e + 3] === "O" && t[e + 4] === "T" && t[e + 5] === "A" && t[e + 6] === "T" && t[e + 7] === "I" && t[e + 8] === "O" && t[e + 9] === "N";
 }
 function yt(t) {
@@ -2056,7 +2055,7 @@ function yt(t) {
     return t;
   throw new Error(`Invalid entity name ${t}`);
 }
-const Mn = /^[-+]?0x[a-fA-F0-9]+$/, qn = /^([\-\+])?(0*)([0-9]*(\.[0-9]*)?)$/, jn = {
+const Vn = /^[-+]?0x[a-fA-F0-9]+$/, Mn = /^([\-\+])?(0*)([0-9]*(\.[0-9]*)?)$/, qn = {
   hex: !0,
   // oct: false,
   leadingZeros: !0,
@@ -2064,13 +2063,13 @@ const Mn = /^[-+]?0x[a-fA-F0-9]+$/, qn = /^([\-\+])?(0*)([0-9]*(\.[0-9]*)?)$/, j
   eNotation: !0
   //skipLike: /regex/
 };
-function Gn(t, e = {}) {
-  if (e = Object.assign({}, jn, e), !t || typeof t != "string") return t;
+function jn(t, e = {}) {
+  if (e = Object.assign({}, qn, e), !t || typeof t != "string") return t;
   let r = t.trim();
   if (e.skipLike !== void 0 && e.skipLike.test(r)) return t;
   if (t === "0") return 0;
-  if (e.hex && Mn.test(r))
-    return Wn(r, 16);
+  if (e.hex && Vn.test(r))
+    return Hn(r, 16);
   if (r.search(/[eE]/) !== -1) {
     const n = r.match(/^([-\+])?(0*)([0-9]*(\.[0-9]*)?[eE][-\+]?[0-9]+)$/);
     if (n) {
@@ -2081,10 +2080,10 @@ function Gn(t, e = {}) {
     } else
       return t;
   } else {
-    const n = qn.exec(r);
+    const n = Mn.exec(r);
     if (n) {
       const s = n[1], i = n[2];
-      let c = Hn(n[3]);
+      let c = Gn(n[3]);
       if (!e.leadingZeros && i.length > 0 && s && r[2] !== ".") return t;
       if (!e.leadingZeros && i.length > 0 && !s && r[1] !== ".") return t;
       if (e.leadingZeros && i === t) return 0;
@@ -2096,23 +2095,23 @@ function Gn(t, e = {}) {
       return t;
   }
 }
-function Hn(t) {
+function Gn(t) {
   return t && t.indexOf(".") !== -1 && (t = t.replace(/0+$/, ""), t === "." ? t = "0" : t[0] === "." ? t = "0" + t : t[t.length - 1] === "." && (t = t.substr(0, t.length - 1))), t;
 }
-function Wn(t, e) {
+function Hn(t, e) {
   if (parseInt) return parseInt(t, e);
   if (Number.parseInt) return Number.parseInt(t, e);
   if (window && window.parseInt) return window.parseInt(t, e);
   throw new Error("parseInt, Number.parseInt, window.parseInt are not supported");
 }
-function $n(t) {
+function Wn(t) {
   return typeof t == "function" ? t : Array.isArray(t) ? (e) => {
     for (const r of t)
       if (typeof r == "string" && e === r || r instanceof RegExp && r.test(e))
         return !0;
   } : () => !1;
 }
-class _n {
+class $n {
   constructor(e) {
     this.options = e, this.currentNode = null, this.tagsNodeStack = [], this.docTypeEntities = {}, this.lastEntities = {
       apos: { regex: /&(apos|#39|#x27);/g, val: "'" },
@@ -2135,10 +2134,10 @@ class _n {
       inr: { regex: /&(inr|#8377);/g, val: "₹" },
       num_dec: { regex: /&#([0-9]{1,7});/g, val: (r, n) => String.fromCodePoint(Number.parseInt(n, 10)) },
       num_hex: { regex: /&#x([0-9a-fA-F]{1,6});/g, val: (r, n) => String.fromCodePoint(Number.parseInt(n, 16)) }
-    }, this.addExternalEntities = Yn, this.parseXml = Zn, this.parseTextData = zn, this.resolveNameSpace = Kn, this.buildAttributesMap = Qn, this.isItStopNode = ri, this.replaceEntitiesValue = ei, this.readStopNodeData = ii, this.saveTextToParentTag = ti, this.addChild = Jn, this.ignoreAttributesFn = $n(this.options.ignoreAttributes);
+    }, this.addExternalEntities = _n, this.parseXml = Qn, this.parseTextData = Yn, this.resolveNameSpace = zn, this.buildAttributesMap = Xn, this.isItStopNode = ti, this.replaceEntitiesValue = Jn, this.readStopNodeData = ni, this.saveTextToParentTag = ei, this.addChild = Zn, this.ignoreAttributesFn = Wn(this.options.ignoreAttributes);
   }
 }
-function Yn(t) {
+function _n(t) {
   const e = Object.keys(t);
   for (let r = 0; r < e.length; r++) {
     const n = e[r];
@@ -2148,14 +2147,14 @@ function Yn(t) {
     };
   }
 }
-function zn(t, e, r, n, s, i, c) {
+function Yn(t, e, r, n, s, i, c) {
   if (t !== void 0 && (this.options.trimValues && !n && (t = t.trim()), t.length > 0)) {
     c || (t = this.replaceEntitiesValue(t));
     const o = this.options.tagValueProcessor(e, t, r, s, i);
     return o == null ? t : typeof o != typeof t || o !== t ? o : this.options.trimValues ? Tt(t, this.options.parseTagValue, this.options.numberParseOptions) : t.trim() === t ? Tt(t, this.options.parseTagValue, this.options.numberParseOptions) : t;
   }
 }
-function Kn(t) {
+function zn(t) {
   if (this.options.removeNSPrefix) {
     const e = t.split(":"), r = t.charAt(0) === "/" ? "/" : "";
     if (e[0] === "xmlns")
@@ -2164,10 +2163,10 @@ function Kn(t) {
   }
   return t;
 }
-const Xn = new RegExp(`([^\\s=]+)\\s*(=\\s*(['"])([\\s\\S]*?)\\3)?`, "gm");
-function Qn(t, e, r) {
+const Kn = new RegExp(`([^\\s=]+)\\s*(=\\s*(['"])([\\s\\S]*?)\\3)?`, "gm");
+function Xn(t, e, r) {
   if (this.options.ignoreAttributes !== !0 && typeof t == "string") {
-    const n = Lr(t, Xn), s = n.length, i = {};
+    const n = Sr(t, Kn), s = n.length, i = {};
     for (let c = 0; c < s; c++) {
       const o = this.resolveNameSpace(n[c][1]);
       if (this.ignoreAttributesFn(o, e))
@@ -2193,7 +2192,7 @@ function Qn(t, e, r) {
     return i;
   }
 }
-const Zn = function(t) {
+const Qn = function(t) {
   t = t.replace(/\r\n?/g, `
 `);
   const e = new we("!xml");
@@ -2229,7 +2228,7 @@ const Zn = function(t) {
         }
         i = o;
       } else if (t.substr(i + 1, 2) === "!D") {
-        const o = Ln(t, i);
+        const o = Sn(t, i);
         this.docTypeEntities = o.entities, i = o.i;
       } else if (t.substr(i + 1, 2) === "![") {
         const o = Ie(t, "]]>", i, "CDATA is not closed.") - 2, l = t.substring(i + 9, o);
@@ -2273,12 +2272,12 @@ const Zn = function(t) {
       n += t[i];
   return e.child;
 };
-function Jn(t, e, r, n) {
+function Zn(t, e, r, n) {
   this.options.captureMetaData || (n = void 0);
   const s = this.options.updateTag(e.tagname, r, e[":@"]);
   s === !1 || (typeof s == "string" && (e.tagname = s), t.addChild(e, n));
 }
-const ei = function(t) {
+const Jn = function(t) {
   if (this.options.processEntities) {
     for (let e in this.docTypeEntities) {
       const r = this.docTypeEntities[e];
@@ -2297,7 +2296,7 @@ const ei = function(t) {
   }
   return t;
 };
-function ti(t, e, r, n) {
+function ei(t, e, r, n) {
   return t && (n === void 0 && (n = e.child.length === 0), t = this.parseTextData(
     t,
     e.tagname,
@@ -2307,7 +2306,7 @@ function ti(t, e, r, n) {
     n
   ), t !== void 0 && t !== "" && e.add(this.options.textNodeName, t), t = ""), t;
 }
-function ri(t, e, r) {
+function ti(t, e, r) {
   const n = "*." + r;
   for (const s in t) {
     const i = t[s];
@@ -2315,7 +2314,7 @@ function ri(t, e, r) {
   }
   return !1;
 }
-function ni(t, e, r = ">") {
+function ri(t, e, r = ">") {
   let n, s = "";
   for (let i = e; i < t.length; i++) {
     let c = t[i];
@@ -2346,7 +2345,7 @@ function Ie(t, e, r, n) {
   return s + e.length - 1;
 }
 function vt(t, e, r, n = ">") {
-  const s = ni(t, e + 1, n);
+  const s = ri(t, e + 1, n);
   if (!s) return;
   let i = s.data;
   const c = s.index, o = i.search(/\s/);
@@ -2365,7 +2364,7 @@ function vt(t, e, r, n = ">") {
     rawTagName: p
   };
 }
-function ii(t, e, r) {
+function ni(t, e, r) {
   const n = r;
   let s = 1;
   for (; r < t.length; r++)
@@ -2392,19 +2391,19 @@ function ii(t, e, r) {
 function Tt(t, e, r) {
   if (e && typeof t == "string") {
     const n = t.trim();
-    return n === "true" ? !0 : n === "false" ? !1 : Gn(t, r);
+    return n === "true" ? !0 : n === "false" ? !1 : jn(t, r);
   } else
-    return An(t) ? t : "";
+    return gn(t) ? t : "";
 }
 const pt = we.getMetaDataSymbol();
-function si(t, e) {
-  return kr(t, e);
+function ii(t, e) {
+  return Lr(t, e);
 }
-function kr(t, e, r) {
+function Lr(t, e, r) {
   let n;
   const s = {};
   for (let i = 0; i < t.length; i++) {
-    const c = t[i], o = ui(c);
+    const c = t[i], o = si(c);
     let l = "";
     if (r === void 0 ? l = o : l = r + "." + o, o === e.textNodeName)
       n === void 0 ? n = c[o] : n += "" + c[o];
@@ -2412,22 +2411,22 @@ function kr(t, e, r) {
       if (o === void 0)
         continue;
       if (c[o]) {
-        let h = kr(c[o], e, l);
-        const p = oi(h, e);
-        c[pt] !== void 0 && (h[pt] = c[pt]), c[":@"] ? ai(h, c[":@"], l, e) : Object.keys(h).length === 1 && h[e.textNodeName] !== void 0 && !e.alwaysCreateTextNode ? h = h[e.textNodeName] : Object.keys(h).length === 0 && (e.alwaysCreateTextNode ? h[e.textNodeName] = "" : h = ""), s[o] !== void 0 && s.hasOwnProperty(o) ? (Array.isArray(s[o]) || (s[o] = [s[o]]), s[o].push(h)) : e.isArray(o, l, p) ? s[o] = [h] : s[o] = h;
+        let h = Lr(c[o], e, l);
+        const p = ai(h, e);
+        c[pt] !== void 0 && (h[pt] = c[pt]), c[":@"] ? ui(h, c[":@"], l, e) : Object.keys(h).length === 1 && h[e.textNodeName] !== void 0 && !e.alwaysCreateTextNode ? h = h[e.textNodeName] : Object.keys(h).length === 0 && (e.alwaysCreateTextNode ? h[e.textNodeName] = "" : h = ""), s[o] !== void 0 && s.hasOwnProperty(o) ? (Array.isArray(s[o]) || (s[o] = [s[o]]), s[o].push(h)) : e.isArray(o, l, p) ? s[o] = [h] : s[o] = h;
       }
     }
   }
   return typeof n == "string" ? n.length > 0 && (s[e.textNodeName] = n) : n !== void 0 && (s[e.textNodeName] = n), s;
 }
-function ui(t) {
+function si(t) {
   const e = Object.keys(t);
   for (let r = 0; r < e.length; r++) {
     const n = e[r];
     if (n !== ":@") return n;
   }
 }
-function ai(t, e, r, n) {
+function ui(t, e, r, n) {
   if (e) {
     const s = Object.keys(e), i = s.length;
     for (let c = 0; c < i; c++) {
@@ -2436,13 +2435,13 @@ function ai(t, e, r, n) {
     }
   }
 }
-function oi(t, e) {
+function ai(t, e) {
   const { textNodeName: r } = e, n = Object.keys(t).length;
   return !!(n === 0 || n === 1 && (t[r] || typeof t[r] == "boolean" || t[r] === 0));
 }
-class li {
+class oi {
   constructor(e) {
-    this.externalEntities = {}, this.options = Sn(e);
+    this.externalEntities = {}, this.options = In(e);
   }
   /**
    * Parse XML dats to JS object 
@@ -2456,14 +2455,14 @@ class li {
       throw new Error("XML data is accepted in String or Bytes[] form.");
     if (r) {
       r === !0 && (r = {});
-      const i = vn(e, r);
+      const i = En(e, r);
       if (i !== !0)
         throw Error(`${i.err.msg}:${i.err.line}:${i.err.col}`);
     }
-    const n = new _n(this.options);
+    const n = new $n(this.options);
     n.addExternalEntities(this.externalEntities);
     const s = n.parseXml(e);
-    return this.options.preserveOrder || s === void 0 ? s : si(s, this.options);
+    return this.options.preserveOrder || s === void 0 ? s : ii(s, this.options);
   }
   /**
    * Add Entity which is not by default supported by this library
@@ -2493,20 +2492,20 @@ class li {
     return we.getMetaDataSymbol();
   }
 }
-const ci = /^\d{2}:\d{2}(?::\d{2}(?:\.\d{3})?)?$/;
+const li = /^\d{2}:\d{2}(?::\d{2}(?:\.\d{3})?)?$/;
 function er(t) {
   if (t == "start")
     return 0;
   if (t == "end")
     return -1;
-  if (ci.test(t)) {
+  if (li.test(t)) {
     const [e = "00", r = "00", n = "00"] = t.split(":");
     let s = "00", i = "000";
     return n.includes(".") ? [s, i] = n.split(".") : s = n, (parseInt(e, 10) * 3600 + parseInt(r, 10) * 60 + parseInt(s, 10)) * 1e3 + parseInt(i, 10);
   }
   return parseFloat(t);
 }
-function di(t) {
+function ci(t) {
   return new Promise((e, r) => {
     t.preload = "auto", t.load();
     const n = () => {
@@ -2532,8 +2531,8 @@ const tr = [
   "loadedmetadata",
   "suspend",
   "abort"
-], hi = 500, _ = "ima:AdsManager";
-class pi {
+], di = 500, _ = "ima:AdsManager";
+class hi {
   constructor(e, r) {
     g(this, "adsRequest");
     g(this, "adDisplayContainer");
@@ -2566,7 +2565,7 @@ class pi {
       thirdQuartile: !1,
       complete: !1
     });
-    this.adsRequest = e, this.adDisplayContainer = r, this.eventEmitter = new Er(), this.content = void 0, this.cuePoints = [], this.cueMapPoints = {}, this.adsRenderingSettings = void 0, this.started = !1, this.processingAdv = !1, this.canBeAdSkippable = !1, this.adRemainingTime = -1, this.adDuration = -1, this.fetchAds = this.fetchAds.bind(this), this.attachContentMediaEventListeners = this.attachContentMediaEventListeners.bind(this), this.detachContentMediaEventListeners = this.detachContentMediaEventListeners.bind(this), this.handleContentTimeUpdate = this.handleContentTimeUpdate.bind(this), this.adsVideoEventsListener = this.adsVideoEventsListener.bind(this), this.adsVideoErrorListener = this.adsVideoErrorListener.bind(this);
+    this.adsRequest = e, this.adDisplayContainer = r, this.eventEmitter = new Ar(), this.content = void 0, this.cuePoints = [], this.cueMapPoints = {}, this.adsRenderingSettings = void 0, this.started = !1, this.processingAdv = !1, this.canBeAdSkippable = !1, this.adRemainingTime = -1, this.adDuration = -1, this.fetchAds = this.fetchAds.bind(this), this.attachContentMediaEventListeners = this.attachContentMediaEventListeners.bind(this), this.detachContentMediaEventListeners = this.detachContentMediaEventListeners.bind(this), this.handleContentTimeUpdate = this.handleContentTimeUpdate.bind(this), this.adsVideoEventsListener = this.adsVideoEventsListener.bind(this), this.adsVideoErrorListener = this.adsVideoErrorListener.bind(this);
   }
   collapse() {
     throw new Error("Method not implemented.");
@@ -2653,7 +2652,7 @@ class pi {
     const e = this.adsRequest.adTagUrl;
     return fetch(e).then((r) => r.text()).then((r) => Ne(this, null, function* () {
       var i, c;
-      const n = new li({
+      const n = new oi({
         ignoreAttributes: !1,
         attributeNamePrefix: "@_",
         textNodeName: "#text"
@@ -2661,7 +2660,7 @@ class pi {
       if (!s)
         return Promise.reject(new Error("Invalid XML response"));
       if (s.VAST) {
-        const o = new globalThis.DOMParser().parseFromString(r, "text/xml"), h = yield new Ir().parseVAST(o), p = [];
+        const o = new globalThis.DOMParser().parseFromString(r, "text/xml"), h = yield new wr().parseVAST(o), p = [];
         let E = 0, v = 0;
         x.debug(_, `fetchVastAds: [${e}]: `, h);
         const y = (i = h == null ? void 0 : h.ads) != null ? i : void 0;
@@ -2721,8 +2720,8 @@ class pi {
         for (const i of s) {
           const c = i.mimeType;
           if (c && c.startsWith("video/mp4") && i.fileURL) {
-            this.currentCreative = n, this.vastTracker = new pn(null, this.currentAdVast, this.currentCreative);
-            const o = this.totalAds - this.nextAds.length, l = new Kr(
+            this.currentCreative = n, this.vastTracker = new hn(null, this.currentAdVast, this.currentCreative);
+            const o = this.totalAds - this.nextAds.length, l = new zr(
               o,
               !1,
               this.totalTimeAds,
@@ -2730,7 +2729,7 @@ class pi {
               this.currentPodTimeOffset,
               this.totalAds
             );
-            x.debug(_, `current podInfo: [${o}] [${this.totalTimeAds}] [${this.totalAds}]`), this.currentAd = new Wr(this.currentAdVast, n, i, l), e || this.dispatchAdsEvent(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED), this.playAdsContent(i.fileURL).catch((h) => {
+            x.debug(_, `current podInfo: [${o}] [${this.totalTimeAds}] [${this.totalAds}]`), this.currentAd = new Hr(this.currentAdVast, n, i, l), e || this.dispatchAdsEvent(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED), this.playAdsContent(i.fileURL).catch((h) => {
               x.error(_, "playAdsContent error: ", h);
             });
             return;
@@ -2755,7 +2754,7 @@ class pi {
     }
     const r = e.currentTime * 1e3;
     x.debug(_, `Content current time: [${r}]`);
-    const n = this.cuePoints.find((s) => Math.abs(s - r) <= hi);
+    const n = this.cuePoints.find((s) => Math.abs(s - r) <= di);
     n && (x.debug(_, `fetchVastAds: [${n}]`), this.fetchVastAds(n));
   }
   clearTimerUpdateContentTime() {
@@ -2834,7 +2833,7 @@ class pi {
     }
   }
   getPromiseVastClient(e) {
-    return new hn().get(e);
+    return new dn().get(e);
   }
   fetchVastAds(e) {
     return Ne(this, null, function* () {
@@ -2954,7 +2953,7 @@ class pi {
         return x.error(_, "playAdsContent no Video Ads Element: "), this.playCreativities();
       this.adRemainingTime = -1, this.adDuration = -1, this.canBeAdSkippable = !1, this.resetQuartilesFired(), this.removeVideoListeners(), (n = this.adDisplayContainer) == null || n.show(), (s = this.adDisplayContainer) == null || s.showLoader(), (i = this.adDisplayContainer) == null || i.hideAdVideoElement(), r.src = e, r.autoplay = !0;
       try {
-        yield di(r), yield r.play(), this.addVideoListeners(), (c = this.adDisplayContainer) == null || c.showAdVideoElement(), (o = this.adDisplayContainer) == null || o.hideLoader(), this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_CAN_PLAY);
+        yield ci(r), yield r.play(), this.addVideoListeners(), (c = this.adDisplayContainer) == null || c.showAdVideoElement(), (o = this.adDisplayContainer) == null || o.hideLoader(), this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_CAN_PLAY);
       } catch (h) {
         x.error(_, "playAdsContent error: ", h), this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_BREAK_FETCH_ERROR), (l = this.adDisplayContainer) == null || l.hideAdVideoElement(), this.playCreativities();
       } finally {
@@ -2974,8 +2973,8 @@ class pi {
   }
   // END REGION: VIDEO ADS EVENTS
 }
-const fi = fr;
-class Or {
+const pi = pr;
+class kr {
   constructor(e) {
     g(this, "currentTarget");
     g(this, "target");
@@ -2996,16 +2995,16 @@ class Or {
     throw new Error("Method not implemented.");
   }
 }
-g(Or, "Type", fi);
+g(kr, "Type", pi);
 const rr = "ima:AdsLoader";
-class Ci {
+class yi {
   constructor(e) {
     g(this, "adDisplayContainer");
     g(this, "adsManager");
     g(this, "eventEmitter");
     g(this, "userRequestContext");
     g(this, "imaSdkSettings", new Ze());
-    this.adDisplayContainer = e, this.eventEmitter = new Er();
+    this.adDisplayContainer = e, this.eventEmitter = new Ar();
   }
   addEventListener(e, r, n, s) {
     this.eventEmitter.addEventListener(e, r, n, s);
@@ -3034,9 +3033,9 @@ class Ci {
       this.eventEmitter.emit(google.ima.AdErrorEvent.Type.AD_ERROR, new et(s));
       return;
     }
-    this.adsManager = new pi(e, this.adDisplayContainer), this.adsManager.fetchAds().then((s) => (this.adsManager = s, this.eventEmitter.emit(
+    this.adsManager = new hi(e, this.adDisplayContainer), this.adsManager.fetchAds().then((s) => (this.adsManager = s, this.eventEmitter.emit(
       google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
-      new Or(s)
+      new kr(s)
     ))).catch((s) => {
       const i = s.message || "Unable to retrive vmap files", c = new Je(
         google.ima.AdError.ErrorCode.FAILED_TO_REQUEST_ADS,
@@ -3050,7 +3049,7 @@ class Ci {
     (e = this.adsManager) == null || e.destroy(), this.adDisplayContainer.destroy(), this.eventEmitter.clearAllEventListeners();
   }
 }
-class Ni {
+class Ci {
   constructor() {
     g(this, "autoAlign", !1);
     g(this, "bitrate", -1);
@@ -3065,7 +3064,7 @@ class Ni {
   }
 }
 const ft = "ima:AdsRequest";
-class Ri {
+class Ni {
   constructor() {
     /**
      * Specifies the ad tag url that is requested from the ad server.
@@ -3219,11 +3218,11 @@ class Ri {
     x.debug(ft, `setContinuousPlayback [${e}]`);
   }
 }
-const wi = Ar;
-function Ii(t, e = "debug") {
+const Ri = gr;
+function wi(t, e = "debug") {
   x.setEnable(t), x.setLogLevel(e);
 }
-const Si = qr;
+const Ii = Mr;
 var qe = {}, ge = {}, Re = {}, nr;
 function it() {
   if (nr) return Re;
@@ -3344,7 +3343,7 @@ function it() {
   return Re.assign = r, Re.find = t, Re.freeze = e, Re.MIME_TYPE = n, Re.NAMESPACE = s, Re;
 }
 var ir;
-function Br() {
+function Or() {
   if (ir) return ge;
   ir = 1;
   var t = it(), e = t.find, r = t.NAMESPACE;
@@ -4331,7 +4330,7 @@ function Br() {
   return ge.DocumentType = Ye, ge.DOMException = N, ge.DOMImplementation = K, ge.Element = H, ge.Node = I, ge.NodeList = S, ge.XMLSerializer = Rt, ge;
 }
 var je = {}, mt = {}, sr;
-function mi() {
+function fi() {
   return sr || (sr = 1, function(t) {
     var e = it().freeze;
     t.XML_ENTITIES = e({
@@ -6471,7 +6470,7 @@ function mi() {
   }(mt)), mt;
 }
 var Ke = {}, ur;
-function gi() {
+function mi() {
   if (ur) return Ke;
   ur = 1;
   var t = it().NAMESPACE, e = /[A-Z_a-z\xC0-\xD6\xD8-\xF6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD]/, r = new RegExp("[\\-\\.0-9" + e.source.slice(1, -1) + "\\u00B7\\u0300-\\u036F\\u203F-\\u2040]"), n = new RegExp("^" + e.source + r.source + "*(?::" + e.source + r.source + "*)?$"), s = 0, i = 1, c = 2, o = 3, l = 4, h = 5, p = 6, E = 7;
@@ -6811,10 +6810,10 @@ function gi() {
   return Ke.XMLReader = y, Ke.ParseError = v, Ke;
 }
 var ar;
-function Ai() {
+function gi() {
   if (ar) return je;
   ar = 1;
-  var t = it(), e = Br(), r = mi(), n = gi(), s = e.DOMImplementation, i = t.NAMESPACE, c = n.ParseError, o = n.XMLReader;
+  var t = it(), e = Or(), r = fi(), n = mi(), s = e.DOMImplementation, i = t.NAMESPACE, c = n.ParseError, o = n.XMLReader;
   function l(T) {
     return T.replace(/\r[\n\u0085]/g, `
 `).replace(/[\r\u0085\u2028]/g, `
@@ -6953,34 +6952,34 @@ function Ai() {
   return je.__DOMHandler = E, je.normalizeLineEndings = l, je.DOMParser = h, je;
 }
 var or;
-function Ei() {
+function Ai() {
   if (or) return qe;
   or = 1;
-  var t = Br();
-  return qe.DOMImplementation = t.DOMImplementation, qe.XMLSerializer = t.XMLSerializer, qe.DOMParser = Ai().DOMParser, qe;
+  var t = Or();
+  return qe.DOMImplementation = t.DOMImplementation, qe.XMLSerializer = t.XMLSerializer, qe.DOMParser = gi().DOMParser, qe;
 }
-var vi = Ei();
-const Ti = /* @__PURE__ */ Mr({
+var Ei = Ai();
+const vi = /* @__PURE__ */ Vr({
   __proto__: null
-}, [vi]);
+}, [Ei]);
 export {
-  Wr as Ad,
-  yi as AdDisplayContainer,
+  Hr as Ad,
+  bi as AdDisplayContainer,
   Je as AdError,
   et as AdErrorEvent,
   gt as AdEvent,
-  Kr as AdPodInfo,
-  Ci as AdsLoader,
-  pi as AdsManager,
-  Or as AdsManagerLoadedEvent,
-  Ni as AdsRenderingSettings,
-  Ri as AdsRequest,
+  zr as AdPodInfo,
+  yi as AdsLoader,
+  hi as AdsManager,
+  kr as AdsManagerLoadedEvent,
+  Ci as AdsRenderingSettings,
+  Ni as AdsRequest,
   Ze as ImaSdkSettings,
-  Si as VERSION,
-  wi as ViewMode,
-  Ii as activateDebug,
-  bi as settings
+  Ii as VERSION,
+  Ri as ViewMode,
+  wi as activateDebug,
+  Di as settings
 };
 
 
-/* Built on 2025-05-26T22:35:45.686Z */
+/* Built on 2025-05-26T22:44:55.288Z */

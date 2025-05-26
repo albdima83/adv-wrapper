@@ -1,27 +1,27 @@
-/* UMD | Version: 0.0.5 | Commit: 6691956 */
+/* UMD | Version: 0.0.5 | Commit: 2062271 */
 (function (M, z) {
   typeof exports == "object" && typeof module != "undefined" ? z(exports) : typeof define == "function" && define.amd ? define(["exports"], z) : (M = typeof globalThis != "undefined" ? globalThis : M || self, z(M.GoogleIma = {}));
 })(this, function (M) {
   "use strict";
 
-  var Ni = Object.defineProperty,
-    Ri = Object.defineProperties;
-  var wi = Object.getOwnPropertyDescriptors;
-  var Vr = Object.getOwnPropertySymbols;
-  var Ii = Object.prototype.hasOwnProperty,
-    Si = Object.prototype.propertyIsEnumerable;
-  var Ft = (M, z, Z) => z in M ? Ni(M, z, {
+  var Ci = Object.defineProperty,
+    Ni = Object.defineProperties;
+  var Ri = Object.getOwnPropertyDescriptors;
+  var xr = Object.getOwnPropertySymbols;
+  var wi = Object.prototype.hasOwnProperty,
+    Ii = Object.prototype.propertyIsEnumerable;
+  var Ft = (M, z, Z) => z in M ? Ci(M, z, {
       enumerable: !0,
       configurable: !0,
       writable: !0,
       value: Z
     }) : M[z] = Z,
     qe = (M, z) => {
-      for (var Z in z || (z = {})) Ii.call(z, Z) && Ft(M, Z, z[Z]);
-      if (Vr) for (var Z of Vr(z)) Si.call(z, Z) && Ft(M, Z, z[Z]);
+      for (var Z in z || (z = {})) wi.call(z, Z) && Ft(M, Z, z[Z]);
+      if (xr) for (var Z of xr(z)) Ii.call(z, Z) && Ft(M, Z, z[Z]);
       return M;
     },
-    Mr = (M, z) => Ri(M, wi(z));
+    Vr = (M, z) => Ni(M, Ri(z));
   var g = (M, z, Z) => Ft(M, typeof z != "symbol" ? z + "" : z, Z);
   var Oe = (M, z, Z) => new Promise((et, je) => {
     var tt = fe => {
@@ -41,7 +41,6 @@
       Be = fe => fe.done ? et(fe.value) : Promise.resolve(fe.value).then(tt, rt);
     Be((Z = Z.apply(M, z)).next());
   });
-  var Ir;
   function z(t, e) {
     for (var r = 0; r < e.length; r++) {
       const n = e[r];
@@ -155,9 +154,9 @@
     };
   g(Xe, "CompanionBackfillMode", Pt), g(Xe, "VpaidMode", xt);
   let Ge = Xe;
-  const qr = new Ge(),
+  const Mr = new Ge(),
     Vt = ["debug", "info", "warn", "error", "fatal", "trace"],
-    jr = {
+    qr = {
       debug: console.debug || console.log,
       info: console.info || console.log,
       warn: console.warn || console.log,
@@ -165,7 +164,7 @@
       fatal: console.error || console.log,
       trace: console.trace || console.log
     };
-  class Gr {
+  class jr {
     constructor(e) {
       g(this, "enable");
       g(this, "level");
@@ -210,15 +209,15 @@
         for (var _len5 = arguments.length, s = new Array(_len5 > 3 ? _len5 - 3 : 0), _key5 = 3; _key5 < _len5; _key5++) {
           s[_key5 - 3] = arguments[_key5];
         }
-        ((i = jr[e]) != null ? i : console.log)(`[${l}]  [${r}] [${e}]`, n, ...s);
+        ((i = qr[e]) != null ? i : console.log)(`[${l}]  [${r}] [${e}]`, n, ...s);
       }
     }
   }
-  const P = new Gr({
-      enable: process.env.NODE_ENV !== "production",
-      level: (Ir = process.env.LOG_LEVEL) != null ? Ir : "error"
+  const P = new jr({
+      enable: !1,
+      level: "error"
     }),
-    Hr = "ima:Ad";
+    Gr = "ima:Ad";
   class Mt {
     constructor(e, r, n, s) {
       g(this, "adId");
@@ -270,7 +269,7 @@
       return this.apiFramework;
     }
     getCompanionAds(e, r, n) {
-      return P.debug(Hr, `Ad adSlotWidth:[${e}] adSlotHeight[${r}] settings:`, n), this.companionAds;
+      return P.debug(Gr, `Ad adSlotWidth:[${e}] adSlotHeight[${r}] settings:`, n), this.companionAds;
     }
     getCreativeAdId() {
       return this.creativeAdId;
@@ -349,7 +348,7 @@
     }
   }
   const He = "ima:AdDisplayContainer";
-  class Wr {
+  class Hr {
     constructor(e, r, n) {
       g(this, "adContainer");
       g(this, "videoElement");
@@ -432,8 +431,8 @@
       return r.id = "adm-video-ads", r.style.position = "absolute", r.style.inset = "0", r.style.top = "0", r.style.left = "0", r.style.right = "0", r.style.bottom = "0", r.style.width = "100%", r.style.height = "100%", r.style.objectFit = "cover", r.style.background = "black", r.controls = !1, r.playsInline = !1, r.setAttribute("disablePictureInPicture", ""), r.setAttribute("disableRemotePlayback", ""), r.setAttribute("playsinline", "false"), r.setAttribute("webkit-playsinline", "false"), r.setAttribute("x-webkit-airplay", "allow"), r.setAttribute("object", "fit"), r.removeAttribute("controls"), e.appendChild(r), r;
     }
   }
-  const $r = et,
-    _r = je;
+  const Wr = et,
+    $r = je;
   class We {
     constructor(e, r) {
       g(this, "name");
@@ -459,8 +458,8 @@
       return this.code;
     }
   }
-  g(We, "ErrorCode", $r), g(We, "Type", _r);
-  const Yr = tt,
+  g(We, "ErrorCode", Wr), g(We, "Type", $r);
+  const _r = tt,
     lt = class lt {
       constructor(e, r) {
         g(this, "target");
@@ -479,9 +478,9 @@
       preventDefault() {}
       stopPropagation() {}
     };
-  g(lt, "Type", Yr);
+  g(lt, "Type", _r);
   let $e = lt;
-  const zr = rt,
+  const Yr = rt,
     ct = class ct {
       constructor(e, r) {
         g(this, "currentTarget");
@@ -500,7 +499,7 @@
       preventDefault() {}
       stopPropagation() {}
     };
-  g(ct, "Type", zr);
+  g(ct, "Type", Yr);
   let nt = ct;
   class qt {
     constructor(e, r, n, s, i, l) {
@@ -580,7 +579,7 @@
       creativeExtensions: []
     };
   }
-  const Kr = ["ADCATEGORIES", "ADCOUNT", "ADPLAYHEAD", "ADSERVINGID", "ADTYPE", "APIFRAMEWORKS", "APPBUNDLE", "ASSETURI", "BLOCKEDADCATEGORIES", "BREAKMAXADLENGTH", "BREAKMAXADS", "BREAKMAXDURATION", "BREAKMINADLENGTH", "BREAKMINDURATION", "BREAKPOSITION", "CLICKPOS", "CLICKTYPE", "CLIENTUA", "CONTENTID", "CONTENTPLAYHEAD", "CONTENTURI", "DEVICEIP", "DEVICEUA", "DOMAIN", "EXTENSIONS", "GDPRCONSENT", "IFA", "IFATYPE", "INVENTORYSTATE", "LATLONG", "LIMITADTRACKING", "MEDIAMIME", "MEDIAPLAYHEAD", "OMIDPARTNER", "PAGEURL", "PLACEMENTTYPE", "PLAYERCAPABILITIES", "PLAYERSIZE", "PLAYERSTATE", "PODSEQUENCE", "REGULATIONS", "SERVERSIDE", "SERVERUA", "TRANSACTIONID", "UNIVERSALADID", "VASTVERSIONS", "VERIFICATIONVENDORS"];
+  const zr = ["ADCATEGORIES", "ADCOUNT", "ADPLAYHEAD", "ADSERVINGID", "ADTYPE", "APIFRAMEWORKS", "APPBUNDLE", "ASSETURI", "BLOCKEDADCATEGORIES", "BREAKMAXADLENGTH", "BREAKMAXADS", "BREAKMAXDURATION", "BREAKMINADLENGTH", "BREAKMINDURATION", "BREAKPOSITION", "CLICKPOS", "CLICKTYPE", "CLIENTUA", "CONTENTID", "CONTENTPLAYHEAD", "CONTENTURI", "DEVICEIP", "DEVICEUA", "DOMAIN", "EXTENSIONS", "GDPRCONSENT", "IFA", "IFATYPE", "INVENTORYSTATE", "LATLONG", "LIMITADTRACKING", "MEDIAMIME", "MEDIAPLAYHEAD", "OMIDPARTNER", "PAGEURL", "PLACEMENTTYPE", "PLAYERCAPABILITIES", "PLAYERSIZE", "PLAYERSTATE", "PODSEQUENCE", "REGULATIONS", "SERVERSIDE", "SERVERUA", "TRANSACTIONID", "UNIVERSALADID", "VASTVERSIONS", "VERIFICATIONVENDORS"];
   function Gt(t) {
     let e = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {},
       r = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
@@ -597,7 +596,7 @@
   function Ht(t, e) {
     const r = (t = Wt(t, e)).match(/[^[\]]+(?=])/g);
     if (!r) return t;
-    let n = r.filter(s => Kr.indexOf(s) > -1);
+    let n = r.filter(s => zr.indexOf(s) > -1);
     return n.length === 0 ? t : (n = n.reduce((s, i) => (s[i] = -1, s), {}), Wt(t, n));
   }
   function Wt(t, e) {
@@ -682,7 +681,7 @@
   function Qt(t) {
     return ["true", "TRUE", "True", "1"].includes(t);
   }
-  function Xr(t) {
+  function Kr(t) {
     if (t == null) return -1;
     if ($.isNumeric(t)) return parseInt(t);
     const e = t.split(":");
@@ -726,7 +725,7 @@
     parseAttributes: function (t) {
       return Array.from(t.attributes).reduce((e, r) => (e[r.nodeName] = r.nodeValue, e), {});
     },
-    parseDuration: Xr,
+    parseDuration: Kr,
     getStandAloneAds: function () {
       return (arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : []).filter(t => !parseInt(t.sequence, 10));
     },
@@ -774,7 +773,7 @@
       }
     }
   };
-  function Qr(t, e) {
+  function Xr(t, e) {
     const r = function () {
       let n = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
       const {
@@ -848,7 +847,7 @@
       }), s;
     }), r;
   }
-  function Zr(t, e) {
+  function Qr(t, e) {
     let r;
     const n = function () {
       let c = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
@@ -1049,7 +1048,7 @@
       }(c));
     }), n;
   }
-  function Jr(t, e) {
+  function Zr(t, e) {
     const r = function () {
       let n = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
       const {
@@ -1146,7 +1145,7 @@
     return (s = e).value === null && Object.keys(s.attributes).length === 0 && s.children.length === 0 ? null : e;
     var s;
   }
-  function en(t) {
+  function Jr(t) {
     return t.getAttribute("AdID") || t.getAttribute("adID") || t.getAttribute("adId") || null;
   }
   const it = {
@@ -1263,7 +1262,7 @@
       specVersion: 4.1
     });
   }
-  const tn = {
+  const en = {
     verifyRequiredValues: function t(e, r, n) {
       if (e && e.nodeName) if (e.nodeName === "InLine" && (n = !0), er(e, r), rr(e)) {
         tr(e, r, n);
@@ -1278,7 +1277,7 @@
     verifyRequiredAttributes: er,
     verifyRequiredSubElements: tr
   };
-  function rn(t, e) {
+  function tn(t, e) {
     let {
       allowMultipleAds: r,
       followAdditionalWrappers: n
@@ -1289,11 +1288,11 @@
     });
     for (const i of s) {
       if (m.copyNodeAttribute("id", t, i), m.copyNodeAttribute("sequence", t, i), m.copyNodeAttribute("adType", t, i), i.nodeName === "Wrapper") return {
-        ad: sn(i, e),
+        ad: nn(i, e),
         type: "WRAPPER"
       };
       if (i.nodeName === "InLine") return {
-        ad: nn(i, e, {
+        ad: rn(i, e, {
           allowMultipleAds: r
         }),
         type: "INLINE"
@@ -1305,7 +1304,7 @@
       });
     }
   }
-  function nn(t, e) {
+  function rn(t, e) {
     let {
       allowMultipleAds: r
     } = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
@@ -1313,7 +1312,7 @@
   }
   function nr(t, e) {
     let r = [];
-    e && tn.verifyRequiredValues(t, e);
+    e && en.verifyRequiredValues(t, e);
     const n = Array.from(t.childNodes),
       s = function () {
         let i = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
@@ -1359,7 +1358,7 @@
             return l.forEach(c => {
               const h = {
                   id: c.getAttribute("id") || null,
-                  adId: en(c),
+                  adId: Jr(c),
                   sequence: c.getAttribute("sequence") || null,
                   apiFramework: c.getAttribute("apiFramework") || null
                 },
@@ -1379,13 +1378,13 @@
                 let C;
                 switch (R.nodeName) {
                   case "Linear":
-                    C = Zr(R, h);
+                    C = Qr(R, h);
                     break;
                   case "NonLinearAds":
-                    C = Jr(R, h);
+                    C = Zr(R, h);
                     break;
                   case "CompanionAds":
-                    C = Qr(R, h);
+                    C = Xr(R, h);
                 }
                 C && (p && (C.universalAdIds = p), E && (C.creativeExtensions = E), o.push(C));
               }
@@ -1470,7 +1469,7 @@
       }
     }), r.length && (s.adVerifications = s.adVerifications.concat(r)), s;
   }
-  function sn(t, e) {
+  function nn(t, e) {
     const r = nr(t, e),
       n = t.getAttribute("followAdditionalWrappers"),
       s = t.getAttribute("allowMultipleAds"),
@@ -1584,7 +1583,7 @@
   const ar = (t, e) => {
       !t || !e || t <= 0 || e <= 0 || (At = (At * ur + 8 * t / e) / ++ur);
     },
-    un = {
+    sn = {
       ERRORCODE: 900,
       extensions: []
     },
@@ -1598,7 +1597,7 @@
     }
     trackVastError(e, r) {
       for (var n = arguments.length, s = new Array(n > 2 ? n - 2 : 0), i = 2; i < n; i++) s[i - 2] = arguments[i];
-      this.emit("VAST-error", Object.assign({}, un, r, ...s)), $.track(e, r);
+      this.emit("VAST-error", Object.assign({}, sn, r, ...s)), $.track(e, r);
     }
     getErrorURLTemplates() {
       return this.rootErrorURLTemplates.concat(this.errorURLTemplates);
@@ -1675,7 +1674,7 @@
           n ? this.rootErrorURLTemplates.push(R) : this.errorURLTemplates.push(R);
         } else if (y.nodeName === "Ad") {
           if (this.vastVersion && parseFloat(this.vastVersion) < 3) l = !0;else if (l === !1 && h.length > 1) break;
-          const R = rn(y, this.emit.bind(this), {
+          const R = tn(y, this.emit.bind(this), {
             allowMultipleAds: l,
             followAdditionalWrappers: o
           });
@@ -1793,7 +1792,7 @@
     }
   }
   let ge = null;
-  const an = {
+  const un = {
     data: {},
     length: 0,
     getItem(t) {
@@ -1809,7 +1808,7 @@
       this.data = {}, this.length = 0;
     }
   };
-  class on {
+  class an {
     constructor() {
       this.storage = this.initStorage();
     }
@@ -1820,7 +1819,7 @@
       } catch (e) {
         ge = null;
       }
-      return ge && !this.isStorageDisabled(ge) || (ge = an, ge.clear()), ge;
+      return ge && !this.isStorageDisabled(ge) || (ge = un, ge.clear()), ge;
     }
     isStorageDisabled(e) {
       const r = "__VASTStorage__";
@@ -1845,7 +1844,7 @@
     }
   }
   const Et = 12e4,
-    ln = {
+    on = {
       get: function (t, e) {
         return Oe(this, null, function* () {
           try {
@@ -1853,7 +1852,7 @@
               n = setTimeout(() => {
                 throw r.abort(), new Error("URLHandler: Request timed out after ".concat(e.timeout || Et, " ms (408)"));
               }, e.timeout || Et),
-              s = yield fetch(t, Mr(qe({}, e), {
+              s = yield fetch(t, Vr(qe({}, e), {
                 signal: r.signal,
                 credentials: e.withCredentials ? "include" : "omit"
               })).finally(() => {
@@ -1869,7 +1868,7 @@
               return Oe(this, null, function* () {
                 const o = yield l.text();
                 let c;
-                return c = $.isBrowserEnvironment() ? new DOMParser() : new (yield Promise.resolve().then(() => Ci)).DOMParser(), {
+                return c = $.isBrowserEnvironment() ? new DOMParser() : new (yield Promise.resolve().then(() => yi)).DOMParser(), {
                   xml: c.parseFromString(o, "text/xml"),
                   details: {
                     byteLength: o.length,
@@ -1888,13 +1887,13 @@
         });
       }
     };
-  class cn {
+  class ln {
     constructor() {
       this.URLTemplateFilters = [];
     }
     setOptions() {
       let e = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
-      this.urlHandler = e.urlHandler || e.urlhandler || ln, this.fetchingOptions = {
+      this.urlHandler = e.urlHandler || e.urlhandler || on, this.fetchingOptions = {
         timeout: e.timeout || Et,
         withCredentials: !!e.withCredentials
       };
@@ -1947,12 +1946,12 @@
       });
     }
   }
-  class dn {
+  class cn {
     constructor() {
       let e = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0,
         r = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0,
-        n = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : new on();
-      this.cappingFreeLunch = e, this.cappingMinimumTimeInterval = r, this.fetcher = new cn(), this.vastParser = new lr({
+        n = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : new an();
+      this.cappingFreeLunch = e, this.cappingMinimumTimeInterval = r, this.fetcher = new ln(), this.vastParser = new lr({
         fetcher: this.fetcher
       }), this.storage = n, this.lastSuccessfulAd === void 0 && (this.lastSuccessfulAd = 0), this.totalCalls === void 0 && (this.totalCalls = 0), this.totalCallsTimeout === void 0 && (this.totalCallsTimeout = 0);
     }
@@ -2017,7 +2016,7 @@
       });
     }
   }
-  class hn extends sr {
+  class dn extends sr {
     constructor(e, r, n) {
       let s = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : null,
         i = arguments.length > 4 && arguments[4] !== void 0 && arguments[4];
@@ -2365,9 +2364,9 @@
     }
   }
   const cr = ":A-Za-z_\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD",
-    pn = cr + "\\-.\\d\\u00B7\\u0300-\\u036F\\u203F-\\u2040",
-    fn = "[" + cr + "][" + pn + "]*",
-    mn = new RegExp("^" + fn + "$");
+    hn = cr + "\\-.\\d\\u00B7\\u0300-\\u036F\\u203F-\\u2040",
+    pn = "[" + cr + "][" + hn + "]*",
+    fn = new RegExp("^" + pn + "$");
   function dr(t, e) {
     const r = [];
     let n = e.exec(t);
@@ -2381,18 +2380,18 @@
     return r;
   }
   const vt = function (t) {
-    const e = mn.exec(t);
+    const e = fn.exec(t);
     return !(e === null || typeof e == "undefined");
   };
-  function gn(t) {
+  function mn(t) {
     return typeof t != "undefined";
   }
-  const An = {
+  const gn = {
     allowBooleanAttributes: !1,
     unpairedTags: []
   };
-  function En(t, e) {
-    e = Object.assign({}, An, e);
+  function An(t, e) {
+    e = Object.assign({}, gn, e);
     const r = [];
     let n = !1,
       s = !1;
@@ -2410,11 +2409,11 @@
         let c = "";
         for (; i < t.length && t[i] !== ">" && t[i] !== " " && t[i] !== "	" && t[i] !== `
 ` && t[i] !== "\r"; i++) c += t[i];
-        if (c = c.trim(), c[c.length - 1] === "/" && (c = c.substring(0, c.length - 1), i--), !Rn(c)) {
+        if (c = c.trim(), c[c.length - 1] === "/" && (c = c.substring(0, c.length - 1), i--), !Nn(c)) {
           let E;
           return c.trim().length === 0 ? E = "Invalid space after '<'." : E = "Tag '" + c + "' is an invalid name.", X("InvalidTag", E, ue(t, i));
         }
-        const h = Dn(t, i);
+        const h = Tn(t, i);
         if (h === !1) return X("InvalidAttr", "Attributes for '" + c + "' have open quote.", ue(t, i));
         let p = h.value;
         if (i = h.index, p[p.length - 1] === "/") {
@@ -2452,7 +2451,7 @@
             if (i = pr(t, ++i), i.err) return i;
           } else break;
         } else if (t[i] === "&") {
-          const E = Cn(t, i);
+          const E = yn(t, i);
           if (E == -1) return X("InvalidChar", "char '&' is not expected.", ue(t, i));
           i = E;
         } else if (s === !0 && !hr(t[i])) return X("InvalidXml", "Extra text at the end", ue(t, i));
@@ -2504,14 +2503,14 @@
     }
     return e;
   }
-  const vn = '"',
-    Tn = "'";
-  function Dn(t, e) {
+  const En = '"',
+    vn = "'";
+  function Tn(t, e) {
     let r = "",
       n = "",
       s = !1;
     for (; e < t.length; e++) {
-      if (t[e] === vn || t[e] === Tn) n === "" ? n = t[e] : n !== t[e] || (n = "");else if (t[e] === ">" && n === "") {
+      if (t[e] === En || t[e] === vn) n === "" ? n = t[e] : n !== t[e] || (n = "");else if (t[e] === ">" && n === "") {
         s = !0;
         break;
       }
@@ -2523,21 +2522,21 @@
       tagClosed: s
     };
   }
-  const bn = new RegExp(`(\\s*)([^\\s=]+)(\\s*=)?(\\s*(['"])(([\\s\\S])*?)\\5)?`, "g");
+  const Dn = new RegExp(`(\\s*)([^\\s=]+)(\\s*=)?(\\s*(['"])(([\\s\\S])*?)\\5)?`, "g");
   function mr(t, e) {
-    const r = dr(t, bn),
+    const r = dr(t, Dn),
       n = {};
     for (let s = 0; s < r.length; s++) {
       if (r[s][1].length === 0) return X("InvalidAttr", "Attribute '" + r[s][2] + "' has no space in starting.", Ye(r[s]));
       if (r[s][3] !== void 0 && r[s][4] === void 0) return X("InvalidAttr", "Attribute '" + r[s][2] + "' is without value.", Ye(r[s]));
       if (r[s][3] === void 0 && !e.allowBooleanAttributes) return X("InvalidAttr", "boolean attribute '" + r[s][2] + "' is not allowed.", Ye(r[s]));
       const i = r[s][2];
-      if (!Nn(i)) return X("InvalidAttr", "Attribute '" + i + "' is an invalid name.", Ye(r[s]));
+      if (!Cn(i)) return X("InvalidAttr", "Attribute '" + i + "' is an invalid name.", Ye(r[s]));
       if (!n.hasOwnProperty(i)) n[i] = 1;else return X("InvalidAttr", "Attribute '" + i + "' is repeated.", Ye(r[s]));
     }
     return !0;
   }
-  function yn(t, e) {
+  function bn(t, e) {
     let r = /\d/;
     for (t[e] === "x" && (e++, r = /[\da-fA-F]/); e < t.length; e++) {
       if (t[e] === ";") return e;
@@ -2545,9 +2544,9 @@
     }
     return -1;
   }
-  function Cn(t, e) {
+  function yn(t, e) {
     if (e++, t[e] === ";") return -1;
-    if (t[e] === "#") return e++, yn(t, e);
+    if (t[e] === "#") return e++, bn(t, e);
     let r = 0;
     for (; e < t.length; e++, r++) if (!(t[e].match(/\w/) && r < 20)) {
       if (t[e] === ";") break;
@@ -2565,10 +2564,10 @@
       }
     };
   }
-  function Nn(t) {
+  function Cn(t) {
     return vt(t);
   }
-  function Rn(t) {
+  function Nn(t) {
     return vt(t);
   }
   function ue(t, e) {
@@ -2581,7 +2580,7 @@
   function Ye(t) {
     return t.startIndex + t[1].length;
   }
-  const wn = {
+  const Rn = {
       preserveOrder: !1,
       attributeNamePrefix: "@_",
       attributesGroupName: !1,
@@ -2620,8 +2619,8 @@
       },
       captureMetaData: !1
     },
-    In = function (t) {
-      return Object.assign({}, wn, t);
+    wn = function (t) {
+      return Object.assign({}, Rn, t);
     };
   let st;
   typeof Symbol != "function" ? st = "@@xmlMetadata" : st = Symbol("XML Node Metadata");
@@ -2648,7 +2647,7 @@
       return st;
     }
   }
-  function Sn(t, e) {
+  function In(t, e) {
     const r = {};
     if (t[e + 3] === "O" && t[e + 4] === "C" && t[e + 5] === "T" && t[e + 6] === "Y" && t[e + 7] === "P" && t[e + 8] === "E") {
       e = e + 9;
@@ -2657,26 +2656,26 @@
         i = !1,
         l = "";
       for (; e < t.length; e++) if (t[e] === "<" && !i) {
-        if (s && Fn(t, e)) {
+        if (s && Bn(t, e)) {
           e += 7;
           let o, c;
-          [o, c, e] = Ln(t, e + 1), c.indexOf("&") === -1 && (r[o] = {
+          [o, c, e] = Sn(t, e + 1), c.indexOf("&") === -1 && (r[o] = {
             regx: RegExp(`&${o};`, "g"),
             val: c
           });
-        } else if (s && Un(t, e)) {
+        } else if (s && Fn(t, e)) {
           e += 8;
-          const {
-            index: o
-          } = On(t, e + 1);
-          e = o;
-        } else if (s && Pn(t, e)) e += 8;else if (s && xn(t, e)) {
-          e += 9;
           const {
             index: o
           } = kn(t, e + 1);
           e = o;
-        } else if (Bn) i = !0;else throw new Error("Invalid DOCTYPE");
+        } else if (s && Un(t, e)) e += 8;else if (s && Pn(t, e)) {
+          e += 9;
+          const {
+            index: o
+          } = Ln(t, e + 1);
+          e = o;
+        } else if (On) i = !0;else throw new Error("Invalid DOCTYPE");
         n++, l = "";
       } else if (t[e] === ">") {
         if (i ? t[e - 1] === "-" && t[e - 2] === "-" && (i = !1, n--) : n--, n === 0) break;
@@ -2692,7 +2691,7 @@
     for (; e < t.length && /\s/.test(t[e]);) e++;
     return e;
   };
-  function Ln(t, e) {
+  function Sn(t, e) {
     e = De(t, e);
     let r = "";
     for (; e < t.length && !/\s/.test(t[e]) && t[e] !== '"' && t[e] !== "'";) r += t[e], e++;
@@ -2701,7 +2700,7 @@
     let n = "";
     return [e, n] = ut(t, e, "entity"), e--, [r, n, e];
   }
-  function kn(t, e) {
+  function Ln(t, e) {
     e = De(t, e);
     let r = "";
     for (; e < t.length && !/\s/.test(t[e]);) r += t[e], e++;
@@ -2727,7 +2726,7 @@
     if (t[e] !== s) throw new Error(`Unterminated ${r} value`);
     return e++, [e, n];
   }
-  function On(t, e) {
+  function kn(t, e) {
     e = De(t, e);
     let r = "";
     for (; e < t.length && !/\s/.test(t[e]);) r += t[e], e++;
@@ -2743,40 +2742,40 @@
       index: e
     };
   }
-  function Bn(t, e) {
+  function On(t, e) {
     return t[e + 1] === "!" && t[e + 2] === "-" && t[e + 3] === "-";
   }
-  function Fn(t, e) {
+  function Bn(t, e) {
     return t[e + 1] === "!" && t[e + 2] === "E" && t[e + 3] === "N" && t[e + 4] === "T" && t[e + 5] === "I" && t[e + 6] === "T" && t[e + 7] === "Y";
   }
-  function Un(t, e) {
+  function Fn(t, e) {
     return t[e + 1] === "!" && t[e + 2] === "E" && t[e + 3] === "L" && t[e + 4] === "E" && t[e + 5] === "M" && t[e + 6] === "E" && t[e + 7] === "N" && t[e + 8] === "T";
   }
-  function Pn(t, e) {
+  function Un(t, e) {
     return t[e + 1] === "!" && t[e + 2] === "A" && t[e + 3] === "T" && t[e + 4] === "T" && t[e + 5] === "L" && t[e + 6] === "I" && t[e + 7] === "S" && t[e + 8] === "T";
   }
-  function xn(t, e) {
+  function Pn(t, e) {
     return t[e + 1] === "!" && t[e + 2] === "N" && t[e + 3] === "O" && t[e + 4] === "T" && t[e + 5] === "A" && t[e + 6] === "T" && t[e + 7] === "I" && t[e + 8] === "O" && t[e + 9] === "N";
   }
   function Tt(t) {
     if (vt(t)) return t;
     throw new Error(`Invalid entity name ${t}`);
   }
-  const Vn = /^[-+]?0x[a-fA-F0-9]+$/,
-    Mn = /^([\-\+])?(0*)([0-9]*(\.[0-9]*)?)$/,
-    qn = {
+  const xn = /^[-+]?0x[a-fA-F0-9]+$/,
+    Vn = /^([\-\+])?(0*)([0-9]*(\.[0-9]*)?)$/,
+    Mn = {
       hex: !0,
       leadingZeros: !0,
       decimalPoint: ".",
       eNotation: !0
     };
-  function jn(t) {
+  function qn(t) {
     let e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    if (e = Object.assign({}, qn, e), !t || typeof t != "string") return t;
+    if (e = Object.assign({}, Mn, e), !t || typeof t != "string") return t;
     let r = t.trim();
     if (e.skipLike !== void 0 && e.skipLike.test(r)) return t;
     if (t === "0") return 0;
-    if (e.hex && Vn.test(r)) return Hn(r, 16);
+    if (e.hex && xn.test(r)) return Gn(r, 16);
     if (r.search(/[eE]/) !== -1) {
       const n = r.match(/^([-\+])?(0*)([0-9]*(\.[0-9]*)?[eE][-\+]?[0-9]+)$/);
       if (n) {
@@ -2784,11 +2783,11 @@
         return e.eNotation ? Number(r) : t;
       } else return t;
     } else {
-      const n = Mn.exec(r);
+      const n = Vn.exec(r);
       if (n) {
         const s = n[1],
           i = n[2];
-        let l = Gn(n[3]);
+        let l = jn(n[3]);
         if (!e.leadingZeros && i.length > 0 && s && r[2] !== ".") return t;
         if (!e.leadingZeros && i.length > 0 && !s && r[1] !== ".") return t;
         if (e.leadingZeros && i === t) return 0;
@@ -2800,21 +2799,21 @@
       } else return t;
     }
   }
-  function Gn(t) {
+  function jn(t) {
     return t && t.indexOf(".") !== -1 && (t = t.replace(/0+$/, ""), t === "." ? t = "0" : t[0] === "." ? t = "0" + t : t[t.length - 1] === "." && (t = t.substr(0, t.length - 1))), t;
   }
-  function Hn(t, e) {
+  function Gn(t, e) {
     if (parseInt) return parseInt(t, e);
     if (Number.parseInt) return Number.parseInt(t, e);
     if (window && window.parseInt) return window.parseInt(t, e);
     throw new Error("parseInt, Number.parseInt, window.parseInt are not supported");
   }
-  function Wn(t) {
+  function Hn(t) {
     return typeof t == "function" ? t : Array.isArray(t) ? e => {
       for (const r of t) if (typeof r == "string" && e === r || r instanceof RegExp && r.test(e)) return !0;
     } : () => !1;
   }
-  class $n {
+  class Wn {
     constructor(e) {
       this.options = e, this.currentNode = null, this.tagsNodeStack = [], this.docTypeEntities = {}, this.lastEntities = {
         apos: {
@@ -2877,10 +2876,10 @@
           regex: /&#x([0-9a-fA-F]{1,6});/g,
           val: (r, n) => String.fromCodePoint(Number.parseInt(n, 16))
         }
-      }, this.addExternalEntities = _n, this.parseXml = Qn, this.parseTextData = Yn, this.resolveNameSpace = zn, this.buildAttributesMap = Xn, this.isItStopNode = ti, this.replaceEntitiesValue = Jn, this.readStopNodeData = ni, this.saveTextToParentTag = ei, this.addChild = Zn, this.ignoreAttributesFn = Wn(this.options.ignoreAttributes);
+      }, this.addExternalEntities = $n, this.parseXml = Xn, this.parseTextData = _n, this.resolveNameSpace = Yn, this.buildAttributesMap = Kn, this.isItStopNode = ei, this.replaceEntitiesValue = Zn, this.readStopNodeData = ri, this.saveTextToParentTag = Jn, this.addChild = Qn, this.ignoreAttributesFn = Hn(this.options.ignoreAttributes);
     }
   }
-  function _n(t) {
+  function $n(t) {
     const e = Object.keys(t);
     for (let r = 0; r < e.length; r++) {
       const n = e[r];
@@ -2890,14 +2889,14 @@
       };
     }
   }
-  function Yn(t, e, r, n, s, i, l) {
+  function _n(t, e, r, n, s, i, l) {
     if (t !== void 0 && (this.options.trimValues && !n && (t = t.trim()), t.length > 0)) {
       l || (t = this.replaceEntitiesValue(t));
       const o = this.options.tagValueProcessor(e, t, r, s, i);
       return o == null ? t : typeof o != typeof t || o !== t ? o : this.options.trimValues ? bt(t, this.options.parseTagValue, this.options.numberParseOptions) : t.trim() === t ? bt(t, this.options.parseTagValue, this.options.numberParseOptions) : t;
     }
   }
-  function zn(t) {
+  function Yn(t) {
     if (this.options.removeNSPrefix) {
       const e = t.split(":"),
         r = t.charAt(0) === "/" ? "/" : "";
@@ -2906,10 +2905,10 @@
     }
     return t;
   }
-  const Kn = new RegExp(`([^\\s=]+)\\s*(=\\s*(['"])([\\s\\S]*?)\\3)?`, "gm");
-  function Xn(t, e, r) {
+  const zn = new RegExp(`([^\\s=]+)\\s*(=\\s*(['"])([\\s\\S]*?)\\3)?`, "gm");
+  function Kn(t, e, r) {
     if (this.options.ignoreAttributes !== !0 && typeof t == "string") {
-      const n = dr(t, Kn),
+      const n = dr(t, zn),
         s = n.length,
         i = {};
       for (let l = 0; l < s; l++) {
@@ -2931,7 +2930,7 @@
       return i;
     }
   }
-  const Qn = function (t) {
+  const Xn = function (t) {
     t = t.replace(/\r\n?/g, `
 `);
     const e = new Ce("!xml");
@@ -2969,7 +2968,7 @@
         }
         i = o;
       } else if (t.substr(i + 1, 2) === "!D") {
-        const o = Sn(t, i);
+        const o = In(t, i);
         this.docTypeEntities = o.entities, i = o.i;
       } else if (t.substr(i + 1, 2) === "![") {
         const o = Ne(t, "]]>", i, "CDATA is not closed.") - 2,
@@ -3014,12 +3013,12 @@
     } else n += t[i];
     return e.child;
   };
-  function Zn(t, e, r, n) {
+  function Qn(t, e, r, n) {
     this.options.captureMetaData || (n = void 0);
     const s = this.options.updateTag(e.tagname, r, e[":@"]);
     s === !1 || (typeof s == "string" && (e.tagname = s), t.addChild(e, n));
   }
-  const Jn = function (t) {
+  const Zn = function (t) {
     if (this.options.processEntities) {
       for (let e in this.docTypeEntities) {
         const r = this.docTypeEntities[e];
@@ -3037,10 +3036,10 @@
     }
     return t;
   };
-  function ei(t, e, r, n) {
+  function Jn(t, e, r, n) {
     return t && (n === void 0 && (n = e.child.length === 0), t = this.parseTextData(t, e.tagname, r, !1, e[":@"] ? Object.keys(e[":@"]).length !== 0 : !1, n), t !== void 0 && t !== "" && e.add(this.options.textNodeName, t), t = ""), t;
   }
-  function ti(t, e, r) {
+  function ei(t, e, r) {
     const n = "*." + r;
     for (const s in t) {
       const i = t[s];
@@ -3048,7 +3047,7 @@
     }
     return !1;
   }
-  function ri(t, e) {
+  function ti(t, e) {
     let r = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ">";
     let n,
       s = "";
@@ -3075,7 +3074,7 @@
   }
   function Dt(t, e, r) {
     let n = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : ">";
-    const s = ri(t, e + 1, n);
+    const s = ti(t, e + 1, n);
     if (!s) return;
     let i = s.data;
     const l = s.index,
@@ -3096,7 +3095,7 @@
       rawTagName: p
     };
   }
-  function ni(t, e, r) {
+  function ri(t, e, r) {
     const n = r;
     let s = 1;
     for (; r < t.length; r++) if (t[r] === "<") if (t[r + 1] === "/") {
@@ -3114,11 +3113,11 @@
   function bt(t, e, r) {
     if (e && typeof t == "string") {
       const n = t.trim();
-      return n === "true" ? !0 : n === "false" ? !1 : jn(t, r);
-    } else return gn(t) ? t : "";
+      return n === "true" ? !0 : n === "false" ? !1 : qn(t, r);
+    } else return mn(t) ? t : "";
   }
   const yt = Ce.getMetaDataSymbol();
-  function ii(t, e) {
+  function ni(t, e) {
     return gr(t, e);
   }
   function gr(t, e, r) {
@@ -3126,27 +3125,27 @@
     const s = {};
     for (let i = 0; i < t.length; i++) {
       const l = t[i],
-        o = si(l);
+        o = ii(l);
       let c = "";
       if (r === void 0 ? c = o : c = r + "." + o, o === e.textNodeName) n === void 0 ? n = l[o] : n += "" + l[o];else {
         if (o === void 0) continue;
         if (l[o]) {
           let h = gr(l[o], e, c);
-          const p = ai(h, e);
-          l[yt] !== void 0 && (h[yt] = l[yt]), l[":@"] ? ui(h, l[":@"], c, e) : Object.keys(h).length === 1 && h[e.textNodeName] !== void 0 && !e.alwaysCreateTextNode ? h = h[e.textNodeName] : Object.keys(h).length === 0 && (e.alwaysCreateTextNode ? h[e.textNodeName] = "" : h = ""), s[o] !== void 0 && s.hasOwnProperty(o) ? (Array.isArray(s[o]) || (s[o] = [s[o]]), s[o].push(h)) : e.isArray(o, c, p) ? s[o] = [h] : s[o] = h;
+          const p = ui(h, e);
+          l[yt] !== void 0 && (h[yt] = l[yt]), l[":@"] ? si(h, l[":@"], c, e) : Object.keys(h).length === 1 && h[e.textNodeName] !== void 0 && !e.alwaysCreateTextNode ? h = h[e.textNodeName] : Object.keys(h).length === 0 && (e.alwaysCreateTextNode ? h[e.textNodeName] = "" : h = ""), s[o] !== void 0 && s.hasOwnProperty(o) ? (Array.isArray(s[o]) || (s[o] = [s[o]]), s[o].push(h)) : e.isArray(o, c, p) ? s[o] = [h] : s[o] = h;
         }
       }
     }
     return typeof n == "string" ? n.length > 0 && (s[e.textNodeName] = n) : n !== void 0 && (s[e.textNodeName] = n), s;
   }
-  function si(t) {
+  function ii(t) {
     const e = Object.keys(t);
     for (let r = 0; r < e.length; r++) {
       const n = e[r];
       if (n !== ":@") return n;
     }
   }
-  function ui(t, e, r, n) {
+  function si(t, e, r, n) {
     if (e) {
       const s = Object.keys(e),
         i = s.length;
@@ -3156,28 +3155,28 @@
       }
     }
   }
-  function ai(t, e) {
+  function ui(t, e) {
     const {
         textNodeName: r
       } = e,
       n = Object.keys(t).length;
     return !!(n === 0 || n === 1 && (t[r] || typeof t[r] == "boolean" || t[r] === 0));
   }
-  class oi {
+  class ai {
     constructor(e) {
-      this.externalEntities = {}, this.options = In(e);
+      this.externalEntities = {}, this.options = wn(e);
     }
     parse(e, r) {
       if (typeof e != "string") if (e.toString) e = e.toString();else throw new Error("XML data is accepted in String or Bytes[] form.");
       if (r) {
         r === !0 && (r = {});
-        const i = En(e, r);
+        const i = An(e, r);
         if (i !== !0) throw Error(`${i.err.msg}:${i.err.line}:${i.err.col}`);
       }
-      const n = new $n(this.options);
+      const n = new Wn(this.options);
       n.addExternalEntities(this.externalEntities);
       const s = n.parseXml(e);
-      return this.options.preserveOrder || s === void 0 ? s : ii(s, this.options);
+      return this.options.preserveOrder || s === void 0 ? s : ni(s, this.options);
     }
     addEntity(e, r) {
       if (r.indexOf("&") !== -1) throw new Error("Entity value can't have '&'");
@@ -3189,11 +3188,11 @@
       return Ce.getMetaDataSymbol();
     }
   }
-  const li = /^\d{2}:\d{2}(?::\d{2}(?:\.\d{3})?)?$/;
+  const oi = /^\d{2}:\d{2}(?::\d{2}(?:\.\d{3})?)?$/;
   function Ar(t) {
     if (t == "start") return 0;
     if (t == "end") return -1;
-    if (li.test(t)) {
+    if (oi.test(t)) {
       const [e = "00", r = "00", n = "00"] = t.split(":");
       let s = "00",
         i = "000";
@@ -3201,7 +3200,7 @@
     }
     return parseFloat(t);
   }
-  function ci(t) {
+  function li(t) {
     return new Promise((e, r) => {
       t.preload = "auto", t.load();
       const n = () => {
@@ -3214,7 +3213,7 @@
     });
   }
   const Er = ["play", "pause", "ended", "waiting", "stalled", "canplay", "playing", "seeking", "seeked", "timeupdate", "durationchange", "loadedmetadata", "suspend", "abort"],
-    di = 500,
+    ci = 500,
     _ = "ima:AdsManager";
   class vr {
     constructor(e, r) {
@@ -3328,7 +3327,7 @@
       const e = this.adsRequest.adTagUrl;
       return fetch(e).then(r => r.text()).then(r => Oe(this, null, function* () {
         var i, l;
-        const n = new oi({
+        const n = new ai({
             ignoreAttributes: !1,
             attributeNamePrefix: "@_",
             textNodeName: "#text"
@@ -3392,7 +3391,7 @@
         if (s && s.length > 0) for (const i of s) {
           const l = i.mimeType;
           if (l && l.startsWith("video/mp4") && i.fileURL) {
-            this.currentCreative = n, this.vastTracker = new hn(null, this.currentAdVast, this.currentCreative);
+            this.currentCreative = n, this.vastTracker = new dn(null, this.currentAdVast, this.currentCreative);
             const o = this.totalAds - this.nextAds.length,
               c = new qt(o, !1, this.totalTimeAds, this.currentPodIndex, this.currentPodTimeOffset, this.totalAds);
             P.debug(_, `current podInfo: [${o}] [${this.totalTimeAds}] [${this.totalAds}]`), this.currentAd = new Mt(this.currentAdVast, n, i, c), e || this.dispatchAdsEvent(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED), this.playAdsContent(i.fileURL).catch(h => {
@@ -3419,7 +3418,7 @@
       }
       const r = e.currentTime * 1e3;
       P.debug(_, `Content current time: [${r}]`);
-      const n = this.cuePoints.find(s => Math.abs(s - r) <= di);
+      const n = this.cuePoints.find(s => Math.abs(s - r) <= ci);
       n && (P.debug(_, `fetchVastAds: [${n}]`), this.fetchVastAds(n));
     }
     clearTimerUpdateContentTime() {
@@ -3492,7 +3491,7 @@
       }
     }
     getPromiseVastClient(e) {
-      return new dn().get(e);
+      return new cn().get(e);
     }
     fetchVastAds(e) {
       return Oe(this, null, function* () {
@@ -3608,7 +3607,7 @@
         if (!r) return P.error(_, "playAdsContent no Video Ads Element: "), this.playCreativities();
         this.adRemainingTime = -1, this.adDuration = -1, this.canBeAdSkippable = !1, this.resetQuartilesFired(), this.removeVideoListeners(), (n = this.adDisplayContainer) == null || n.show(), (s = this.adDisplayContainer) == null || s.showLoader(), (i = this.adDisplayContainer) == null || i.hideAdVideoElement(), r.src = e, r.autoplay = !0;
         try {
-          yield ci(r), yield r.play(), this.addVideoListeners(), (l = this.adDisplayContainer) == null || l.showAdVideoElement(), (o = this.adDisplayContainer) == null || o.hideLoader(), this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_CAN_PLAY);
+          yield li(r), yield r.play(), this.addVideoListeners(), (l = this.adDisplayContainer) == null || l.showAdVideoElement(), (o = this.adDisplayContainer) == null || o.hideLoader(), this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_CAN_PLAY);
         } catch (h) {
           P.error(_, "playAdsContent error: ", h), this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_BREAK_FETCH_ERROR), (c = this.adDisplayContainer) == null || c.hideAdVideoElement(), this.playCreativities();
         } finally {
@@ -3625,7 +3624,7 @@
       e && (Er.forEach(r => e.removeEventListener(r, this.adsVideoEventsListener)), e.removeEventListener("error", this.adsVideoErrorListener));
     }
   }
-  const hi = Be;
+  const di = Be;
   class Ct {
     constructor(e) {
       g(this, "currentTarget");
@@ -3647,9 +3646,9 @@
       throw new Error("Method not implemented.");
     }
   }
-  g(Ct, "Type", hi);
+  g(Ct, "Type", di);
   const Tr = "ima:AdsLoader";
-  class pi {
+  class hi {
     constructor(e) {
       g(this, "adDisplayContainer");
       g(this, "adsManager");
@@ -3691,7 +3690,7 @@
       (e = this.adsManager) == null || e.destroy(), this.adDisplayContainer.destroy(), this.eventEmitter.clearAllEventListeners();
     }
   }
-  class fi {
+  class pi {
     constructor() {
       g(this, "autoAlign", !1);
       g(this, "bitrate", -1);
@@ -3706,7 +3705,7 @@
     }
   }
   const Nt = "ima:AdsRequest";
-  class mi {
+  class fi {
     constructor() {
       g(this, "adTagUrl");
       g(this, "adsResponse");
@@ -3734,12 +3733,12 @@
       P.debug(Nt, `setContinuousPlayback [${e}]`);
     }
   }
-  const gi = Ut;
-  function Ai(t) {
+  const mi = Ut;
+  function gi(t) {
     let e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "debug";
     P.setEnable(t), P.setLogLevel(e);
   }
-  const Ei = Z;
+  const Ai = Z;
   var ze = {},
     Ae = {},
     Re = {},
@@ -3871,7 +3870,7 @@
       var a = u._node._inc || u._node.ownerDocument._inc;
       if (u._inc !== a) {
         var d = u._refresh(u._node);
-        if (Ur(u, "length", d.length), !u.$$length || d.length < u.$$length) for (var f = d.length; f in u; f++) Object.prototype.hasOwnProperty.call(u, f) && delete u[f];
+        if (Fr(u, "length", d.length), !u.$$length || d.length < u.$$length) for (var f = d.length; f in u; f++) Object.prototype.hasOwnProperty.call(u, f) && delete u[f];
         c(d, u), u._inc = a;
       }
     }
@@ -4164,7 +4163,7 @@
         be(this, u, a, ht), u.ownerDocument = this, a && this.removeChild(a), he(u) && (this.documentElement = u);
       },
       importNode: function (u, a) {
-        return Fr(this, u, a);
+        return Br(this, u, a);
       },
       getElementById: function (u) {
         var a = null;
@@ -4357,21 +4356,21 @@
     }, h(St, we);
     function ft() {}
     ft.prototype.nodeType = J, h(ft, I);
+    function Ir() {}
+    Ir.prototype.nodeType = oe, h(Ir, I);
     function Sr() {}
-    Sr.prototype.nodeType = oe, h(Sr, I);
-    function Lr() {}
-    Lr.prototype.nodeType = T, h(Lr, I);
+    Sr.prototype.nodeType = T, h(Sr, I);
     function Lt() {}
     Lt.prototype.nodeType = C, h(Lt, I);
     function mt() {}
     mt.prototype.nodeName = "#document-fragment", mt.prototype.nodeType = K, h(mt, I);
     function kt() {}
     kt.prototype.nodeType = k, h(kt, I);
-    function kr() {}
-    kr.prototype.serializeToString = function (u, a, d) {
-      return Or.call(u, a, d);
-    }, I.prototype.toString = Or;
-    function Or(u, a) {
+    function Lr() {}
+    Lr.prototype.serializeToString = function (u, a, d) {
+      return kr.call(u, a, d);
+    }, I.prototype.toString = kr;
+    function kr(u, a) {
       var d = [],
         f = this.nodeType == 9 && this.documentElement || this,
         D = f.prefix,
@@ -4385,7 +4384,7 @@
       }
       return Ve(this, d, u, a, Y), d.join("");
     }
-    function Br(u, a, d) {
+    function Or(u, a, d) {
       var f = u.prefix || "",
         D = u.namespaceURI;
       if (!D || f === "xml" && D === r.XML || D === r.XMLNS) return !1;
@@ -4446,7 +4445,7 @@
           }
           for (var Le = 0; Le < Y; Le++) {
             var me = L.item(Le);
-            if (Br(me, d, D)) {
+            if (Or(me, d, D)) {
               var ke = me.prefix || "",
                 Je = me.namespaceURI;
               Ot(a, ke ? "xmlns:" + ke : "xmlns", Je), D.push({
@@ -4456,7 +4455,7 @@
             }
             Ve(me, a, d, f, D);
           }
-          if (ce === ve && Br(u, d, D)) {
+          if (ce === ve && Or(u, d, D)) {
             var ke = u.prefix || "",
               Je = u.namespaceURI;
             Ot(a, ke ? "xmlns:" + ke : "xmlns", Je), D.push({
@@ -4482,11 +4481,11 @@
         case j:
           return a.push("<!--", u.data, "-->");
         case J:
-          var Pr = u.publicId,
+          var Ur = u.publicId,
             Me = u.systemId;
-          if (a.push("<!DOCTYPE ", u.name), Pr) a.push(" PUBLIC ", Pr), Me && Me != "." && a.push(" ", Me), a.push(">");else if (Me && Me != ".") a.push(" SYSTEM ", Me, ">");else {
-            var xr = u.internalSubset;
-            xr && a.push(" [", xr, "]"), a.push(">");
+          if (a.push("<!DOCTYPE ", u.name), Ur) a.push(" PUBLIC ", Ur), Me && Me != "." && a.push(" ", Me), a.push(">");else if (Me && Me != ".") a.push(" SYSTEM ", Me, ">");else {
+            var Pr = u.internalSubset;
+            Pr && a.push(" [", Pr, "]"), a.push(">");
           }
           return;
         case k:
@@ -4497,7 +4496,7 @@
           a.push("??", u.nodeName);
       }
     }
-    function Fr(u, a, d) {
+    function Br(u, a, d) {
       var f;
       switch (a.nodeType) {
         case E:
@@ -4508,7 +4507,7 @@
           d = !0;
           break;
       }
-      if (f || (f = a.cloneNode(!1)), f.ownerDocument = u, f.parentNode = null, d) for (var D = a.firstChild; D;) f.appendChild(Fr(u, D, d)), D = D.nextSibling;
+      if (f || (f = a.cloneNode(!1)), f.ownerDocument = u, f.parentNode = null, d) for (var D = a.firstChild; D;) f.appendChild(Br(u, D, d)), D = D.nextSibling;
       return f;
     }
     function Bt(u, a, d) {
@@ -4531,7 +4530,7 @@
       if (d) for (var Te = a.firstChild; Te;) f.appendChild(Bt(u, Te, d)), Te = Te.nextSibling;
       return f;
     }
-    function Ur(u, a, d) {
+    function Fr(u, a, d) {
       u[a] = d;
     }
     try {
@@ -4566,17 +4565,17 @@
                 this.data = a, this.value = a, this.nodeValue = a;
             }
           }
-        }), Ur = function (a, d, f) {
+        }), Fr = function (a, d, f) {
           a["$$" + d] = f;
         };
       }
     } catch (u) {}
-    return Ae.DocumentType = ft, Ae.DOMException = N, Ae.DOMImplementation = Q, Ae.Element = W, Ae.Node = I, Ae.NodeList = S, Ae.XMLSerializer = kr, Ae;
+    return Ae.DocumentType = ft, Ae.DOMException = N, Ae.DOMImplementation = Q, Ae.Element = W, Ae.Node = I, Ae.NodeList = S, Ae.XMLSerializer = Lr, Ae;
   }
   var Ke = {},
     Rt = {},
     Cr;
-  function vi() {
+  function Ei() {
     return Cr || (Cr = 1, function (t) {
       var e = at().freeze;
       t.XML_ENTITIES = e({
@@ -6717,7 +6716,7 @@
   }
   var ot = {},
     Nr;
-  function Ti() {
+  function vi() {
     if (Nr) return ot;
     Nr = 1;
     var t = at().NAMESPACE,
@@ -7028,13 +7027,13 @@
     return ot.XMLReader = y, ot.ParseError = v, ot;
   }
   var Rr;
-  function Di() {
+  function Ti() {
     if (Rr) return Ke;
     Rr = 1;
     var t = at(),
       e = yr(),
-      r = vi(),
-      n = Ti(),
+      r = Ei(),
+      n = vi(),
       s = e.DOMImplementation,
       i = t.NAMESPACE,
       l = n.ParseError,
@@ -7173,17 +7172,17 @@
     return Ke.__DOMHandler = E, Ke.normalizeLineEndings = c, Ke.DOMParser = h, Ke;
   }
   var wr;
-  function bi() {
+  function Di() {
     if (wr) return ze;
     wr = 1;
     var t = yr();
-    return ze.DOMImplementation = t.DOMImplementation, ze.XMLSerializer = t.XMLSerializer, ze.DOMParser = Di().DOMParser, ze;
+    return ze.DOMImplementation = t.DOMImplementation, ze.XMLSerializer = t.XMLSerializer, ze.DOMParser = Ti().DOMParser, ze;
   }
-  var yi = bi();
-  const Ci = z({
+  var bi = Di();
+  const yi = z({
     __proto__: null
-  }, [yi]);
-  M.Ad = Mt, M.AdDisplayContainer = Wr, M.AdError = We, M.AdErrorEvent = $e, M.AdEvent = nt, M.AdPodInfo = qt, M.AdsLoader = pi, M.AdsManager = vr, M.AdsManagerLoadedEvent = Ct, M.AdsRenderingSettings = fi, M.AdsRequest = mi, M.ImaSdkSettings = Ge, M.VERSION = Ei, M.ViewMode = gi, M.activateDebug = Ai, M.settings = qr, Object.defineProperty(M, Symbol.toStringTag, {
+  }, [bi]);
+  M.Ad = Mt, M.AdDisplayContainer = Hr, M.AdError = We, M.AdErrorEvent = $e, M.AdEvent = nt, M.AdPodInfo = qt, M.AdsLoader = hi, M.AdsManager = vr, M.AdsManagerLoadedEvent = Ct, M.AdsRenderingSettings = pi, M.AdsRequest = fi, M.ImaSdkSettings = Ge, M.VERSION = Ai, M.ViewMode = mi, M.activateDebug = gi, M.settings = Mr, Object.defineProperty(M, Symbol.toStringTag, {
     value: "Module"
   });
 });
@@ -7193,4 +7192,4 @@
     window.google.ima = window.GoogleIma;
   }
 })();
-/* Built on 2025-05-26T22:35:45.686Z */
+/* Built on 2025-05-26T22:44:55.288Z */
