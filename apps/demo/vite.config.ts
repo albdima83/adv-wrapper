@@ -4,9 +4,11 @@ import { version } from "./package.json";
 
 export default defineConfig((config: ConfigEnv) => {
 	const mode = config.mode || "development";
-	const define = loadEnv(mode, process.cwd(), "");
+	const env = loadEnv(mode, process.cwd(), "VITE_");
+	const baseUrl = env.VITE_BASE_URL || "/";
+	const imaLibUrl = env.VITE_IMA_LIB_URL || "";
 	return {
-		base: define.BASE_URL || "/",
+		base: baseUrl,
 		build: {
 			outDir: "dist",
 			rollupOptions: {
@@ -19,7 +21,7 @@ export default defineConfig((config: ConfigEnv) => {
 			},
 		},
 		define: {
-			__IMA_LIB_URL__: JSON.stringify(define.IMA_LIB_URL || ""),
+			__IMA_LIB_URL__: JSON.stringify(imaLibUrl),
 		},
 		plugins: [
 			ViteEjsPlugin(
@@ -35,11 +37,11 @@ export default defineConfig((config: ConfigEnv) => {
 						},
 						{
 							name: "imaLib",
-							value: `${define.IMA_LIB_URL}`,
+							value: `${imaLibUrl}`,
 						},
 						{
 							name: "baseUrl",
-							value: `${define.BASE_URL}`,
+							value: `${baseUrl}`,
 						},
 					],
 				},
