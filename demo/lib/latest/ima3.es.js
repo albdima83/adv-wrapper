@@ -1,4 +1,4 @@
-/* ES | Version: 0.0.5 | Commit: ad4d6b4 */
+/* ES | Version: 0.0.5 | Commit: 633bdc7 */
 var Br = Object.defineProperty, Fr = Object.defineProperties;
 var Ur = Object.getOwnPropertyDescriptors;
 var Bt = Object.getOwnPropertySymbols;
@@ -2492,20 +2492,7 @@ class oi {
     return we.getMetaDataSymbol();
   }
 }
-const li = /^\d{2}:\d{2}(?::\d{2}(?:\.\d{3})?)?$/;
-function er(t) {
-  if (t == "start")
-    return 0;
-  if (t == "end")
-    return -1;
-  if (li.test(t)) {
-    const [e = "00", r = "00", n = "00"] = t.split(":");
-    let s = "00", i = "000";
-    return n.includes(".") ? [s, i] = n.split(".") : s = n, (parseInt(e, 10) * 3600 + parseInt(r, 10) * 60 + parseInt(s, 10)) * 1e3 + parseInt(i, 10);
-  }
-  return parseFloat(t);
-}
-function ci(t) {
+function li(t) {
   return new Promise((e, r) => {
     t.preload = "auto", t.load();
     const n = () => {
@@ -2515,6 +2502,19 @@ function ci(t) {
     };
     t.addEventListener("canplaythrough", n), t.addEventListener("error", s);
   });
+}
+const ci = /^\d{2}:\d{2}(?::\d{2}(?:\.\d{3})?)?$/;
+function er(t) {
+  if (t == "start")
+    return 0;
+  if (t == "end")
+    return -1;
+  if (ci.test(t)) {
+    const [e = "00", r = "00", n = "00"] = t.split(":");
+    let s = "00", i = "000";
+    return n.includes(".") ? [s, i] = n.split(".") : s = n, (parseInt(e, 10) * 3600 + parseInt(r, 10) * 60 + parseInt(s, 10)) * 1e3 + parseInt(i, 10);
+  }
+  return parseFloat(t);
 }
 const tr = [
   "play",
@@ -2868,7 +2868,7 @@ class hi {
                     this.trackUrl(C);
                   });
               }
-            this.nextAds = p, this.totalAds = h, this.totalTimeAds = l, B.debug(W, `fetchVastAds totalAds: [${h}] [${l}]`), !this.nextAds || this.nextAds.length === 0 ? this.allAdsCompleted() : this.playCreativities();
+            this.nextAds = p, this.totalAds = h, this.totalTimeAds = l, B.debug(W, `fetchVastAds totalAds: [${h}] [${l}]`), !this.nextAds || this.nextAds.length === 0 ? this.allAdsCompleted() : (this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_METADATA), this.playCreativities());
           } else
             this.allAdsCompleted();
         } catch (c) {
@@ -2888,7 +2888,7 @@ class hi {
     if (r)
       switch (e.type) {
         case "loadstart": {
-          this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_BREAK_READY);
+          this.dispatchAdsEvent(google.ima.AdEvent.Type.IMPRESSION);
           break;
         }
         case "durationchange": {
@@ -2900,18 +2900,14 @@ class hi {
           this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_CAN_PLAY);
           break;
         }
-        case "loadedmetadata": {
-          this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_METADATA);
+        case "loadedmetadata":
           break;
-        }
         case "play": {
           this.quartilesFired.start ? this.dispatchAdsEvent(google.ima.AdEvent.Type.RESUMED) : (this.quartilesFired.start = !0, this.dispatchAdsEvent(google.ima.AdEvent.Type.STARTED));
           break;
         }
-        case "pause": {
-          this.dispatchAdsEvent(google.ima.AdEvent.Type.PAUSED);
+        case "pause":
           break;
-        }
         case "timeupdate": {
           const o = r.duration || -1;
           if (!isNaN(o) && o >= 0) {
@@ -2969,9 +2965,9 @@ class hi {
         }
       });
       try {
-        yield ci(r), (yield n()) ? (this.addVideoListeners(), (o = this.adDisplayContainer) == null || o.showAdVideoElement(), this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_CAN_PLAY)) : (this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_BREAK_FETCH_ERROR), (l = this.adDisplayContainer) == null || l.hideAdVideoElement(), this.playCreativities());
+        yield li(r), this.dispatchAdsEvent(google.ima.AdEvent.Type.LOADED), (yield n()) ? (this.addVideoListeners(), (o = this.adDisplayContainer) == null || o.showAdVideoElement(), this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_CAN_PLAY)) : (B.error(W, "tryPlay preload or playback setup failed"), this.dispatchAdsEvent(google.ima.AdEvent.Type.LOG), (l = this.adDisplayContainer) == null || l.hideAdVideoElement(), this.playCreativities());
       } catch (E) {
-        B.error(W, "preload or playback setup failed:", E), this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_BREAK_FETCH_ERROR), (h = this.adDisplayContainer) == null || h.hideAdVideoElement(), this.playCreativities();
+        B.error(W, "preload or playback setup failed:", E), this.dispatchAdsEvent(google.ima.AdEvent.Type.LOG), (h = this.adDisplayContainer) == null || h.hideAdVideoElement(), this.playCreativities();
       } finally {
         (p = this.adDisplayContainer) == null || p.hideLoader();
       }
@@ -6998,4 +6994,4 @@ export {
 };
 
 
-/* Built on 2025-05-27T14:58:21.644Z */
+/* Built on 2025-05-27T21:39:15.885Z */

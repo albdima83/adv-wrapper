@@ -1,4 +1,4 @@
-/* UMD | Version: 0.0.5 | Commit: ad4d6b4 */
+/* UMD | Version: 0.0.5 | Commit: 633bdc7 */
 (function (M, z) {
   typeof exports == "object" && typeof module != "undefined" ? z(exports) : typeof define == "function" && define.amd ? define(["exports"], z) : (M = typeof globalThis != "undefined" ? globalThis : M || self, z(M.GoogleIma = {}));
 })(this, function (M) {
@@ -3188,19 +3188,7 @@
       return Ne.getMetaDataSymbol();
     }
   }
-  const oi = /^\d{2}:\d{2}(?::\d{2}(?:\.\d{3})?)?$/;
-  function Ar(t) {
-    if (t == "start") return 0;
-    if (t == "end") return -1;
-    if (oi.test(t)) {
-      const [e = "00", r = "00", n = "00"] = t.split(":");
-      let s = "00",
-        i = "000";
-      return n.includes(".") ? [s, i] = n.split(".") : s = n, (parseInt(e, 10) * 3600 + parseInt(r, 10) * 60 + parseInt(s, 10)) * 1e3 + parseInt(i, 10);
-    }
-    return parseFloat(t);
-  }
-  function li(t) {
+  function oi(t) {
     return new Promise((e, r) => {
       t.preload = "auto", t.load();
       const n = () => {
@@ -3212,9 +3200,21 @@
       t.addEventListener("canplaythrough", n), t.addEventListener("error", s);
     });
   }
+  const li = /^\d{2}:\d{2}(?::\d{2}(?:\.\d{3})?)?$/;
+  function Ar(t) {
+    if (t == "start") return 0;
+    if (t == "end") return -1;
+    if (li.test(t)) {
+      const [e = "00", r = "00", n = "00"] = t.split(":");
+      let s = "00",
+        i = "000";
+      return n.includes(".") ? [s, i] = n.split(".") : s = n, (parseInt(e, 10) * 3600 + parseInt(r, 10) * 60 + parseInt(s, 10)) * 1e3 + parseInt(i, 10);
+    }
+    return parseFloat(t);
+  }
   const Er = ["play", "pause", "ended", "waiting", "stalled", "canplay", "playing", "seeking", "seeked", "timeupdate", "durationchange", "loadedmetadata", "suspend", "abort"],
     ci = 500,
-    $ = "ima:AdsManager";
+    H = "ima:AdsManager";
   class vr {
     constructor(e, r) {
       g(this, "adsRequest");
@@ -3274,22 +3274,22 @@
       return this.adDisplayContainer.getVideoAdsElement().volume;
     }
     init(e, r, n, s) {
-      B.debug($, `init width[${e}] height[${r}] viewMode[${n}] videoElement[${s}]`);
+      B.debug(H, `init width[${e}] height[${r}] viewMode[${n}] videoElement[${s}]`);
     }
     isCustomClickTrackingUsed() {
-      return B.debug($, "isCustomClickTrackingUsed"), !1;
+      return B.debug(H, "isCustomClickTrackingUsed"), !1;
     }
     isCustomPlaybackUsed() {
-      return B.debug($, "isCustomPlaybackUsed"), !0;
+      return B.debug(H, "isCustomPlaybackUsed"), !0;
     }
     pause() {
-      B.debug($, "pause");
+      B.debug(H, "pause");
     }
     resize(e, r, n) {
-      B.debug($, `resize width[${e}] height[${r}] viewMode[${n}]`);
+      B.debug(H, `resize width[${e}] height[${r}] viewMode[${n}]`);
     }
     resume() {
-      B.debug($, "resume");
+      B.debug(H, "resume");
     }
     setVolume(e) {
       const r = this.adDisplayContainer.getVideoAdsElement();
@@ -3302,7 +3302,7 @@
       if (!(!e || r <= 0 || this.adRemainingTime > r && this.adRemainingTime < this.adDuration)) try {
         e.pause();
       } finally {
-        B.debug($, "video user skipped"), (s = this.vastTracker) == null || s.skip(), this.dispatchAdsEvent(google.ima.AdEvent.Type.SKIPPED), this.playCreativities();
+        B.debug(H, "video user skipped"), (s = this.vastTracker) == null || s.skip(), this.dispatchAdsEvent(google.ima.AdEvent.Type.SKIPPED), this.playCreativities();
       }
     }
     start() {
@@ -3312,7 +3312,7 @@
       this.started = !1;
     }
     updateAdsRenderingSettings(e) {
-      B.debug($, `updateAdsRenderingSettings [${e}]`);
+      B.debug(H, `updateAdsRenderingSettings [${e}]`);
     }
     addEventListener(e, r, n, s) {
       this.eventEmitter.addEventListener(e, r, n, s);
@@ -3321,7 +3321,7 @@
       this.eventEmitter.removeEventListener(e, r, n);
     }
     dispatchEvent(e) {
-      return B.debug($, `dispatchEvent: [${e}]`), !0;
+      return B.debug(H, `dispatchEvent: [${e}]`), !0;
     }
     fetchAds() {
       const e = this.adsRequest.adTagUrl;
@@ -3340,7 +3340,7 @@
             p = [];
           let E = 0,
             v = 0;
-          B.debug($, `fetchVastAds: [${e}]: `, h);
+          B.debug(H, `fetchVastAds: [${e}]: `, h);
           const y = (i = h == null ? void 0 : h.ads) != null ? i : void 0;
           if (y && y.length > 0) for (const R of y) {
             const C = this.getAdValidCreative(R);
@@ -3348,7 +3348,7 @@
           } else (l = h.errorURLTemplates) == null || l.forEach(R => {
             this.trackUrl(R);
           });
-          this.nextAds = p, this.totalAds = v, this.totalTimeAds = E, B.debug($, `fetchVastAds totalAds: [${v}] [${E}]`);
+          this.nextAds = p, this.totalAds = v, this.totalTimeAds = E, B.debug(H, `fetchVastAds totalAds: [${v}] [${E}]`);
         } else {
           const o = n.parse(r),
             c = o == null ? void 0 : o["vmap:VMAP"]["vmap:AdBreak"];
@@ -3358,7 +3358,7 @@
             if (p) {
               const E = Ar(p);
               if (!isNaN(E) && this.isValidAdBreak(h)) {
-                B.debug($, `vmap adBreak timeOffset [${p}]:`, E), this.cuePoints.includes(E) || this.cuePoints.push(E);
+                B.debug(H, `vmap adBreak timeOffset [${p}]:`, E), this.cuePoints.includes(E) || this.cuePoints.push(E);
                 const v = this.cueMapPoints[E] || [];
                 v.push(h), this.cueMapPoints[E] = v;
               }
@@ -3394,8 +3394,8 @@
             this.currentCreative = n, this.vastTracker = new dn(null, this.currentAdVast, this.currentCreative);
             const o = this.totalAds - this.nextAds.length,
               c = new qt(o, !1, this.totalTimeAds, this.currentPodIndex, this.currentPodTimeOffset, this.totalAds);
-            B.debug($, `current podInfo: [${o}] [${this.totalTimeAds}] [${this.totalAds}]`), this.currentAd = new Mt(this.currentAdVast, n, i, c), e || this.dispatchAdsEvent(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED), this.playAdsContent(i.fileURL).catch(h => {
-              B.error($, "playAdsContent error: ", h);
+            B.debug(H, `current podInfo: [${o}] [${this.totalTimeAds}] [${this.totalAds}]`), this.currentAd = new Mt(this.currentAdVast, n, i, c), e || this.dispatchAdsEvent(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED), this.playAdsContent(i.fileURL).catch(h => {
+              B.error(H, "playAdsContent error: ", h);
             });
             return;
           }
@@ -3417,9 +3417,9 @@
         return;
       }
       const r = e.currentTime * 1e3;
-      B.debug($, `Content current time: [${r}]`);
+      B.debug(H, `Content current time: [${r}]`);
       const n = this.cuePoints.find(s => Math.abs(s - r) <= ci);
-      n && (B.debug($, `fetchVastAds: [${n}]`), this.fetchVastAds(n));
+      n && (B.debug(H, `fetchVastAds: [${n}]`), this.fetchVastAds(n));
     }
     clearTimerUpdateContentTime() {
       clearTimeout(this.timerUpdateContentTime);
@@ -3487,7 +3487,7 @@
           r.src = e;
         }
       } catch (r) {
-        B.error($, `trackUrl [${e}] error: `, r);
+        B.error(H, `trackUrl [${e}] error: `, r);
       }
     }
     getPromiseVastClient(e) {
@@ -3523,15 +3523,15 @@
                 this.trackUrl(C);
               });
             }
-            this.nextAds = p, this.totalAds = h, this.totalTimeAds = c, B.debug($, `fetchVastAds totalAds: [${h}] [${c}]`), !this.nextAds || this.nextAds.length === 0 ? this.allAdsCompleted() : this.playCreativities();
+            this.nextAds = p, this.totalAds = h, this.totalTimeAds = c, B.debug(H, `fetchVastAds totalAds: [${h}] [${c}]`), !this.nextAds || this.nextAds.length === 0 ? this.allAdsCompleted() : (this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_METADATA), this.playCreativities());
           } else this.allAdsCompleted();
         } catch (l) {
-          B.error($, "fetchVastAds error:", l);
+          B.error(H, "fetchVastAds error:", l);
         }
       });
     }
     dispatchAdsEvent(e) {
-      B.debug($, "dispatchAdsEvent: ", e), this.eventEmitter.emit(e, new nt(e, this.currentAd));
+      B.debug(H, "dispatchAdsEvent: ", e), this.eventEmitter.emit(e, new nt(e, this.currentAd));
     }
     adsVideoEventsListener(e) {
       var n, s, i, l;
@@ -3539,7 +3539,7 @@
       if (r) switch (e.type) {
         case "loadstart":
           {
-            this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_BREAK_READY);
+            this.dispatchAdsEvent(google.ima.AdEvent.Type.IMPRESSION);
             break;
           }
         case "durationchange":
@@ -3554,20 +3554,14 @@
             break;
           }
         case "loadedmetadata":
-          {
-            this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_METADATA);
-            break;
-          }
+          break;
         case "play":
           {
             this.quartilesFired.start ? this.dispatchAdsEvent(google.ima.AdEvent.Type.RESUMED) : (this.quartilesFired.start = !0, this.dispatchAdsEvent(google.ima.AdEvent.Type.STARTED));
             break;
           }
         case "pause":
-          {
-            this.dispatchAdsEvent(google.ima.AdEvent.Type.PAUSED);
-            break;
-          }
+          break;
         case "timeupdate":
           {
             const o = r.duration || -1;
@@ -3576,7 +3570,7 @@
                 h = c / o,
                 p = o - c,
                 E = ((s = this.currentCreative) == null ? void 0 : s.skipDelay) || 0;
-              this.adRemainingTime = p, this.adDuration = o, B.debug($, `video adv currentTime: ${c}, Percentage: ${h}%, SkipDelay: ${E}`), this.quartilesFired.start || (this.quartilesFired.start = !0, this.dispatchAdsEvent(google.ima.AdEvent.Type.STARTED)), !this.quartilesFired.firstQuartile && h >= .25 && (this.quartilesFired.firstQuartile = !0, this.dispatchAdsEvent(google.ima.AdEvent.Type.FIRST_QUARTILE)), !this.quartilesFired.midpoint && h >= .5 && (this.quartilesFired.midpoint = !0, this.dispatchAdsEvent(google.ima.AdEvent.Type.MIDPOINT)), !this.quartilesFired.thirdQuartile && h >= .75 && (this.quartilesFired.thirdQuartile = !0, this.dispatchAdsEvent(google.ima.AdEvent.Type.THIRD_QUARTILE)), this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_PROGRESS), (i = this.vastTracker) == null || i.setProgress(c), !this.canBeAdSkippable && E > 0 && c >= E && (this.canBeAdSkippable = !0, B.debug($, `video adv can be skippable: [${c}] [${o}] [${E}]`), this.dispatchAdsEvent(google.ima.AdEvent.Type.SKIPPABLE_STATE_CHANGED));
+              this.adRemainingTime = p, this.adDuration = o, B.debug(H, `video adv currentTime: ${c}, Percentage: ${h}%, SkipDelay: ${E}`), this.quartilesFired.start || (this.quartilesFired.start = !0, this.dispatchAdsEvent(google.ima.AdEvent.Type.STARTED)), !this.quartilesFired.firstQuartile && h >= .25 && (this.quartilesFired.firstQuartile = !0, this.dispatchAdsEvent(google.ima.AdEvent.Type.FIRST_QUARTILE)), !this.quartilesFired.midpoint && h >= .5 && (this.quartilesFired.midpoint = !0, this.dispatchAdsEvent(google.ima.AdEvent.Type.MIDPOINT)), !this.quartilesFired.thirdQuartile && h >= .75 && (this.quartilesFired.thirdQuartile = !0, this.dispatchAdsEvent(google.ima.AdEvent.Type.THIRD_QUARTILE)), this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_PROGRESS), (i = this.vastTracker) == null || i.setProgress(c), !this.canBeAdSkippable && E > 0 && c >= E && (this.canBeAdSkippable = !0, B.debug(H, `video adv can be skippable: [${c}] [${o}] [${E}]`), this.dispatchAdsEvent(google.ima.AdEvent.Type.SKIPPABLE_STATE_CHANGED));
             }
             break;
           }
@@ -3589,7 +3583,7 @@
     }
     adsVideoErrorListener(e) {
       var r, n;
-      B.error($, "adsVideoErrorListener: ", e), (r = this.adDisplayContainer) == null || r.hideAdVideoElement(), (n = this.adDisplayContainer) == null || n.clearAdVideoElement(), this.playCreativities();
+      B.error(H, "adsVideoErrorListener: ", e), (r = this.adDisplayContainer) == null || r.hideAdVideoElement(), (n = this.adDisplayContainer) == null || n.clearAdVideoElement(), this.playCreativities();
     }
     resetQuartilesFired() {
       this.quartilesFired = {
@@ -3604,27 +3598,27 @@
       return Ce(this, null, function* () {
         var s, i, l, o, c, h, p;
         const r = this.adDisplayContainer.getVideoAdsElement();
-        if (!r) return B.error($, "playAdsContent no Video Ads Element"), this.playCreativities();
+        if (!r) return B.error(H, "playAdsContent no Video Ads Element"), this.playCreativities();
         this.adRemainingTime = -1, this.adDuration = -1, this.canBeAdSkippable = !1, this.resetQuartilesFired(), this.removeVideoListeners(), (s = this.adDisplayContainer) == null || s.show(), (i = this.adDisplayContainer) == null || i.showLoader(), (l = this.adDisplayContainer) == null || l.hideAdVideoElement(), r.src = e, r.autoplay = !0;
         const n = () => Ce(this, null, function* () {
           try {
             return yield r.play(), !0;
           } catch (E) {
             if (E instanceof DOMException && E.name === "NotAllowedError" && !r.muted) {
-              B.warn($, "Autoplay blocked, retrying with muted"), r.muted = !0;
+              B.warn(H, "Autoplay blocked, retrying with muted"), r.muted = !0;
               try {
                 return yield r.play(), !0;
               } catch (v) {
-                B.error($, "Muted play failed:", v);
+                B.error(H, "Muted play failed:", v);
               }
-            } else B.error($, "Video play error:", E);
+            } else B.error(H, "Video play error:", E);
             return !1;
           }
         });
         try {
-          yield li(r), (yield n()) ? (this.addVideoListeners(), (o = this.adDisplayContainer) == null || o.showAdVideoElement(), this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_CAN_PLAY)) : (this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_BREAK_FETCH_ERROR), (c = this.adDisplayContainer) == null || c.hideAdVideoElement(), this.playCreativities());
+          yield oi(r), this.dispatchAdsEvent(google.ima.AdEvent.Type.LOADED), (yield n()) ? (this.addVideoListeners(), (o = this.adDisplayContainer) == null || o.showAdVideoElement(), this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_CAN_PLAY)) : (B.error(H, "tryPlay preload or playback setup failed"), this.dispatchAdsEvent(google.ima.AdEvent.Type.LOG), (c = this.adDisplayContainer) == null || c.hideAdVideoElement(), this.playCreativities());
         } catch (E) {
-          B.error($, "preload or playback setup failed:", E), this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_BREAK_FETCH_ERROR), (h = this.adDisplayContainer) == null || h.hideAdVideoElement(), this.playCreativities();
+          B.error(H, "preload or playback setup failed:", E), this.dispatchAdsEvent(google.ima.AdEvent.Type.LOG), (h = this.adDisplayContainer) == null || h.hideAdVideoElement(), this.playCreativities();
         } finally {
           (p = this.adDisplayContainer) == null || p.hideLoader();
         }
@@ -3848,16 +3842,16 @@
       K = p.DOCUMENT_FRAGMENT_NODE = 11,
       oe = p.NOTATION_NODE = 12,
       V = {},
-      H = {};
-    V.INDEX_SIZE_ERR = (H[1] = "Index size error", 1), V.DOMSTRING_SIZE_ERR = (H[2] = "DOMString size error", 2);
-    var A = V.HIERARCHY_REQUEST_ERR = (H[3] = "Hierarchy request error", 3);
-    V.WRONG_DOCUMENT_ERR = (H[4] = "Wrong document", 4), V.INVALID_CHARACTER_ERR = (H[5] = "Invalid character", 5), V.NO_DATA_ALLOWED_ERR = (H[6] = "No data allowed", 6), V.NO_MODIFICATION_ALLOWED_ERR = (H[7] = "No modification allowed", 7);
-    var b = V.NOT_FOUND_ERR = (H[8] = "Not found", 8);
-    V.NOT_SUPPORTED_ERR = (H[9] = "Not supported", 9);
-    var w = V.INUSE_ATTRIBUTE_ERR = (H[10] = "Attribute in use", 10);
-    V.INVALID_STATE_ERR = (H[11] = "Invalid state", 11), V.SYNTAX_ERR = (H[12] = "Syntax error", 12), V.INVALID_MODIFICATION_ERR = (H[13] = "Invalid modification", 13), V.NAMESPACE_ERR = (H[14] = "Invalid namespace", 14), V.INVALID_ACCESS_ERR = (H[15] = "Invalid access", 15);
+      W = {};
+    V.INDEX_SIZE_ERR = (W[1] = "Index size error", 1), V.DOMSTRING_SIZE_ERR = (W[2] = "DOMString size error", 2);
+    var A = V.HIERARCHY_REQUEST_ERR = (W[3] = "Hierarchy request error", 3);
+    V.WRONG_DOCUMENT_ERR = (W[4] = "Wrong document", 4), V.INVALID_CHARACTER_ERR = (W[5] = "Invalid character", 5), V.NO_DATA_ALLOWED_ERR = (W[6] = "No data allowed", 6), V.NO_MODIFICATION_ALLOWED_ERR = (W[7] = "No modification allowed", 7);
+    var b = V.NOT_FOUND_ERR = (W[8] = "Not found", 8);
+    V.NOT_SUPPORTED_ERR = (W[9] = "Not supported", 9);
+    var w = V.INUSE_ATTRIBUTE_ERR = (W[10] = "Attribute in use", 10);
+    V.INVALID_STATE_ERR = (W[11] = "Invalid state", 11), V.SYNTAX_ERR = (W[12] = "Syntax error", 12), V.INVALID_MODIFICATION_ERR = (W[13] = "Invalid modification", 13), V.NAMESPACE_ERR = (W[14] = "Invalid namespace", 14), V.INVALID_ACCESS_ERR = (W[15] = "Invalid access", 15);
     function N(u, a) {
-      if (a instanceof Error) var d = a;else d = this, Error.call(this, H[u]), this.message = H[u], Error.captureStackTrace && Error.captureStackTrace(this, N);
+      if (a instanceof Error) var d = a;else d = this, Error.call(this, W[u]), this.message = W[u], Error.captureStackTrace && Error.captureStackTrace(this, N);
       return d.code = u, a && (this.message = this.message + ": " + a), d;
     }
     N.prototype = Error.prototype, c(V, N);
@@ -4206,7 +4200,7 @@
         });
       },
       createElement: function (u) {
-        var a = new W();
+        var a = new $();
         a.ownerDocument = this, a.nodeName = u, a.tagName = u, a.localName = u, a.childNodes = new S();
         var d = a.attributes = new G();
         return d._ownerElement = a, a;
@@ -4240,7 +4234,7 @@
         return a.ownerDocument = this, a.nodeName = u, a;
       },
       createElementNS: function (u, a) {
-        var d = new W(),
+        var d = new $(),
           f = a.split(":"),
           D = d.attributes = new G();
         return d.childNodes = new S(), d.ownerDocument = this, d.nodeName = a, d.tagName = a, d.namespaceURI = u, f.length == 2 ? (d.prefix = f[0], d.localName = f[1]) : d.localName = a, D._ownerElement = d, d;
@@ -4251,10 +4245,10 @@
         return d.ownerDocument = this, d.nodeName = a, d.name = a, d.namespaceURI = u, d.specified = !0, f.length == 2 ? (d.prefix = f[0], d.localName = f[1]) : d.localName = a, d;
       }
     }, h(ee, I);
-    function W() {
+    function $() {
       this._nsMap = {};
     }
-    W.prototype = {
+    $.prototype = {
       nodeType: E,
       hasAttribute: function (u) {
         return this.getAttributeNode(u) != null;
@@ -4320,7 +4314,7 @@
           }), f;
         });
       }
-    }, ee.prototype.getElementsByTagName = W.prototype.getElementsByTagName, ee.prototype.getElementsByTagNameNS = W.prototype.getElementsByTagNameNS, h(W, I);
+    }, ee.prototype.getElementsByTagName = $.prototype.getElementsByTagName, ee.prototype.getElementsByTagNameNS = $.prototype.getElementsByTagNameNS, h($, I);
     function ne() {}
     ne.prototype.nodeType = v, h(ne, I);
     function Ie() {}
@@ -4336,7 +4330,7 @@
         this.replaceData(u, 0, a);
       },
       appendChild: function (u) {
-        throw new Error(H[A]);
+        throw new Error(W[A]);
       },
       deleteData: function (u, a) {
         this.replaceData(u, a, "");
@@ -4585,7 +4579,7 @@
         };
       }
     } catch (u) {}
-    return Ae.DocumentType = ft, Ae.DOMException = N, Ae.DOMImplementation = Q, Ae.Element = W, Ae.Node = I, Ae.NodeList = S, Ae.XMLSerializer = Lr, Ae;
+    return Ae.DocumentType = ft, Ae.DOMException = N, Ae.DOMImplementation = Q, Ae.Element = $, Ae.Node = I, Ae.NodeList = S, Ae.XMLSerializer = Lr, Ae;
   }
   var Ke = {},
     Rt = {},
@@ -6758,27 +6752,27 @@
       }
     };
     function R(A, b, w, N, S) {
-      function P(W) {
-        if (W > 65535) {
-          W -= 65536;
-          var ne = 55296 + (W >> 10),
-            Ie = 56320 + (W & 1023);
+      function P($) {
+        if ($ > 65535) {
+          $ -= 65536;
+          var ne = 55296 + ($ >> 10),
+            Ie = 56320 + ($ & 1023);
           return String.fromCharCode(ne, Ie);
-        } else return String.fromCharCode(W);
+        } else return String.fromCharCode($);
       }
-      function x(W) {
-        var ne = W.slice(1, -1);
-        return Object.hasOwnProperty.call(w, ne) ? w[ne] : ne.charAt(0) === "#" ? P(parseInt(ne.substr(1).replace("x", "0x"))) : (S.error("entity not found:" + W), W);
+      function x($) {
+        var ne = $.slice(1, -1);
+        return Object.hasOwnProperty.call(w, ne) ? w[ne] : ne.charAt(0) === "#" ? P(parseInt(ne.substr(1).replace("x", "0x"))) : (S.error("entity not found:" + $), $);
       }
-      function G(W) {
-        if (W > ee) {
-          var ne = A.substring(ee, W).replace(/&#?\w+;/g, x);
-          I && O(ee), N.characters(ne, 0, W - ee), ee = W;
+      function G($) {
+        if ($ > ee) {
+          var ne = A.substring(ee, $).replace(/&#?\w+;/g, x);
+          I && O(ee), N.characters(ne, 0, $ - ee), ee = $;
         }
       }
-      function O(W, ne) {
-        for (; W >= U && (ne = Q.exec(A));) F = ne.index, U = F + ne[0].length, I.lineNumber++;
-        I.columnNumber = W - F + 1;
+      function O($, ne) {
+        for (; $ >= U && (ne = Q.exec(A));) F = ne.index, U = F + ne[0].length, I.lineNumber++;
+        I.columnNumber = $ - F + 1;
       }
       for (var F = 0, U = 0, Q = /.*(?:\r\n?|\n)|.*$/g, I = N.locator, le = [{
           currentNSMap: b
@@ -6829,9 +6823,9 @@
               } else k(ie, N, xe) && le.push(ie);
               t.isHTML(ie.uri) && !ie.closed ? re = j(A, re, ie.tagName, x, N) : re++;
           }
-        } catch (W) {
-          if (W instanceof v) throw W;
-          S.error("element parse error: " + W), re = -1;
+        } catch ($) {
+          if ($ instanceof v) throw $;
+          S.error("element parse error: " + $), re = -1;
         }
         re > ee ? ee = re : G(Math.max(te, ee) + 1);
       }
@@ -6979,7 +6973,7 @@
             var P = A.indexOf("]]>", b + 9);
             return w.startCDATA(), w.characters(A, b + 9, P - b - 9), w.endCDATA(), P + 3;
           }
-          var x = H(A, b),
+          var x = W(A, b),
             G = x.length;
           if (G > 1 && /!doctype/i.test(x[0][0])) {
             var O = x[1][0],
@@ -7033,7 +7027,7 @@
         return this[A].value;
       }
     };
-    function H(A, b) {
+    function W(A, b) {
       var w,
         N = [],
         S = /'[^']+'|"[^"]+"|[^\s<>\/=]+=?|(\/?\s*>|<)/g;
@@ -7070,9 +7064,9 @@
         K = j.errorHandler,
         oe = j.locator,
         V = j.xmlns || {},
-        H = /\/x?html?$/.test(k),
-        A = H ? r.HTML_ENTITIES : r.XML_ENTITIES;
-      oe && J.setDocumentLocator(oe), q.errorHandler = p(K, J, oe), q.domBuilder = j.domBuilder || J, H && (V[""] = i.HTML), V.xml = V.xml || i.XML;
+        W = /\/x?html?$/.test(k),
+        A = W ? r.HTML_ENTITIES : r.XML_ENTITIES;
+      oe && J.setDocumentLocator(oe), q.errorHandler = p(K, J, oe), q.domBuilder = j.domBuilder || J, W && (V[""] = i.HTML), V.xml = V.xml || i.XML;
       var b = j.normalizeLineEndings || c;
       return T && typeof T == "string" ? q.parse(b(T), V, A) : q.errorHandler.error("invalid doc source"), J.doc;
     };
@@ -7086,10 +7080,10 @@
       j = j || {};
       function K(oe) {
         var V = T[oe];
-        !V && J && (V = T.length == 2 ? function (H) {
-          T(oe, H);
-        } : T), q[oe] = V && function (H) {
-          V("[xmldom " + oe + "]	" + H + y(j));
+        !V && J && (V = T.length == 2 ? function (W) {
+          T(oe, W);
+        } : T), q[oe] = V && function (W) {
+          V("[xmldom " + oe + "]	" + W + y(j));
         } || function () {};
       }
       return K("warning"), K("error"), K("fatalError"), q;
@@ -7111,10 +7105,10 @@
         C(this, K), this.currentElement = K, this.locator && v(this.locator, K);
         for (var V = 0; V < oe; V++) {
           var T = q.getURI(V),
-            H = q.getValue(V),
+            W = q.getValue(V),
             j = q.getQName(V),
             A = J.createAttributeNS(T, j);
-          this.locator && v(q.getLocator(V), A), A.value = A.nodeValue = H, K.setAttributeNode(A);
+          this.locator && v(q.getLocator(V), A), A.value = A.nodeValue = W, K.setAttributeNode(A);
         }
       },
       endElement: function (T, k, j) {
@@ -7207,4 +7201,4 @@
     window.google.ima = window.GoogleIma;
   }
 })();
-/* Built on 2025-05-27T14:58:21.644Z */
+/* Built on 2025-05-27T21:39:15.885Z */
