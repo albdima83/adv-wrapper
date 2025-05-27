@@ -35,11 +35,13 @@ jobs:
         working-directory: .
 
       - name: Build UMD
-        run: pnpm build
+        run: pnpm --filter lib build
 
       - name: Get version
         id: pkg
-        run: echo "VERSION=$(node -p 'require(\"./packages/lib/package.json\").version')" >> $GITHUB_OUTPUT
+        run: |
+          VERSION=$(node -p 'require("./packages/lib/package.json").version')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Create Git tag
         run: |
