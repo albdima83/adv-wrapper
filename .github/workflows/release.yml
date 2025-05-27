@@ -40,7 +40,7 @@ jobs:
       - name: Get version
         id: pkg
         run: |
-          VERSION=$(node -p 'require("./packages/lib/package.json").version')
+          VERSION=$(node -p 'require("./package.json").version')
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Create Git tag
