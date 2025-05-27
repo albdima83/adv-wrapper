@@ -45,6 +45,7 @@ jobs:
 
       - name: Create Git tag
         run: |
+          echo "Creating Git tag for version ${{ steps.pkg.outputs.VERSION }}"
           git tag adv-wrapper-v${{ steps.pkg.outputs.VERSION }}
           git push origin adv-wrapper-v${{ steps.pkg.outputs.VERSION }}
 
