@@ -9,14 +9,14 @@ import {
 import { XMLParser } from "fast-xml-parser";
 import { AdBreak, VmapVMAP } from "../../types/vmpa";
 import { EventEmitter } from "../../utils/eventEmitter";
-import { AdDisplayContainer } from "./AdDisplayContainer";
-import { AdsRequest } from "./AdsRequest";
-import { AdEvent } from "./AdEvent";
-import { Ad } from "./Ad";
-import { AdPodInfo } from "./AdPodInfo";
-import { getTimeOffset } from "../../utils/time";
-import { preloadVideo } from "../../utils/player";
 import logger from "../../utils/logger";
+import { preloadVideo } from "../../utils/player";
+import { getTimeOffset } from "../../utils/time";
+import { Ad } from "./Ad";
+import { AdDisplayContainer } from "./AdDisplayContainer";
+import { AdEvent } from "./AdEvent";
+import { AdPodInfo } from "./AdPodInfo";
+import { AdsRequest } from "./AdsRequest";
 
 const ADS_VIDEO_EVENTS: Array<keyof HTMLMediaElementEventMap> = [
 	"play",
@@ -589,10 +589,15 @@ export class AdsManager implements google.ima.AdsManager {
 				this.totalAds = totalAds;
 				this.totalTimeAds = totalDuration;
 
+				/** Fires when an ad rule or a VMAP ad break would have played if autoPlayAdBreaks is false.*/
+				//this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_BREAK_READY);
+
 				logger.debug(TAG, `fetchVastAds totalAds: [${totalAds}] [${totalDuration}]`);
 				if (!this.nextAds || this.nextAds.length === 0) {
 					this.allAdsCompleted();
 				} else {
+					/** Fires when an ads list is loaded. */
+					this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_METADATA);
 					this.playCreativities();
 				}
 			} else {
@@ -619,7 +624,8 @@ export class AdsManager implements google.ima.AdsManager {
 		}
 		switch (ev.type as keyof GlobalEventHandlersEventMap) {
 			case "loadstart": {
-				this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_BREAK_READY);
+				/** Fires when the impression URL has been pinged. */
+				this.dispatchAdsEvent(google.ima.AdEvent.Type.IMPRESSION);
 				break;
 			}
 			case "durationchange": {
@@ -630,11 +636,11 @@ export class AdsManager implements google.ima.AdsManager {
 				break;
 			}
 			case "canplay": {
+				/** Fires when the ad is ready to play without buffering, either at the beginning of the ad or after buffering completes.*/
 				this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_CAN_PLAY);
 				break;
 			}
 			case "loadedmetadata": {
-				this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_METADATA);
 				break;
 			}
 			case "play": {
@@ -647,7 +653,7 @@ export class AdsManager implements google.ima.AdsManager {
 				break;
 			}
 			case "pause": {
-				this.dispatchAdsEvent(google.ima.AdEvent.Type.PAUSED);
+				//this.dispatchAdsEvent(google.ima.AdEvent.Type.PAUSED);
 				break;
 			}
 			case "timeupdate": {
@@ -659,7 +665,6 @@ export class AdsManager implements google.ima.AdsManager {
 					const skipDelay = this.currentCreative?.skipDelay || 0;
 					this.adRemainingTime = remainingTime;
 					this.adDuration = videoDuration;
-					//this.adRemaingTime = videoDuration - currentTime;
 					logger.debug(
 						TAG,
 						`video adv currentTime: ${currentTime}, Percentage: ${percentage}%, SkipDelay: ${skipDelay}`,
@@ -772,20 +777,22 @@ export class AdsManager implements google.ima.AdsManager {
 
 		try {
 			await preloadVideo(videoAdsElement);
+			/*Fires when ad data is available.*/
+			this.dispatchAdsEvent(google.ima.AdEvent.Type.LOADED);
 			const played = await tryPlay();
-
 			if (played) {
 				this.addVideoListeners();
 				this.adDisplayContainer?.showAdVideoElement();
 				this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_CAN_PLAY);
 			} else {
-				this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_BREAK_FETCH_ERROR);
+				logger.error(TAG, "tryPlay preload or playback setup failed");
+				this.dispatchAdsEvent(google.ima.AdEvent.Type.LOG);
 				this.adDisplayContainer?.hideAdVideoElement();
 				this.playCreativities();
 			}
 		} catch (error) {
 			logger.error(TAG, "preload or playback setup failed:", error);
-			this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_BREAK_FETCH_ERROR);
+			this.dispatchAdsEvent(google.ima.AdEvent.Type.LOG);
 			this.adDisplayContainer?.hideAdVideoElement();
 			this.playCreativities();
 		} finally {
