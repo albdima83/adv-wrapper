@@ -1,4 +1,4 @@
-/* UMD | Version: 0.0.5 | Commit: d35cf5e */
+/* UMD | Version: 0.0.5 | Commit: ad4d6b4 */
 (function (M, z) {
   typeof exports == "object" && typeof module != "undefined" ? z(exports) : typeof define == "function" && define.amd ? define(["exports"], z) : (M = typeof globalThis != "undefined" ? globalThis : M || self, z(M.GoogleIma = {}));
 })(this, function (M) {
@@ -23,7 +23,7 @@
     },
     Vr = (M, z) => Ni(M, Ri(z));
   var g = (M, z, Z) => Ft(M, typeof z != "symbol" ? z + "" : z, Z);
-  var Oe = (M, z, Z) => new Promise((et, je) => {
+  var Ce = (M, z, Z) => new Promise((et, je) => {
     var tt = fe => {
         try {
           Be(Z.next(fe));
@@ -213,7 +213,7 @@
       }
     }
   }
-  const P = new jr({
+  const B = new jr({
       enable: !1,
       level: "error"
     }),
@@ -269,7 +269,7 @@
       return this.apiFramework;
     }
     getCompanionAds(e, r, n) {
-      return P.debug(Gr, `Ad adSlotWidth:[${e}] adSlotHeight[${r}] settings:`, n), this.companionAds;
+      return B.debug(Gr, `Ad adSlotWidth:[${e}] adSlotHeight[${r}] settings:`, n), this.companionAds;
     }
     getCreativeAdId() {
       return this.creativeAdId;
@@ -359,20 +359,20 @@
       this.adContainer = e, this.videoElement = r, this.contentElement = n;
     }
     initialize() {
-      P.debug(He, "initialize"), this.adsContainerElement || (this.adsContainerElement = this.createAdsContainer()), this.videoAdsElement || (this.videoAdsElement = this.createAdsVideoElement()), this.adsSpinnerElement || (this.adsSpinnerElement = this.createAdsSpinner());
+      B.debug(He, "initialize"), this.adsContainerElement || (this.adsContainerElement = this.createAdsContainer()), this.videoAdsElement || (this.videoAdsElement = this.createAdsVideoElement()), this.adsSpinnerElement || (this.adsSpinnerElement = this.createAdsSpinner());
     }
     destroy() {
       var e, r, n;
-      P.debug(He, "destroy"), (e = this.videoAdsElement) == null || e.remove(), (r = this.adsSpinnerElement) == null || r.remove(), (n = this.adsContainerElement) == null || n.remove(), this.videoAdsElement = void 0;
+      B.debug(He, "destroy"), (e = this.videoAdsElement) == null || e.remove(), (r = this.adsSpinnerElement) == null || r.remove(), (n = this.adsContainerElement) == null || n.remove(), this.videoAdsElement = void 0;
     }
     addEventListener(e, r, n) {
-      P.debug(He, `addEventListener [${e}] listener [${r}] useCapture [${n}]`);
+      B.debug(He, `addEventListener [${e}] listener [${r}] useCapture [${n}]`);
     }
     removeEventListener(e, r, n) {
-      P.debug(He, `removeEventListener [${e}] listener [${r}] useCapture [${n}]`);
+      B.debug(He, `removeEventListener [${e}] listener [${r}] useCapture [${n}]`);
     }
     dispatchEvent(e) {
-      return P.debug(He, `dispatchEvent [${e}`), !0;
+      return B.debug(He, `dispatchEvent [${e}`), !0;
     }
     getVideoAdsElement() {
       return this.videoAdsElement || this.videoElement;
@@ -632,7 +632,7 @@
     let e = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 8;
     return t.toString().padStart(e, "0");
   }
-  const $ = {
+  const _ = {
     track: function (t, e, r) {
       Gt(t, e, r).forEach(n => {
         typeof window != "undefined" && window !== null && (new Image().src = n);
@@ -683,7 +683,7 @@
   }
   function Kr(t) {
     if (t == null) return -1;
-    if ($.isNumeric(t)) return parseInt(t);
+    if (_.isNumeric(t)) return parseInt(t);
     const e = t.split(":");
     if (e.length !== 3) return -1;
     const r = e[2].split(".");
@@ -750,7 +750,7 @@
       const n = (e.creatives || []).filter(o => o && o.type === "companion"),
         s = n.reduce((o, c) => ((c.variations || []).forEach(h => {
           (h.companionClickTrackingURLTemplates || []).forEach(p => {
-            $.containsTemplateObject(p, o) || o.push(p);
+            _.containsTemplateObject(p, o) || o.push(p);
           });
         }), o), []);
       t.creatives = n.concat(t.creatives);
@@ -762,7 +762,7 @@
           Array.isArray(o.trackingEvents[c]) || (o.trackingEvents[c] = []), o.trackingEvents[c] = o.trackingEvents[c].concat(h);
         }
         o.type === "linear" && (i && (o.videoClickTrackingURLTemplates = o.videoClickTrackingURLTemplates.concat(e.videoClickTrackingURLTemplates)), l && (o.videoCustomClickURLTemplates = o.videoCustomClickURLTemplates.concat(e.videoCustomClickURLTemplates)), !e.videoClickThroughURLTemplate || o.videoClickThroughURLTemplate !== null && o.videoClickThroughURLTemplate !== void 0 || (o.videoClickThroughURLTemplate = e.videoClickThroughURLTemplate)), o.type === "companion" && s.length && (o.variations || []).forEach(c => {
-          c.companionClickTrackingURLTemplates = $.joinArrayOfUniqueTemplateObjs(c.companionClickTrackingURLTemplates, s);
+          c.companionClickTrackingURLTemplates = _.joinArrayOfUniqueTemplateObjs(c.companionClickTrackingURLTemplates, s);
         });
       }), e.adVerifications && (t.adVerifications = t.adVerifications.concat(e.adVerifications)), e.blockedAdCategories && (t.blockedAdCategories = t.blockedAdCategories.concat(e.blockedAdCategories)), (r = e.creatives) !== null && r !== void 0 && r.length) {
         const o = e.creatives.filter(c => {
@@ -1597,7 +1597,7 @@
     }
     trackVastError(e, r) {
       for (var n = arguments.length, s = new Array(n > 2 ? n - 2 : 0), i = 2; i < n; i++) s[i - 2] = arguments[i];
-      this.emit("VAST-error", Object.assign({}, sn, r, ...s)), $.track(e, r);
+      this.emit("VAST-error", Object.assign({}, sn, r, ...s)), _.track(e, r);
     }
     getErrorURLTemplates() {
       return this.rootErrorURLTemplates.concat(this.errorURLTemplates);
@@ -1737,7 +1737,7 @@
       return n = s, e.forEach(l => {
         const o = this.resolveWrappers(l, r, n);
         i.push(o);
-      }), Promise.all(i).then(l => $.flatten(l));
+      }), Promise.all(i).then(l => _.flatten(l));
     }
     resolveWrappers(e, r, n) {
       const s = qe({}, e);
@@ -1846,7 +1846,7 @@
   const Et = 12e4,
     on = {
       get: function (t, e) {
-        return Oe(this, null, function* () {
+        return Ce(this, null, function* () {
           try {
             const r = new AbortController(),
               n = setTimeout(() => {
@@ -1859,16 +1859,16 @@
                 clearTimeout(n);
               }),
               i = function (l) {
-                return $.isBrowserEnvironment() && window.location.protocol === "https:" && l.url.includes("http://") ? "URLHandler: Cannot go from HTTPS to HTTP." : l.status === 200 && l.ok ? null : "URLHandler: ".concat(l.statusText, " (").concat(l.status, ")");
+                return _.isBrowserEnvironment() && window.location.protocol === "https:" && l.url.includes("http://") ? "URLHandler: Cannot go from HTTPS to HTTP." : l.status === 200 && l.ok ? null : "URLHandler: ".concat(l.statusText, " (").concat(l.status, ")");
               }(s);
             return i ? {
               error: new Error(i),
               statusCode: s.status
             } : function (l) {
-              return Oe(this, null, function* () {
+              return Ce(this, null, function* () {
                 const o = yield l.text();
                 let c;
-                return c = $.isBrowserEnvironment() ? new DOMParser() : new (yield Promise.resolve().then(() => yi)).DOMParser(), {
+                return c = _.isBrowserEnvironment() ? new DOMParser() : new (yield Promise.resolve().then(() => yi)).DOMParser(), {
                   xml: c.parseFromString(o, "text/xml"),
                   details: {
                     byteLength: o.length,
@@ -1911,7 +1911,7 @@
       this.URLTemplateFilters = [];
     }
     fetchVAST(e) {
-      return Oe(this, null, function* () {
+      return Ce(this, null, function* () {
         var r;
         let {
           url: n,
@@ -2046,7 +2046,7 @@
       }
     }
     setDuration(e) {
-      $.isValidTimeValue(e) ? (this.assetDuration = e, this.quartiles = {
+      _.isValidTimeValue(e) ? (this.assetDuration = e, this.quartiles = {
         firstQuartile: Math.round(25 * this.assetDuration) / 100,
         midpoint: Math.round(50 * this.assetDuration) / 100,
         thirdQuartile: Math.round(75 * this.assetDuration) / 100
@@ -2057,8 +2057,8 @@
     setProgress(e) {
       let r = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {},
         n = !(arguments.length > 2 && arguments[2] !== void 0) || arguments[2];
-      if (!$.isValidTimeValue(e) || typeof r != "object") return void this.emit("TRACKER-error", {
-        message: "One given setProgress parameter has the wrong type. progress: ".concat(e, ", macros: ").concat($.formatMacrosValues(r))
+      if (!_.isValidTimeValue(e) || typeof r != "object") return void this.emit("TRACKER-error", {
+        message: "One given setProgress parameter has the wrong type. progress: ".concat(e, ", macros: ").concat(_.formatMacrosValues(r))
       });
       const s = this.skipDelay || -1;
       if (s === -1 || this.skippable || (s > e ? this.emit("skip-countdown", s - e) : (this.skippable = !0, this.emit("skip-countdown", 0))), this.assetDuration > 0) {
@@ -2091,7 +2091,7 @@
       typeof e == "boolean" && typeof r == "object" ? (this.muted !== e && this.track(e ? "mute" : "unmute", {
         macros: r
       }), this.muted = e) : this.emit("TRACKER-error", {
-        message: "One given setMuted parameter has the wrong type. muted: ".concat(e, ", macros: ").concat($.formatMacrosValues(r))
+        message: "One given setMuted parameter has the wrong type. muted: ".concat(e, ", macros: ").concat(_.formatMacrosValues(r))
       });
     }
     setPaused(e) {
@@ -2099,7 +2099,7 @@
       typeof e == "boolean" && typeof r == "object" ? (this.paused !== e && this.track(e ? "pause" : "resume", {
         macros: r
       }), this.paused = e) : this.emit("TRACKER-error", {
-        message: "One given setPaused parameter has the wrong type. paused: ".concat(e, ", macros: ").concat($.formatMacrosValues(r))
+        message: "One given setPaused parameter has the wrong type. paused: ".concat(e, ", macros: ").concat(_.formatMacrosValues(r))
       });
     }
     setFullscreen(e) {
@@ -2107,7 +2107,7 @@
       typeof e == "boolean" && typeof r == "object" ? (this.fullscreen !== e && this.track(e ? "fullscreen" : "exitFullscreen", {
         macros: r
       }), this.fullscreen = e) : this.emit("TRACKER-error", {
-        message: "One given setFullScreen parameter has the wrong type. fullscreen: ".concat(e, ", macros: ").concat($.formatMacrosValues(r))
+        message: "One given setFullScreen parameter has the wrong type. fullscreen: ".concat(e, ", macros: ").concat(_.formatMacrosValues(r))
       });
     }
     setExpand(e) {
@@ -2117,11 +2117,11 @@
       }), this.track(e ? "playerExpand" : "playerCollapse", {
         macros: r
       })), this.expanded = e) : this.emit("TRACKER-error", {
-        message: "One given setExpand parameter has the wrong type. expanded: ".concat(e, ", macros: ").concat($.formatMacrosValues(r))
+        message: "One given setExpand parameter has the wrong type. expanded: ".concat(e, ", macros: ").concat(_.formatMacrosValues(r))
       });
     }
     setSkipDelay(e) {
-      $.isValidTimeValue(e) ? this.skipDelay = e : this.emit("TRACKER-error", {
+      _.isValidTimeValue(e) ? this.skipDelay = e : this.emit("TRACKER-error", {
         message: "setSkipDelay parameter does not have a valid value. duration: ".concat(e)
       });
     }
@@ -2163,7 +2163,7 @@
       typeof e == "object" && typeof r == "boolean" ? this.trackURLs(this.ad.errorURLTemplates, e, {
         isCustomCode: r
       }) : this.emit("TRACKER-error", {
-        message: "One given error parameter has the wrong type. macros: ".concat($.formatMacrosValues(e), ", isCustomCode: ").concat(r)
+        message: "One given error parameter has the wrong type. macros: ".concat(_.formatMacrosValues(e), ", isCustomCode: ").concat(r)
       });
     }
     errorWithCode(e) {
@@ -2233,7 +2233,7 @@
     verificationNotExecuted(e) {
       let r = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
       if (typeof e != "string" || typeof r != "object") return void this.emit("TRACKER-error", {
-        message: "One given verificationNotExecuted parameter has to wrong type. vendor: ".concat(e, ", macros: ").concat($.formatMacrosValues(r))
+        message: "One given verificationNotExecuted parameter has to wrong type. vendor: ".concat(e, ", macros: ").concat(_.formatMacrosValues(r))
       });
       if (!this.ad || !this.ad.adVerifications || !this.ad.adVerifications.length) throw new Error("No adVerifications provided");
       if (!e) throw new Error("No vendor provided, unable to find associated verificationNotExecuted");
@@ -2252,7 +2252,7 @@
       typeof e == "string" && typeof r == "object" ? (r.ADPLAYHEAD = e, this.track("overlayViewDuration", {
         macros: r
       })) : this.emit("TRACKER-error", {
-        message: "One given overlayViewDuration parameters has the wrong type. formattedDuration: ".concat(e, ", macros: ").concat($.formatMacrosValues(r))
+        message: "One given overlayViewDuration parameters has the wrong type. formattedDuration: ".concat(e, ", macros: ").concat(_.formatMacrosValues(r))
       });
     }
     close() {
@@ -2283,14 +2283,14 @@
       let e = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : null,
         r = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
       if (e !== null && typeof e != "string" || typeof r != "object") return void this.emit("TRACKER-error", {
-        message: "One given click parameter has the wrong type. fallbackClickThroughURL: ".concat(e, ", macros: ").concat($.formatMacrosValues(r))
+        message: "One given click parameter has the wrong type. fallbackClickThroughURL: ".concat(e, ", macros: ").concat(_.formatMacrosValues(r))
       });
       this.clickTrackingURLTemplates && this.clickTrackingURLTemplates.length && this.trackURLs(this.clickTrackingURLTemplates, r);
       const n = this.clickThroughURLTemplate || e,
         s = qe({}, r);
       if (n) {
         this.progress && (s.ADPLAYHEAD = this.progressFormatted());
-        const i = $.resolveURLTemplates([n], s)[0];
+        const i = _.resolveURLTemplates([n], s)[0];
         this.emit("clickthrough", i);
       }
     }
@@ -2343,21 +2343,21 @@
       const {
         validUrls: i,
         invalidUrls: l
-      } = $.filterUrlTemplates(e);
+      } = _.filterUrlTemplates(e);
       l.length && this.emit("TRACKER-error", {
         message: "Provided urls are malformed. url: ".concat(l)
       });
       const o = qe({}, n);
-      this.linear && (this.creative && this.creative.mediaFiles && this.creative.mediaFiles[0] && this.creative.mediaFiles[0].fileURL && (o.ASSETURI = this.creative.mediaFiles[0].fileURL), this.progress && (o.ADPLAYHEAD = this.progressFormatted())), (r = this.creative) !== null && r !== void 0 && (r = r.universalAdIds) !== null && r !== void 0 && r.length && (o.UNIVERSALADID = this.creative.universalAdIds.map(c => c.idRegistry.concat(" ", c.value)).join(",")), this.ad && (this.ad.sequence && (o.PODSEQUENCE = this.ad.sequence), this.ad.adType && (o.ADTYPE = this.ad.adType), this.ad.adServingId && (o.ADSERVINGID = this.ad.adServingId), this.ad.categories && this.ad.categories.length && (o.ADCATEGORIES = this.ad.categories.map(c => c.value).join(",")), this.ad.blockedAdCategories && this.ad.blockedAdCategories.length && (o.BLOCKEDADCATEGORIES = this.ad.blockedAdCategories.map(c => c.value).join(","))), $.track(i, o, s);
+      this.linear && (this.creative && this.creative.mediaFiles && this.creative.mediaFiles[0] && this.creative.mediaFiles[0].fileURL && (o.ASSETURI = this.creative.mediaFiles[0].fileURL), this.progress && (o.ADPLAYHEAD = this.progressFormatted())), (r = this.creative) !== null && r !== void 0 && (r = r.universalAdIds) !== null && r !== void 0 && r.length && (o.UNIVERSALADID = this.creative.universalAdIds.map(c => c.idRegistry.concat(" ", c.value)).join(",")), this.ad && (this.ad.sequence && (o.PODSEQUENCE = this.ad.sequence), this.ad.adType && (o.ADTYPE = this.ad.adType), this.ad.adServingId && (o.ADSERVINGID = this.ad.adServingId), this.ad.categories && this.ad.categories.length && (o.ADCATEGORIES = this.ad.categories.map(c => c.value).join(",")), this.ad.blockedAdCategories && this.ad.blockedAdCategories.length && (o.BLOCKEDADCATEGORIES = this.ad.blockedAdCategories.map(c => c.value).join(","))), _.track(i, o, s);
     }
     convertToTimecode(e) {
-      if (!$.isValidTimeValue(e)) return "";
+      if (!_.isValidTimeValue(e)) return "";
       const r = 1e3 * e,
         n = Math.floor(r / 36e5),
         s = Math.floor(r / 6e4 % 60),
         i = Math.floor(r / 1e3 % 60),
         l = Math.floor(r % 1e3);
-      return "".concat($.addLeadingZeros(n, 2), ":").concat($.addLeadingZeros(s, 2), ":").concat($.addLeadingZeros(i, 2), ".").concat($.addLeadingZeros(l, 3));
+      return "".concat(_.addLeadingZeros(n, 2), ":").concat(_.addLeadingZeros(s, 2), ":").concat(_.addLeadingZeros(i, 2), ".").concat(_.addLeadingZeros(l, 3));
     }
     progressFormatted() {
       return this.convertToTimecode(this.progress);
@@ -2624,7 +2624,7 @@
     };
   let st;
   typeof Symbol != "function" ? st = "@@xmlMetadata" : st = Symbol("XML Node Metadata");
-  class Ce {
+  class Ne {
     constructor(e) {
       this.tagname = e, this.child = [], this[":@"] = {};
     }
@@ -2933,13 +2933,13 @@
   const Xn = function (t) {
     t = t.replace(/\r\n?/g, `
 `);
-    const e = new Ce("!xml");
+    const e = new Ne("!xml");
     let r = e,
       n = "",
       s = "";
     for (let i = 0; i < t.length; i++) if (t[i] === "<") {
       if (t[i + 1] === "/") {
-        const o = Ne(t, ">", i, "Closing Tag is not closed.");
+        const o = Re(t, ">", i, "Closing Tag is not closed.");
         let c = t.substring(i + 2, o).trim();
         if (this.options.removeNSPrefix) {
           const E = c.indexOf(":");
@@ -2954,12 +2954,12 @@
         let o = Dt(t, i, !1, "?>");
         if (!o) throw new Error("Pi Tag is not closed.");
         if (n = this.saveTextToParentTag(n, r, s), !(this.options.ignoreDeclaration && o.tagName === "?xml" || this.options.ignorePiTags)) {
-          const c = new Ce(o.tagName);
+          const c = new Ne(o.tagName);
           c.add(this.options.textNodeName, ""), o.tagName !== o.tagExp && o.attrExpPresent && (c[":@"] = this.buildAttributesMap(o.tagExp, s, o.tagName)), this.addChild(r, c, s, i);
         }
         i = o.closeIndex + 1;
       } else if (t.substr(i + 1, 3) === "!--") {
-        const o = Ne(t, "-->", i + 4, "Comment is not closed.");
+        const o = Re(t, "-->", i + 4, "Comment is not closed.");
         if (this.options.commentPropName) {
           const c = t.substring(i + 4, o - 2);
           n = this.saveTextToParentTag(n, r, s), r.add(this.options.commentPropName, [{
@@ -2971,7 +2971,7 @@
         const o = In(t, i);
         this.docTypeEntities = o.entities, i = o.i;
       } else if (t.substr(i + 1, 2) === "![") {
-        const o = Ne(t, "]]>", i, "CDATA is not closed.") - 2,
+        const o = Re(t, "]]>", i, "CDATA is not closed.") - 2,
           c = t.substring(i + 9, o);
         n = this.saveTextToParentTag(n, r, s);
         let h = this.parseTextData(c, r.tagname, s, !0, !1, !0, !0);
@@ -2996,15 +2996,15 @@
             if (!k) throw new Error(`Unexpected end of ${h}`);
             i = k.i, C = k.tagContent;
           }
-          const T = new Ce(c);
+          const T = new Ne(c);
           c !== p && E && (T[":@"] = this.buildAttributesMap(p, s, c)), C && (C = this.parseTextData(C, c, s, !0, E, !0, !0)), s = s.substr(0, s.lastIndexOf(".")), T.add(this.options.textNodeName, C), this.addChild(r, T, s, R);
         } else {
           if (p.length > 0 && p.lastIndexOf("/") === p.length - 1) {
             c[c.length - 1] === "/" ? (c = c.substr(0, c.length - 1), s = s.substr(0, s.length - 1), p = c) : p = p.substr(0, p.length - 1), this.options.transformTagName && (c = this.options.transformTagName(c));
-            const C = new Ce(c);
+            const C = new Ne(c);
             c !== p && E && (C[":@"] = this.buildAttributesMap(p, s, c)), this.addChild(r, C, s, R), s = s.substr(0, s.lastIndexOf("."));
           } else {
-            const C = new Ce(c);
+            const C = new Ne(c);
             this.tagsNodeStack.push(r), c !== p && E && (C[":@"] = this.buildAttributesMap(p, s, c)), this.addChild(r, C, s, R), r = C;
           }
           n = "", i = v;
@@ -3067,7 +3067,7 @@
       s += l;
     }
   }
-  function Ne(t, e, r, n) {
+  function Re(t, e, r, n) {
     const s = t.indexOf(e, r);
     if (s === -1) throw new Error(n);
     return s + e.length - 1;
@@ -3099,13 +3099,13 @@
     const n = r;
     let s = 1;
     for (; r < t.length; r++) if (t[r] === "<") if (t[r + 1] === "/") {
-      const i = Ne(t, ">", r, `${e} is not closed`);
+      const i = Re(t, ">", r, `${e} is not closed`);
       if (t.substring(r + 2, i).trim() === e && (s--, s === 0)) return {
         tagContent: t.substring(n, r),
         i
       };
       r = i;
-    } else if (t[r + 1] === "?") r = Ne(t, "?>", r + 1, "StopNode is not closed.");else if (t.substr(r + 1, 3) === "!--") r = Ne(t, "-->", r + 3, "StopNode is not closed.");else if (t.substr(r + 1, 2) === "![") r = Ne(t, "]]>", r, "StopNode is not closed.") - 2;else {
+    } else if (t[r + 1] === "?") r = Re(t, "?>", r + 1, "StopNode is not closed.");else if (t.substr(r + 1, 3) === "!--") r = Re(t, "-->", r + 3, "StopNode is not closed.");else if (t.substr(r + 1, 2) === "![") r = Re(t, "]]>", r, "StopNode is not closed.") - 2;else {
       const i = Dt(t, r, ">");
       i && ((i && i.tagName) === e && i.tagExp[i.tagExp.length - 1] !== "/" && s++, r = i.closeIndex);
     }
@@ -3116,7 +3116,7 @@
       return n === "true" ? !0 : n === "false" ? !1 : qn(t, r);
     } else return mn(t) ? t : "";
   }
-  const yt = Ce.getMetaDataSymbol();
+  const yt = Ne.getMetaDataSymbol();
   function ni(t, e) {
     return gr(t, e);
   }
@@ -3185,7 +3185,7 @@
       this.externalEntities[e] = r;
     }
     static getMetaDataSymbol() {
-      return Ce.getMetaDataSymbol();
+      return Ne.getMetaDataSymbol();
     }
   }
   const oi = /^\d{2}:\d{2}(?::\d{2}(?:\.\d{3})?)?$/;
@@ -3214,7 +3214,7 @@
   }
   const Er = ["play", "pause", "ended", "waiting", "stalled", "canplay", "playing", "seeking", "seeked", "timeupdate", "durationchange", "loadedmetadata", "suspend", "abort"],
     ci = 500,
-    _ = "ima:AdsManager";
+    $ = "ima:AdsManager";
   class vr {
     constructor(e, r) {
       g(this, "adsRequest");
@@ -3274,22 +3274,22 @@
       return this.adDisplayContainer.getVideoAdsElement().volume;
     }
     init(e, r, n, s) {
-      P.debug(_, `init width[${e}] height[${r}] viewMode[${n}] videoElement[${s}]`);
+      B.debug($, `init width[${e}] height[${r}] viewMode[${n}] videoElement[${s}]`);
     }
     isCustomClickTrackingUsed() {
-      return P.debug(_, "isCustomClickTrackingUsed"), !1;
+      return B.debug($, "isCustomClickTrackingUsed"), !1;
     }
     isCustomPlaybackUsed() {
-      return P.debug(_, "isCustomPlaybackUsed"), !0;
+      return B.debug($, "isCustomPlaybackUsed"), !0;
     }
     pause() {
-      P.debug(_, "pause");
+      B.debug($, "pause");
     }
     resize(e, r, n) {
-      P.debug(_, `resize width[${e}] height[${r}] viewMode[${n}]`);
+      B.debug($, `resize width[${e}] height[${r}] viewMode[${n}]`);
     }
     resume() {
-      P.debug(_, "resume");
+      B.debug($, "resume");
     }
     setVolume(e) {
       const r = this.adDisplayContainer.getVideoAdsElement();
@@ -3302,7 +3302,7 @@
       if (!(!e || r <= 0 || this.adRemainingTime > r && this.adRemainingTime < this.adDuration)) try {
         e.pause();
       } finally {
-        P.debug(_, "video user skipped"), (s = this.vastTracker) == null || s.skip(), this.dispatchAdsEvent(google.ima.AdEvent.Type.SKIPPED), this.playCreativities();
+        B.debug($, "video user skipped"), (s = this.vastTracker) == null || s.skip(), this.dispatchAdsEvent(google.ima.AdEvent.Type.SKIPPED), this.playCreativities();
       }
     }
     start() {
@@ -3312,7 +3312,7 @@
       this.started = !1;
     }
     updateAdsRenderingSettings(e) {
-      P.debug(_, `updateAdsRenderingSettings [${e}]`);
+      B.debug($, `updateAdsRenderingSettings [${e}]`);
     }
     addEventListener(e, r, n, s) {
       this.eventEmitter.addEventListener(e, r, n, s);
@@ -3321,11 +3321,11 @@
       this.eventEmitter.removeEventListener(e, r, n);
     }
     dispatchEvent(e) {
-      return P.debug(_, `dispatchEvent: [${e}]`), !0;
+      return B.debug($, `dispatchEvent: [${e}]`), !0;
     }
     fetchAds() {
       const e = this.adsRequest.adTagUrl;
-      return fetch(e).then(r => r.text()).then(r => Oe(this, null, function* () {
+      return fetch(e).then(r => r.text()).then(r => Ce(this, null, function* () {
         var i, l;
         const n = new ai({
             ignoreAttributes: !1,
@@ -3340,7 +3340,7 @@
             p = [];
           let E = 0,
             v = 0;
-          P.debug(_, `fetchVastAds: [${e}]: `, h);
+          B.debug($, `fetchVastAds: [${e}]: `, h);
           const y = (i = h == null ? void 0 : h.ads) != null ? i : void 0;
           if (y && y.length > 0) for (const R of y) {
             const C = this.getAdValidCreative(R);
@@ -3348,7 +3348,7 @@
           } else (l = h.errorURLTemplates) == null || l.forEach(R => {
             this.trackUrl(R);
           });
-          this.nextAds = p, this.totalAds = v, this.totalTimeAds = E, P.debug(_, `fetchVastAds totalAds: [${v}] [${E}]`);
+          this.nextAds = p, this.totalAds = v, this.totalTimeAds = E, B.debug($, `fetchVastAds totalAds: [${v}] [${E}]`);
         } else {
           const o = n.parse(r),
             c = o == null ? void 0 : o["vmap:VMAP"]["vmap:AdBreak"];
@@ -3358,7 +3358,7 @@
             if (p) {
               const E = Ar(p);
               if (!isNaN(E) && this.isValidAdBreak(h)) {
-                P.debug(_, `vmap adBreak timeOffset [${p}]:`, E), this.cuePoints.includes(E) || this.cuePoints.push(E);
+                B.debug($, `vmap adBreak timeOffset [${p}]:`, E), this.cuePoints.includes(E) || this.cuePoints.push(E);
                 const v = this.cueMapPoints[E] || [];
                 v.push(h), this.cueMapPoints[E] = v;
               }
@@ -3394,8 +3394,8 @@
             this.currentCreative = n, this.vastTracker = new dn(null, this.currentAdVast, this.currentCreative);
             const o = this.totalAds - this.nextAds.length,
               c = new qt(o, !1, this.totalTimeAds, this.currentPodIndex, this.currentPodTimeOffset, this.totalAds);
-            P.debug(_, `current podInfo: [${o}] [${this.totalTimeAds}] [${this.totalAds}]`), this.currentAd = new Mt(this.currentAdVast, n, i, c), e || this.dispatchAdsEvent(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED), this.playAdsContent(i.fileURL).catch(h => {
-              P.error(_, "playAdsContent error: ", h);
+            B.debug($, `current podInfo: [${o}] [${this.totalTimeAds}] [${this.totalAds}]`), this.currentAd = new Mt(this.currentAdVast, n, i, c), e || this.dispatchAdsEvent(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED), this.playAdsContent(i.fileURL).catch(h => {
+              B.error($, "playAdsContent error: ", h);
             });
             return;
           }
@@ -3417,9 +3417,9 @@
         return;
       }
       const r = e.currentTime * 1e3;
-      P.debug(_, `Content current time: [${r}]`);
+      B.debug($, `Content current time: [${r}]`);
       const n = this.cuePoints.find(s => Math.abs(s - r) <= ci);
-      n && (P.debug(_, `fetchVastAds: [${n}]`), this.fetchVastAds(n));
+      n && (B.debug($, `fetchVastAds: [${n}]`), this.fetchVastAds(n));
     }
     clearTimerUpdateContentTime() {
       clearTimeout(this.timerUpdateContentTime);
@@ -3487,14 +3487,14 @@
           r.src = e;
         }
       } catch (r) {
-        P.error(_, `trackUrl [${e}] error: `, r);
+        B.error($, `trackUrl [${e}] error: `, r);
       }
     }
     getPromiseVastClient(e) {
       return new cn().get(e);
     }
     fetchVastAds(e) {
-      return Oe(this, null, function* () {
+      return Ce(this, null, function* () {
         var r, n, s, i;
         if (this.started) try {
           this.currentPodIndex = e > 0 ? this.currentPodIndex + 1 : e, this.currentPodTimeOffset = e;
@@ -3523,15 +3523,15 @@
                 this.trackUrl(C);
               });
             }
-            this.nextAds = p, this.totalAds = h, this.totalTimeAds = c, P.debug(_, `fetchVastAds totalAds: [${h}] [${c}]`), !this.nextAds || this.nextAds.length === 0 ? this.allAdsCompleted() : this.playCreativities();
+            this.nextAds = p, this.totalAds = h, this.totalTimeAds = c, B.debug($, `fetchVastAds totalAds: [${h}] [${c}]`), !this.nextAds || this.nextAds.length === 0 ? this.allAdsCompleted() : this.playCreativities();
           } else this.allAdsCompleted();
         } catch (l) {
-          P.error(_, "fetchVastAds error:", l);
+          B.error($, "fetchVastAds error:", l);
         }
       });
     }
     dispatchAdsEvent(e) {
-      P.debug(_, "dispatchAdsEvent: ", e), this.eventEmitter.emit(e, new nt(e, this.currentAd));
+      B.debug($, "dispatchAdsEvent: ", e), this.eventEmitter.emit(e, new nt(e, this.currentAd));
     }
     adsVideoEventsListener(e) {
       var n, s, i, l;
@@ -3576,7 +3576,7 @@
                 h = c / o,
                 p = o - c,
                 E = ((s = this.currentCreative) == null ? void 0 : s.skipDelay) || 0;
-              this.adRemainingTime = p, this.adDuration = o, P.debug(_, `video adv currentTime: ${c}, Percentage: ${h}%, SkipDelay: ${E}`), this.quartilesFired.start || (this.quartilesFired.start = !0, this.dispatchAdsEvent(google.ima.AdEvent.Type.STARTED)), !this.quartilesFired.firstQuartile && h >= .25 && (this.quartilesFired.firstQuartile = !0, this.dispatchAdsEvent(google.ima.AdEvent.Type.FIRST_QUARTILE)), !this.quartilesFired.midpoint && h >= .5 && (this.quartilesFired.midpoint = !0, this.dispatchAdsEvent(google.ima.AdEvent.Type.MIDPOINT)), !this.quartilesFired.thirdQuartile && h >= .75 && (this.quartilesFired.thirdQuartile = !0, this.dispatchAdsEvent(google.ima.AdEvent.Type.THIRD_QUARTILE)), this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_PROGRESS), (i = this.vastTracker) == null || i.setProgress(c), !this.canBeAdSkippable && E > 0 && c >= E && (this.canBeAdSkippable = !0, P.debug(_, `video adv can be skippable: [${c}] [${o}] [${E}]`), this.dispatchAdsEvent(google.ima.AdEvent.Type.SKIPPABLE_STATE_CHANGED));
+              this.adRemainingTime = p, this.adDuration = o, B.debug($, `video adv currentTime: ${c}, Percentage: ${h}%, SkipDelay: ${E}`), this.quartilesFired.start || (this.quartilesFired.start = !0, this.dispatchAdsEvent(google.ima.AdEvent.Type.STARTED)), !this.quartilesFired.firstQuartile && h >= .25 && (this.quartilesFired.firstQuartile = !0, this.dispatchAdsEvent(google.ima.AdEvent.Type.FIRST_QUARTILE)), !this.quartilesFired.midpoint && h >= .5 && (this.quartilesFired.midpoint = !0, this.dispatchAdsEvent(google.ima.AdEvent.Type.MIDPOINT)), !this.quartilesFired.thirdQuartile && h >= .75 && (this.quartilesFired.thirdQuartile = !0, this.dispatchAdsEvent(google.ima.AdEvent.Type.THIRD_QUARTILE)), this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_PROGRESS), (i = this.vastTracker) == null || i.setProgress(c), !this.canBeAdSkippable && E > 0 && c >= E && (this.canBeAdSkippable = !0, B.debug($, `video adv can be skippable: [${c}] [${o}] [${E}]`), this.dispatchAdsEvent(google.ima.AdEvent.Type.SKIPPABLE_STATE_CHANGED));
             }
             break;
           }
@@ -3589,7 +3589,7 @@
     }
     adsVideoErrorListener(e) {
       var r, n;
-      P.error(_, "adsVideoErrorListener: ", e), (r = this.adDisplayContainer) == null || r.hideAdVideoElement(), (n = this.adDisplayContainer) == null || n.clearAdVideoElement(), this.playCreativities();
+      B.error($, "adsVideoErrorListener: ", e), (r = this.adDisplayContainer) == null || r.hideAdVideoElement(), (n = this.adDisplayContainer) == null || n.clearAdVideoElement(), this.playCreativities();
     }
     resetQuartilesFired() {
       this.quartilesFired = {
@@ -3601,17 +3601,32 @@
       };
     }
     playAdsContent(e) {
-      return Oe(this, null, function* () {
-        var n, s, i, l, o, c;
+      return Ce(this, null, function* () {
+        var s, i, l, o, c, h, p;
         const r = this.adDisplayContainer.getVideoAdsElement();
-        if (!r) return P.error(_, "playAdsContent no Video Ads Element: "), this.playCreativities();
-        this.adRemainingTime = -1, this.adDuration = -1, this.canBeAdSkippable = !1, this.resetQuartilesFired(), this.removeVideoListeners(), (n = this.adDisplayContainer) == null || n.show(), (s = this.adDisplayContainer) == null || s.showLoader(), (i = this.adDisplayContainer) == null || i.hideAdVideoElement(), r.src = e, r.autoplay = !0;
+        if (!r) return B.error($, "playAdsContent no Video Ads Element"), this.playCreativities();
+        this.adRemainingTime = -1, this.adDuration = -1, this.canBeAdSkippable = !1, this.resetQuartilesFired(), this.removeVideoListeners(), (s = this.adDisplayContainer) == null || s.show(), (i = this.adDisplayContainer) == null || i.showLoader(), (l = this.adDisplayContainer) == null || l.hideAdVideoElement(), r.src = e, r.autoplay = !0;
+        const n = () => Ce(this, null, function* () {
+          try {
+            return yield r.play(), !0;
+          } catch (E) {
+            if (E instanceof DOMException && E.name === "NotAllowedError" && !r.muted) {
+              B.warn($, "Autoplay blocked, retrying with muted"), r.muted = !0;
+              try {
+                return yield r.play(), !0;
+              } catch (v) {
+                B.error($, "Muted play failed:", v);
+              }
+            } else B.error($, "Video play error:", E);
+            return !1;
+          }
+        });
         try {
-          yield li(r), yield r.play(), this.addVideoListeners(), (l = this.adDisplayContainer) == null || l.showAdVideoElement(), (o = this.adDisplayContainer) == null || o.hideLoader(), this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_CAN_PLAY);
-        } catch (h) {
-          P.error(_, "playAdsContent error: ", h), this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_BREAK_FETCH_ERROR), (c = this.adDisplayContainer) == null || c.hideAdVideoElement(), this.playCreativities();
+          yield li(r), (yield n()) ? (this.addVideoListeners(), (o = this.adDisplayContainer) == null || o.showAdVideoElement(), this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_CAN_PLAY)) : (this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_BREAK_FETCH_ERROR), (c = this.adDisplayContainer) == null || c.hideAdVideoElement(), this.playCreativities());
+        } catch (E) {
+          B.error($, "preload or playback setup failed:", E), this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_BREAK_FETCH_ERROR), (h = this.adDisplayContainer) == null || h.hideAdVideoElement(), this.playCreativities();
         } finally {
-          this.adDisplayContainer.hideLoader();
+          (p = this.adDisplayContainer) == null || p.hideLoader();
         }
       });
     }
@@ -3662,7 +3677,7 @@
     }
     contentComplete() {}
     dispatchEvent(e) {
-      return P.debug(Tr, "dispatchEvent", e), !0;
+      return B.debug(Tr, "dispatchEvent", e), !0;
     }
     getSettings() {
       return this.imaSdkSettings;
@@ -3682,7 +3697,7 @@
       this.adsManager = new vr(e, this.adDisplayContainer), this.adsManager.fetchAds().then(s => (this.adsManager = s, this.eventEmitter.emit(google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED, new Ct(s)))).catch(s => {
         const i = s.message || "Unable to retrive vmap files",
           l = new We(google.ima.AdError.ErrorCode.FAILED_TO_REQUEST_ADS, s.message || "Unable to retrive vmap files");
-        return P.error(Tr, i, l), this.eventEmitter.emit(google.ima.AdErrorEvent.Type.AD_ERROR, new $e(l));
+        return B.error(Tr, i, l), this.eventEmitter.emit(google.ima.AdErrorEvent.Type.AD_ERROR, new $e(l));
       });
     }
     destroy() {
@@ -3724,27 +3739,27 @@
       this.adTagUrl = "", this.adsResponse = null, this.contentDuration = null, this.contentKeywords = null, this.contentTitle = null, this.forceNonLinearFullSlot = !1, this.linearAdSlotHeight = 0, this.linearAdSlotWidth = 0, this.liveStreamPrefetchSeconds = 0, this.nonLinearAdSlotHeight = 0, this.nonLinearAdSlotWidth = 0, this.omidAccessModeRules = {}, this.pageUrl = null, this.vastLoadTimeout = 0;
     }
     setAdWillAutoPlay(e) {
-      P.debug(Nt, `setAdWillAutoPlay [${e}]`);
+      B.debug(Nt, `setAdWillAutoPlay [${e}]`);
     }
     setAdWillPlayMuted(e) {
-      P.debug(Nt, `setAdWillPlayMuted [${e}]`);
+      B.debug(Nt, `setAdWillPlayMuted [${e}]`);
     }
     setContinuousPlayback(e) {
-      P.debug(Nt, `setContinuousPlayback [${e}]`);
+      B.debug(Nt, `setContinuousPlayback [${e}]`);
     }
   }
   const mi = Ut;
   function gi(t) {
     let e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "debug";
-    P.setEnable(t), P.setLogLevel(e);
+    B.setEnable(t), B.setLogLevel(e);
   }
   const Ai = Z;
   var ze = {},
     Ae = {},
-    Re = {},
+    we = {},
     Dr;
   function at() {
-    if (Dr) return Re;
+    if (Dr) return we;
     Dr = 1;
     function t(i, l, o) {
       if (o === void 0 && (o = Array.prototype), i && typeof o.find == "function") return o.find.call(i, l);
@@ -3780,7 +3795,7 @@
         XML: "http://www.w3.org/XML/1998/namespace",
         XMLNS: "http://www.w3.org/2000/xmlns/"
       });
-    return Re.assign = r, Re.find = t, Re.freeze = e, Re.MIME_TYPE = n, Re.NAMESPACE = s, Re;
+    return we.assign = r, we.find = t, we.freeze = e, we.MIME_TYPE = n, we.NAMESPACE = s, we;
   }
   var br;
   function yr() {
@@ -3863,7 +3878,7 @@
         return Array.prototype.indexOf.call(this, u);
       }
     };
-    function U(u, a) {
+    function P(u, a) {
       this._node = u, this._refresh = a, x(this);
     }
     function x(u) {
@@ -3874,21 +3889,21 @@
         c(d, u), u._inc = a;
       }
     }
-    U.prototype.item = function (u) {
+    P.prototype.item = function (u) {
       return x(this), this[u] || null;
-    }, h(U, S);
+    }, h(P, S);
     function G() {}
     function O(u, a) {
       for (var d = u.length; d--;) if (u[d] === a) return d;
     }
-    function B(u, a, d, f) {
+    function F(u, a, d, f) {
       if (f ? a[O(a, f)] = d : a[a.length++] = d, u) {
         d.ownerElement = u;
         var D = u.ownerDocument;
         D && (f && Qe(D, u, f), te(D, u, d));
       }
     }
-    function F(u, a, d) {
+    function U(u, a, d) {
       var f = O(a, d);
       if (f >= 0) {
         for (var D = a.length - 1; f < D;) a[f] = a[++f];
@@ -3911,21 +3926,21 @@
         var a = u.ownerElement;
         if (a && a != this._ownerElement) throw new N(w);
         var d = this.getNamedItem(u.nodeName);
-        return B(this._ownerElement, this, u, d), d;
+        return F(this._ownerElement, this, u, d), d;
       },
       setNamedItemNS: function (u) {
         var a = u.ownerElement,
           d;
         if (a && a != this._ownerElement) throw new N(w);
-        return d = this.getNamedItemNS(u.namespaceURI, u.localName), B(this._ownerElement, this, u, d), d;
+        return d = this.getNamedItemNS(u.namespaceURI, u.localName), F(this._ownerElement, this, u, d), d;
       },
       removeNamedItem: function (u) {
         var a = this.getNamedItem(u);
-        return F(this._ownerElement, this, a), a;
+        return U(this._ownerElement, this, a), a;
       },
       removeNamedItemNS: function (u, a) {
         var d = this.getNamedItemNS(u, a);
-        return F(this._ownerElement, this, d), d;
+        return U(this._ownerElement, this, d), d;
       },
       getNamedItemNS: function (u, a) {
         for (var d = this.length; d--;) {
@@ -4173,7 +4188,7 @@
       },
       getElementsByClassName: function (u) {
         var a = l(u);
-        return new U(this, function (d) {
+        return new P(this, function (d) {
           var f = [];
           return a.length > 0 && Ee(d.documentElement, function (D) {
             if (D !== d && D.nodeType === E) {
@@ -4290,7 +4305,7 @@
         return this.attributes.getNamedItemNS(u, a);
       },
       getElementsByTagName: function (u) {
-        return new U(this, function (a) {
+        return new P(this, function (a) {
           var d = [];
           return Ee(a, function (f) {
             f !== a && f.nodeType == E && (u === "*" || f.tagName == u) && d.push(f);
@@ -4298,7 +4313,7 @@
         });
       },
       getElementsByTagNameNS: function (u, a) {
-        return new U(this, function (d) {
+        return new P(this, function (d) {
           var f = [];
           return Ee(d, function (D) {
             D !== d && D.nodeType === E && (u === "*" || D.namespaceURI === u) && (a === "*" || D.localName == a) && f.push(D);
@@ -4308,8 +4323,8 @@
     }, ee.prototype.getElementsByTagName = W.prototype.getElementsByTagName, ee.prototype.getElementsByTagNameNS = W.prototype.getElementsByTagNameNS, h(W, I);
     function ne() {}
     ne.prototype.nodeType = v, h(ne, I);
-    function we() {}
-    we.prototype = {
+    function Ie() {}
+    Ie.prototype = {
       data: "",
       substringData: function (u, a) {
         return this.data.substring(u, u + a);
@@ -4331,7 +4346,7 @@
           D = this.data.substring(u + a);
         d = f + d + D, this.nodeValue = this.data = d, this.length = d.length;
       }
-    }, h(we, I);
+    }, h(Ie, I);
     function wt() {}
     wt.prototype = {
       nodeName: "#text",
@@ -4343,17 +4358,17 @@
         var f = this.ownerDocument.createTextNode(d);
         return this.parentNode && this.parentNode.insertBefore(f, this.nextSibling), f;
       }
-    }, h(wt, we);
+    }, h(wt, Ie);
     function It() {}
     It.prototype = {
       nodeName: "#comment",
       nodeType: j
-    }, h(It, we);
+    }, h(It, Ie);
     function St() {}
     St.prototype = {
       nodeName: "#cdata-section",
       nodeType: R
-    }, h(St, we);
+    }, h(St, Ie);
     function ft() {}
     ft.prototype.nodeType = J, h(ft, I);
     function Ir() {}
@@ -4417,24 +4432,24 @@
               ye = L.item(Te).value;
               break;
             }
-            if (!ye) for (var Ie = D.length - 1; Ie >= 0; Ie--) {
-              var Se = D[Ie];
-              if (Se.prefix === "" && Se.namespace === u.namespaceURI) {
-                ye = Se.namespace;
+            if (!ye) for (var Se = D.length - 1; Se >= 0; Se--) {
+              var Le = D[Se];
+              if (Le.prefix === "" && Le.namespace === u.namespaceURI) {
+                ye = Le.namespace;
                 break;
               }
             }
-            if (ye !== u.namespaceURI) for (var Ie = D.length - 1; Ie >= 0; Ie--) {
-              var Se = D[Ie];
-              if (Se.namespace === u.namespaceURI) {
-                Se.prefix && (ve = Se.prefix + ":" + ce);
+            if (ye !== u.namespaceURI) for (var Se = D.length - 1; Se >= 0; Se--) {
+              var Le = D[Se];
+              if (Le.namespace === u.namespaceURI) {
+                Le.prefix && (ve = Le.prefix + ":" + ce);
                 break;
               }
             }
           }
           a.push("<", ve);
-          for (var Le = 0; Le < Y; Le++) {
-            var me = L.item(Le);
+          for (var ke = 0; ke < Y; ke++) {
+            var me = L.item(ke);
             me.prefix == "xmlns" ? D.push({
               prefix: me.localName,
               namespace: me.value
@@ -4443,23 +4458,23 @@
               namespace: me.value
             });
           }
-          for (var Le = 0; Le < Y; Le++) {
-            var me = L.item(Le);
+          for (var ke = 0; ke < Y; ke++) {
+            var me = L.item(ke);
             if (Or(me, d, D)) {
-              var ke = me.prefix || "",
+              var Oe = me.prefix || "",
                 Je = me.namespaceURI;
-              Ot(a, ke ? "xmlns:" + ke : "xmlns", Je), D.push({
-                prefix: ke,
+              Ot(a, Oe ? "xmlns:" + Oe : "xmlns", Je), D.push({
+                prefix: Oe,
                 namespace: Je
               });
             }
             Ve(me, a, d, f, D);
           }
           if (ce === ve && Or(u, d, D)) {
-            var ke = u.prefix || "",
+            var Oe = u.prefix || "",
               Je = u.namespaceURI;
-            Ot(a, ke ? "xmlns:" + ke : "xmlns", Je), D.push({
-              prefix: ke,
+            Ot(a, Oe ? "xmlns:" + Oe : "xmlns", Je), D.push({
+              prefix: Oe,
               namespace: Je
             });
           }
@@ -4546,7 +4561,7 @@
               return a.nodeValue;
           }
         };
-        Object.defineProperty(U.prototype, "length", {
+        Object.defineProperty(P.prototype, "length", {
           get: function () {
             return x(this), this.$$length;
           }
@@ -6743,17 +6758,17 @@
       }
     };
     function R(A, b, w, N, S) {
-      function U(W) {
+      function P(W) {
         if (W > 65535) {
           W -= 65536;
           var ne = 55296 + (W >> 10),
-            we = 56320 + (W & 1023);
-          return String.fromCharCode(ne, we);
+            Ie = 56320 + (W & 1023);
+          return String.fromCharCode(ne, Ie);
         } else return String.fromCharCode(W);
       }
       function x(W) {
         var ne = W.slice(1, -1);
-        return Object.hasOwnProperty.call(w, ne) ? w[ne] : ne.charAt(0) === "#" ? U(parseInt(ne.substr(1).replace("x", "0x"))) : (S.error("entity not found:" + W), W);
+        return Object.hasOwnProperty.call(w, ne) ? w[ne] : ne.charAt(0) === "#" ? P(parseInt(ne.substr(1).replace("x", "0x"))) : (S.error("entity not found:" + W), W);
       }
       function G(W) {
         if (W > ee) {
@@ -6762,10 +6777,10 @@
         }
       }
       function O(W, ne) {
-        for (; W >= F && (ne = Q.exec(A));) B = ne.index, F = B + ne[0].length, I.lineNumber++;
-        I.columnNumber = W - B + 1;
+        for (; W >= U && (ne = Q.exec(A));) F = ne.index, U = F + ne[0].length, I.lineNumber++;
+        I.columnNumber = W - F + 1;
       }
-      for (var B = 0, F = 0, Q = /.*(?:\r\n?|\n)|.*$/g, I = N.locator, le = [{
+      for (var F = 0, U = 0, Q = /.*(?:\r\n?|\n)|.*$/g, I = N.locator, le = [{
           currentNSMap: b
         }], Ee = {}, ee = 0;;) {
         try {
@@ -6824,30 +6839,30 @@
     function C(A, b) {
       return b.lineNumber = A.lineNumber, b.columnNumber = A.columnNumber, b;
     }
-    function T(A, b, w, N, S, U) {
+    function T(A, b, w, N, S, P) {
       function x(I, le, Ee) {
-        w.attributeNames.hasOwnProperty(I) && U.fatalError("Attribute " + I + " redefined"), w.addValue(I, le.replace(/[\t\n\r]/g, " ").replace(/&#?\w+;/g, S), Ee);
+        w.attributeNames.hasOwnProperty(I) && P.fatalError("Attribute " + I + " redefined"), w.addValue(I, le.replace(/[\t\n\r]/g, " ").replace(/&#?\w+;/g, S), Ee);
       }
-      for (var G, O, B = ++b, F = s;;) {
-        var Q = A.charAt(B);
+      for (var G, O, F = ++b, U = s;;) {
+        var Q = A.charAt(F);
         switch (Q) {
           case "=":
-            if (F === i) G = A.slice(b, B), F = o;else if (F === l) F = o;else throw new Error("attribute equal must after attrName");
+            if (U === i) G = A.slice(b, F), U = o;else if (U === l) U = o;else throw new Error("attribute equal must after attrName");
             break;
           case "'":
           case '"':
-            if (F === o || F === i) {
-              if (F === i && (U.warning('attribute value must after "="'), G = A.slice(b, B)), b = B + 1, B = A.indexOf(Q, b), B > 0) O = A.slice(b, B), x(G, O, b - 1), F = h;else throw new Error("attribute value no end '" + Q + "' match");
-            } else if (F == c) O = A.slice(b, B), x(G, O, b), U.warning('attribute "' + G + '" missed start quot(' + Q + ")!!"), b = B + 1, F = h;else throw new Error('attribute value must after "="');
+            if (U === o || U === i) {
+              if (U === i && (P.warning('attribute value must after "="'), G = A.slice(b, F)), b = F + 1, F = A.indexOf(Q, b), F > 0) O = A.slice(b, F), x(G, O, b - 1), U = h;else throw new Error("attribute value no end '" + Q + "' match");
+            } else if (U == c) O = A.slice(b, F), x(G, O, b), P.warning('attribute "' + G + '" missed start quot(' + Q + ")!!"), b = F + 1, U = h;else throw new Error('attribute value must after "="');
             break;
           case "/":
-            switch (F) {
+            switch (U) {
               case s:
-                w.setTagName(A.slice(b, B));
+                w.setTagName(A.slice(b, F));
               case h:
               case p:
               case E:
-                F = E, w.closed = !0;
+                U = E, w.closed = !0;
               case c:
               case i:
                 break;
@@ -6859,88 +6874,88 @@
             }
             break;
           case "":
-            return U.error("unexpected end of input"), F == s && w.setTagName(A.slice(b, B)), B;
+            return P.error("unexpected end of input"), U == s && w.setTagName(A.slice(b, F)), F;
           case ">":
-            switch (F) {
+            switch (U) {
               case s:
-                w.setTagName(A.slice(b, B));
+                w.setTagName(A.slice(b, F));
               case h:
               case p:
               case E:
                 break;
               case c:
               case i:
-                O = A.slice(b, B), O.slice(-1) === "/" && (w.closed = !0, O = O.slice(0, -1));
+                O = A.slice(b, F), O.slice(-1) === "/" && (w.closed = !0, O = O.slice(0, -1));
               case l:
-                F === l && (O = G), F == c ? (U.warning('attribute "' + O + '" missed quot(")!'), x(G, O, b)) : ((!t.isHTML(N[""]) || !O.match(/^(?:disabled|checked|selected)$/i)) && U.warning('attribute "' + O + '" missed value!! "' + O + '" instead!!'), x(O, O, b));
+                U === l && (O = G), U == c ? (P.warning('attribute "' + O + '" missed quot(")!'), x(G, O, b)) : ((!t.isHTML(N[""]) || !O.match(/^(?:disabled|checked|selected)$/i)) && P.warning('attribute "' + O + '" missed value!! "' + O + '" instead!!'), x(O, O, b));
                 break;
               case o:
                 throw new Error("attribute value missed!!");
             }
-            return B;
+            return F;
           case "":
             Q = " ";
           default:
-            if (Q <= " ") switch (F) {
+            if (Q <= " ") switch (U) {
               case s:
-                w.setTagName(A.slice(b, B)), F = p;
+                w.setTagName(A.slice(b, F)), U = p;
                 break;
               case i:
-                G = A.slice(b, B), F = l;
+                G = A.slice(b, F), U = l;
                 break;
               case c:
-                var O = A.slice(b, B);
-                U.warning('attribute "' + O + '" missed quot(")!!'), x(G, O, b);
+                var O = A.slice(b, F);
+                P.warning('attribute "' + O + '" missed quot(")!!'), x(G, O, b);
               case h:
-                F = p;
+                U = p;
                 break;
-            } else switch (F) {
+            } else switch (U) {
               case l:
-                w.tagName, (!t.isHTML(N[""]) || !G.match(/^(?:disabled|checked|selected)$/i)) && U.warning('attribute "' + G + '" missed value!! "' + G + '" instead2!!'), x(G, G, b), b = B, F = i;
+                w.tagName, (!t.isHTML(N[""]) || !G.match(/^(?:disabled|checked|selected)$/i)) && P.warning('attribute "' + G + '" missed value!! "' + G + '" instead2!!'), x(G, G, b), b = F, U = i;
                 break;
               case h:
-                U.warning('attribute space is required"' + G + '"!!');
+                P.warning('attribute space is required"' + G + '"!!');
               case p:
-                F = i, b = B;
+                U = i, b = F;
                 break;
               case o:
-                F = c, b = B;
+                U = c, b = F;
                 break;
               case E:
                 throw new Error("elements closed character '/' and '>' must be connected to");
             }
         }
-        B++;
+        F++;
       }
     }
     function k(A, b, w) {
       for (var N = A.tagName, S = null, Q = A.length; Q--;) {
-        var U = A[Q],
-          x = U.qName,
-          G = U.value,
+        var P = A[Q],
+          x = P.qName,
+          G = P.value,
           I = x.indexOf(":");
-        if (I > 0) var O = U.prefix = x.slice(0, I),
-          B = x.slice(I + 1),
-          F = O === "xmlns" && B;else B = x, O = null, F = x === "xmlns" && "";
-        U.localName = B, F !== !1 && (S == null && (S = {}, J(w, w = {})), w[F] = S[F] = G, U.uri = t.XMLNS, b.startPrefixMapping(F, G));
+        if (I > 0) var O = P.prefix = x.slice(0, I),
+          F = x.slice(I + 1),
+          U = O === "xmlns" && F;else F = x, O = null, U = x === "xmlns" && "";
+        P.localName = F, U !== !1 && (S == null && (S = {}, J(w, w = {})), w[U] = S[U] = G, P.uri = t.XMLNS, b.startPrefixMapping(U, G));
       }
       for (var Q = A.length; Q--;) {
-        U = A[Q];
-        var O = U.prefix;
-        O && (O === "xml" && (U.uri = t.XML), O !== "xmlns" && (U.uri = w[O || ""]));
+        P = A[Q];
+        var O = P.prefix;
+        O && (O === "xml" && (P.uri = t.XML), O !== "xmlns" && (P.uri = w[O || ""]));
       }
       var I = N.indexOf(":");
-      I > 0 ? (O = A.prefix = N.slice(0, I), B = A.localName = N.slice(I + 1)) : (O = null, B = A.localName = N);
+      I > 0 ? (O = A.prefix = N.slice(0, I), F = A.localName = N.slice(I + 1)) : (O = null, F = A.localName = N);
       var le = A.uri = w[O || ""];
-      if (b.startElement(le, B, N, A), A.closed) {
-        if (b.endElement(le, B, N), S) for (O in S) Object.prototype.hasOwnProperty.call(S, O) && b.endPrefixMapping(O);
+      if (b.startElement(le, F, N, A), A.closed) {
+        if (b.endElement(le, F, N), S) for (O in S) Object.prototype.hasOwnProperty.call(S, O) && b.endPrefixMapping(O);
       } else return A.currentNSMap = w, A.localNSMap = S, !0;
     }
     function j(A, b, w, N, S) {
       if (/^(?:script|textarea)$/i.test(w)) {
-        var U = A.indexOf("</" + w + ">", b),
-          x = A.substring(b + 1, U);
-        if (/[&<]/.test(x)) return /^script$/i.test(w) ? (S.characters(x, 0, x.length), U) : (x = x.replace(/&#?\w+;/g, N), S.characters(x, 0, x.length), U);
+        var P = A.indexOf("</" + w + ">", b),
+          x = A.substring(b + 1, P);
+        if (/[&<]/.test(x)) return /^script$/i.test(w) ? (S.characters(x, 0, x.length), P) : (x = x.replace(/&#?\w+;/g, N), S.characters(x, 0, x.length), P);
       }
       return b + 1;
     }
@@ -6956,23 +6971,23 @@
       switch (S) {
         case "-":
           if (A.charAt(b + 3) === "-") {
-            var U = A.indexOf("-->", b + 4);
-            return U > b ? (w.comment(A, b + 4, U - b - 4), U + 3) : (N.error("Unclosed comment"), -1);
+            var P = A.indexOf("-->", b + 4);
+            return P > b ? (w.comment(A, b + 4, P - b - 4), P + 3) : (N.error("Unclosed comment"), -1);
           } else return -1;
         default:
           if (A.substr(b + 3, 6) == "CDATA[") {
-            var U = A.indexOf("]]>", b + 9);
-            return w.startCDATA(), w.characters(A, b + 9, U - b - 9), w.endCDATA(), U + 3;
+            var P = A.indexOf("]]>", b + 9);
+            return w.startCDATA(), w.characters(A, b + 9, P - b - 9), w.endCDATA(), P + 3;
           }
           var x = H(A, b),
             G = x.length;
           if (G > 1 && /!doctype/i.test(x[0][0])) {
             var O = x[1][0],
-              B = !1,
-              F = !1;
-            G > 3 && (/^public$/i.test(x[2][0]) ? (B = x[3][0], F = G > 4 && x[4][0]) : /^system$/i.test(x[2][0]) && (F = x[3][0]));
+              F = !1,
+              U = !1;
+            G > 3 && (/^public$/i.test(x[2][0]) ? (F = x[3][0], U = G > 4 && x[4][0]) : /^system$/i.test(x[2][0]) && (U = x[3][0]));
             var Q = x[G - 1];
-            return w.startDTD(O, B, F), w.endDTD(), Q.index + Q[0].length;
+            return w.startDTD(O, F, U), w.endDTD(), Q.index + Q[0].length;
           }
       }
       return -1;
@@ -7192,4 +7207,4 @@
     window.google.ima = window.GoogleIma;
   }
 })();
-/* Built on 2025-05-27T07:52:45.028Z */
+/* Built on 2025-05-27T14:58:21.644Z */
