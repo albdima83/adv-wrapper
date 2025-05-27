@@ -730,37 +730,68 @@ export class AdsManager implements google.ima.AdsManager {
 
 	private async playAdsContent(src: string): Promise<void> {
 		const videoAdsElement = this.adDisplayContainer.getVideoAdsElement();
+
 		if (!videoAdsElement) {
-			logger.error(TAG, "playAdsContent no Video Ads Element: ");
+			logger.error(TAG, "playAdsContent no Video Ads Element");
 			return this.playCreativities();
 		}
+
 		this.adRemainingTime = -1;
 		this.adDuration = -1;
 		this.canBeAdSkippable = false;
+
 		this.resetQuartilesFired();
 		this.removeVideoListeners();
 		this.adDisplayContainer?.show();
 		this.adDisplayContainer?.showLoader();
 		this.adDisplayContainer?.hideAdVideoElement();
+
 		videoAdsElement.src = src;
 		videoAdsElement.autoplay = true;
+
+		const tryPlay = async (): Promise<boolean> => {
+			try {
+				await videoAdsElement.play();
+				return true;
+			} catch (error: unknown) {
+				if (error instanceof DOMException && error.name === "NotAllowedError" && !videoAdsElement.muted) {
+					logger.warn(TAG, "Autoplay blocked, retrying with muted");
+					videoAdsElement.muted = true;
+					try {
+						await videoAdsElement.play();
+						return true;
+					} catch (mutedError) {
+						logger.error(TAG, "Muted play failed:", mutedError);
+					}
+				} else {
+					logger.error(TAG, "Video play error:", error);
+				}
+				return false;
+			}
+		};
+
 		try {
 			await preloadVideo(videoAdsElement);
-			await videoAdsElement.play();
-			this.addVideoListeners();
-			this.adDisplayContainer?.showAdVideoElement();
-			this.adDisplayContainer?.hideLoader();
-			this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_CAN_PLAY);
+			const played = await tryPlay();
+
+			if (played) {
+				this.addVideoListeners();
+				this.adDisplayContainer?.showAdVideoElement();
+				this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_CAN_PLAY);
+			} else {
+				this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_BREAK_FETCH_ERROR);
+				this.adDisplayContainer?.hideAdVideoElement();
+				this.playCreativities();
+			}
 		} catch (error) {
-			logger.error(TAG, "playAdsContent error: ", error);
+			logger.error(TAG, "preload or playback setup failed:", error);
 			this.dispatchAdsEvent(google.ima.AdEvent.Type.AD_BREAK_FETCH_ERROR);
 			this.adDisplayContainer?.hideAdVideoElement();
 			this.playCreativities();
 		} finally {
-			this.adDisplayContainer.hideLoader();
+			this.adDisplayContainer?.hideLoader();
 		}
 	}
-
 	private addVideoListeners() {
 		const videoAdsElement = this.adDisplayContainer.getVideoAdsElement();
 		if (!videoAdsElement) {
